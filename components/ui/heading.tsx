@@ -26,22 +26,26 @@ const headingVariants = cva("font-heading text-balance", {
 });
 
 export interface HeadingProps
-  extends React.HTMLAttributes<HTMLHeadingElement>,
-    VariantProps<typeof headingVariants> {
+  extends Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "display" | "display-sm";
+  color?: "primary" | "brand" | "secondary" | "inverse";
 }
 
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ className, as = "h2", color, children, ...props }, ref) => {
-    const Component = (as === "display" || as === "display-sm" ? "h1" : as) as keyof JSX.IntrinsicElements;
-    return (
-      <Component
-        ref={ref}
-        className={cn(headingVariants({ as, color, className }))}
-        {...props}
-      >
-        {children}
-      </Component>
+    const Component = (as === "display" || as === "display-sm" ? "h1" : as) as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    
+    // Map the 'as' value to valid variant keys (h5/h6 map to h4)
+    const variantAs = (as === "h5" || as === "h6" ? "h4" : as) as "h1" | "h2" | "h3" | "h4" | "display" | "display-sm";
+    
+    return React.createElement(
+      Component,
+      {
+        ref,
+        className: cn(headingVariants({ as: variantAs, color, className })),
+        ...props,
+      },
+      children
     );
   }
 );

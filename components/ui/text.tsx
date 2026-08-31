@@ -33,19 +33,23 @@ const textVariants = cva("", {
 });
 
 export interface TextProps
-  extends React.HTMLAttributes<HTMLParagraphElement>,
-    VariantProps<typeof textVariants> {
+  extends Omit<React.HTMLAttributes<HTMLParagraphElement>, 'color'> {
   as?: "p" | "span" | "div" | "label";
+  size?: "lg" | "base" | "sm" | "label" | "eyebrow" | "utility";
+  color?: "primary" | "secondary" | "brand" | "muted" | "inverse";
+  weight?: "normal" | "medium" | "semibold";
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
-  ({ className, size, color, weight, as: Component = "p", ...props }, ref) => {
-    return (
-      <Component
-        ref={ref}
-        className={cn(textVariants({ size, color, weight, className }))}
-        {...props}
-      />
+  ({ className, size, color, weight, as = "p", children, ...props }, ref) => {
+    return React.createElement(
+      as,
+      {
+        ref,
+        className: cn(textVariants({ size, color, weight, className })),
+        ...props,
+      },
+      children
     );
   }
 );

@@ -32,13 +32,15 @@ export interface SectionProps
 }
 
 const Section = React.forwardRef<HTMLElement, SectionProps>(
-  ({ className, spacing, width, as: Component = "section", ...props }, ref) => {
-    return (
-      <Component
-        ref={ref}
-        className={cn(sectionVariants({ spacing, width, className }))}
-        {...props}
-      />
+  ({ className, spacing, width, as = "section", children, ...props }, ref) => {
+    return React.createElement(
+      as,
+      {
+        ref,
+        className: cn(sectionVariants({ spacing, width, className })),
+        ...props,
+      },
+      children
     );
   }
 );
