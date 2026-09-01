@@ -6,11 +6,10 @@
  */
 
 export type ServiceCategory =
-  | 'laundry-clothing'
+  | 'home-laundry'
   | 'kitchen-food'
-  | 'home-reset'
-  | 'kids-parent-support'
-  | 'life-outdoors';
+  | 'family-support'
+  | 'flexible-support';
 
 export type PricingModel =
   | 'fixed-outcome'
@@ -66,14 +65,29 @@ export interface ServicePublicContent {
   /** Detailed outcome-oriented description */
   detailedDescription: string;
   
-  /** What's included in this service */
+  /** What this service can include - concrete examples */
   inclusions: string[];
   
   /** What's explicitly not included */
   exclusions: string[];
   
-  /** What the customer needs to prepare/provide */
+  /** What the household needs to prepare/provide */
   customerPrerequisites: string[];
+  
+  /** What to expect - service/request process description */
+  serviceProcess: string;
+  
+  /** Good to know - boundaries, safety info, considerations */
+  importantNotes: string[];
+  
+  /** Related service slugs that complement this service */
+  relatedServices: string[];
+  
+  /** Whether this service requires individual review */
+  requiresReview: boolean;
+  
+  /** Eligible add-on service slugs */
+  eligibleAddOns: string[];
   
   /** Pricing model type */
   pricingModel: PricingModel;
@@ -98,6 +112,12 @@ export interface ServicePublicContent {
   
   /** Optional icon/image reference */
   iconRef?: string;
+  
+  /** SEO metadata */
+  seo: {
+    title: string;
+    description: string;
+  };
 }
 
 /**
