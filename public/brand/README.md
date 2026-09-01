@@ -1,77 +1,72 @@
 # Parentive Brand Assets
 
-This directory contains the approved Parentive brand assets from Linear Issue 003.
+Approved Parentive logo files live here so the app can serve them. They are
+**copies** of the locked Linear 003 artwork — do not reconstruct the logo in
+CSS or substitute the brand-package PDF / design board.
 
-## Assets Needed
+## Canonical source
 
-The following assets should be placed in this directory:
+**Google Drive folder (logo mark, wordmark, lockup):**
+https://drive.google.com/drive/folders/1r6GTJERQDf3pFb57RwftqhqY2StSo0yU?usp=drive_link
 
-### Logo Files
-- `logo-mark.svg` - Standalone Parentive logo mark (Option 14)
-- `logo-mark.png` - PNG version for fallback
-- `wordmark.svg` - Parentive wordmark
-- `wordmark.png` - PNG version for fallback
-- `logo-lockup-horizontal.svg` - Primary horizontal logo lockup
-- `logo-lockup-horizontal.png` - PNG version for fallback
+That folder is the source of truth for:
 
-### Favicon Assets
-- `favicon.ico` - Browser favicon
-- `favicon-16x16.png`
-- `favicon-32x32.png`
-- `apple-touch-icon.png` - Apple device icon
+- standalone logo **mark** (Option 14)
+- Parentive **wordmark**
+- primary horizontal **lockup**
 
-### Social/Avatar
-- `social-avatar.png` - Square avatar for social media profiles
+Refresh local copies after the folder changes:
 
-## Logo Specifications
+```bash
+npm run sync:brand-assets
+```
 
-### Option 14 (Approved Final Logo)
-- Full lowercase serif 'p' (Georgia or similar serif font)
-- Color: Deep Moss (#30483B)
-- Background: Soft organic Oat/cream form (#F5F2EA)
-- Accent: Small Muted Honey dot (#D5A552)
-- Dot position: Upper-right of the 'p', tight but not touching
-- No gap or break in the 'p'
+The Drive folder must be readable as "Anyone with the link can view" (or the
+machine must be signed into an account that can open it).
 
-## Usage Guidelines
+Do **not** import logos from:
 
-### Logo Guardrails - DO NOT:
-- Redraw or reinterpret the logo
-- Add a gap to the 'p'
-- Isolate 'ive' from the wordmark
+- the brand-package PDF
+- the final design board
+- the implementation-token reference
+- a Georgia/`p` + honey-dot CSS stand-in
+
+Those documents are useful context. They are not the production logo files.
+
+## Files served by the app
+
+| Role | SVG (preferred) | PNG fallback |
+|------|-----------------|--------------|
+| Standalone mark | `logo-mark.svg` | `logo-mark.png` |
+| Wordmark | `wordmark.svg` | `wordmark.png` |
+| Horizontal lockup | `logo-lockup-horizontal.svg` | `logo-lockup-horizontal.png` |
+
+Optional derivatives, generated from the mark when needed:
+
+- `favicon.ico`
+- `apple-touch-icon.png`
+
+## Components
+
+`Logo`, `Wordmark`, and `LogoLockup` in `components/brand/logo.tsx` render these
+files. `LogoLockup` uses the horizontal lockup artwork rather than composing
+the mark and wordmark in code.
+
+Registry: `lib/brand-assets.ts`.
+
+## Logo guardrails — do not
+
+- Redraw or reinterpret Option 14
+- Add a gap to the `p`
+- Isolate `ive` from the wordmark
 - Add ligatures
 - Add bees, honeycomb, or hive imagery
-- Add parent/child silhouettes
-- Add hearts, houses, hands, or childcare symbols
-- Make Honey the dominant logo color
-
-### Wordmark
-- Font: Manrope (Semibold recommended)
-- Color: Deep Moss (#30483B)
-- Use: Primary brand identifier alongside logo
-
-### Logo Lockup
-- Horizontal arrangement preferred
-- Logo mark on left, wordmark on right
-- Optional tagline below: "Trusted, flexible help for real life"
-
-## Implementation
-
-The Logo component in `components/brand/logo.tsx` provides a code-based implementation 
-of the logo for development purposes. For production, replace with actual vector assets 
-when available.
-
-## Color Reference
-
-| Element | Color Name | Hex Value | Usage |
-|---------|------------|-----------|-------|
-| Logo 'p' | Deep Moss | #30483B | Primary logo color |
-| Background | Oat | #F5F2EA | Organic background shape |
-| Accent dot | Muted Honey | #D5A552 | Small accent only |
+- Add parent/child silhouettes, hearts, houses, hands, or childcare symbols
+- Make Honey the dominant logo colour
 
 ## Notes
 
 - SVG/vector versions are preferred for scalability
-- PNG versions can support MVP initially
-- Maintain proper spacing and clear space around logo
-- Minimum size: ensure readability at 32px height
+- PNG versions are acceptable for MVP
+- Keep clear space around the logo
+- Minimum size: readable at 32px height

@@ -28,7 +28,14 @@ export { Header, type HeaderProps } from "./ui/header";
 export { Footer, type FooterProps } from "./ui/footer";
 
 // Brand Components
-export { Logo, Wordmark, LogoLockup, type LogoProps } from "./brand/logo";
+export {
+  Logo,
+  Wordmark,
+  LogoLockup,
+  type LogoProps,
+  type WordmarkProps,
+  type LogoLockupProps,
+} from "./brand/logo";
 export { OrganicShape, OrganicBrandSurface, type OrganicShape as OrganicShapeType, type OrganicShapeProps } from "./brand/organic-shape";
 export { Icon, type IconProps } from "./brand/icon";
 export { Callout, calloutVariants, type CalloutProps } from "./brand/callout";

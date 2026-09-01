@@ -1,8 +1,8 @@
 # Parentive Design System
 
-**Version**: 1.0.0  
+**Version**: 1.1.0  
 **Status**: Production Ready  
-**Last Updated**: August 31, 2026
+**Last Updated**: September 1, 2026
 
 ---
 
@@ -61,12 +61,32 @@ Visit `/design-system` to see all components, colors, typography, and usage exam
 
 ## Brand Assets
 
-### Logo
+### Logo source of truth
 
-The Parentive logo (Option 14) consists of:
-- Full lowercase serif 'p' in Deep Moss
-- Soft organic Oat background
-- Small Muted Honey dot at upper-right
+Logo **mark**, **wordmark**, and horizontal **lockup** are the locked files from
+Linear 003. The app must not reconstruct Option 14 in CSS, and it must not treat
+the brand-package PDF or design board as the logo file.
+
+**Canonical Drive folder:**
+https://drive.google.com/drive/folders/1r6GTJERQDf3pFb57RwftqhqY2StSo0yU?usp=drive_link
+
+Local copies are served from `public/brand/`:
+
+| Kind | Component | Files |
+|------|-----------|-------|
+| Standalone mark | `<Logo />` | `/brand/logo-mark.svg` (PNG fallback) |
+| Wordmark | `<Wordmark />` | `/brand/wordmark.svg` (PNG fallback) |
+| Horizontal lockup | `<LogoLockup />` | `/brand/logo-lockup-horizontal.svg` (PNG fallback) |
+
+After the Drive folder is updated, refresh local files with:
+
+```bash
+npm run sync:brand-assets
+```
+
+The Option 14 mark itself is a full lowercase serif `p` in Deep Moss on a soft
+organic Oat form, with a small Muted Honey dot at the upper-right. Do not
+recreate that construction in components — render the exported artwork.
 
 **Components**: `<Logo />`, `<Wordmark />`, `<LogoLockup />`
 
@@ -275,6 +295,11 @@ components/
 │   ├── icon.tsx
 │   └── callout.tsx
 └── index.ts              # Barrel exports
+
+lib/
+├── brand-assets.ts        # Canonical Drive source + public/brand paths
+├── utils.ts
+└── ...
 ```
 
 ## Configuration Files
@@ -308,6 +333,8 @@ Visit `/design-system` to manually test all components.
 ❌ **Don't** use Honey as a primary button color  
 ❌ **Don't** generate random organic shapes  
 ❌ **Don't** redesign or reinterpret the brand  
+❌ **Don't** reconstruct the logo, wordmark, or lockup in CSS  
+❌ **Don't** treat the brand-package PDF or design board as the logo file  
 ❌ **Don't** use raw hex values instead of semantic tokens  
 ❌ **Don't** create one-off component variations  
 
