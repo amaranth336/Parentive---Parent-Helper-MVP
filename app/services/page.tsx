@@ -48,7 +48,7 @@ export default function ServicesPage() {
             </p>
           </div>
           <div style={{ marginBottom: 24 }}>
-            <h3 style={{ fontSize: 16, margin: '0 0 6px' }}>2. We'll confirm availability</h3>
+            <h3 style={{ fontSize: 16, margin: '0 0 6px' }}>2. We&apos;ll confirm availability</h3>
             <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
               Parentive reviews your request and confirms availability, timing, and any service-specific details.
             </p>
@@ -56,7 +56,7 @@ export default function ServicesPage() {
           <div style={{ marginBottom: 24 }}>
             <h3 style={{ fontSize: 16, margin: '0 0 6px' }}>3. Schedule your visit</h3>
             <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
-              We'll schedule your Helper visit at a time that works for your household.
+              We&apos;ll schedule your Helper visit at a time that works for your household.
             </p>
           </div>
           <div>
@@ -71,7 +71,7 @@ export default function ServicesPage() {
       <section id="early-access" className="card" style={{ marginTop: 24, textAlign: 'center' }}>
         <h2 style={{ marginBottom: 16 }}>Ready to get started?</h2>
         <p style={{ fontSize: 15, color: 'var(--text-muted)', marginBottom: 24 }}>
-          Request early access to Parentive's pilot services and we'll be in touch.
+          Request early access to Parentive&apos;s pilot services and we&apos;ll be in touch.
         </p>
         <button className="btn btn-primary btn-large">
           Request early access

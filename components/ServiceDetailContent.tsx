@@ -48,7 +48,7 @@ export function ServiceDetailContent({ service, relatedServices = [] }: ServiceD
 
       {publicContent.customerPrerequisites.length > 0 && (
         <section className="detail-section">
-          <h2>What you'll provide</h2>
+          <h2>What you&apos;ll provide</h2>
           <ul className="detail-list">
             {publicContent.customerPrerequisites.map((item, index) => (
               <li key={index}>{item}</li>
@@ -75,7 +75,7 @@ export function ServiceDetailContent({ service, relatedServices = [] }: ServiceD
 
       {publicContent.exclusions.length > 0 && (
         <section className="detail-section">
-          <h2>What's not included</h2>
+          <h2>What&apos;s not included</h2>
           <ul className="detail-list detail-list-muted">
             {publicContent.exclusions.map((item, index) => (
               <li key={index}>{item}</li>
@@ -106,7 +106,7 @@ export function ServiceDetailContent({ service, relatedServices = [] }: ServiceD
         <section className="detail-section">
           <h2>Available add-ons</h2>
           <p className="text-muted">
-            You can add these services to this visit:
+            You can add these to this visit:
           </p>
           <ul className="detail-list">
             {publicContent.eligibleAddOns.map((addonSlug, index) => (
