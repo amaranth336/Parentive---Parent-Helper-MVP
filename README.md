@@ -25,7 +25,8 @@ npm ci        # install dependencies (uses package-lock.json)
 npm run dev   # start the dev server on http://localhost:3000
 ```
 
-Then open http://localhost:3000.
+Then open http://localhost:3000. The dev server binds `0.0.0.0:3000` so Cloud
+Agent browser preview (and other port-forwards) can reach it, not only loopback.
 
 ## Scripts
 
@@ -63,5 +64,7 @@ lib/
 ## Cloud Agent environment
 
 This repository is configured for Cursor Cloud Agents via
-`.cursor/environment.json`: dependencies are installed with `npm ci` and the dev
-server is available as the `dev` terminal.
+`.cursor/environment.json`: dependencies are installed with `npm ci`. On boot,
+`scripts/ensure-dev-server.sh` starts Next.js on `0.0.0.0:3000` (required for
+browser preview; Chrome `-102` / `ERR_CONNECTION_REFUSED` means nothing was
+listening). The `dev` terminal follows that server's logs.
