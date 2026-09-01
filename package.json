@@ -4,7 +4,7 @@
   "private": true,
   "description": "Parentive - a lightweight parent helper MVP for tracking children's daily routines.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 0.0.0.0 --port 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
