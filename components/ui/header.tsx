@@ -37,8 +37,8 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
       >
         <div className="container mx-auto max-w-container-xl px-4 sm:px-6">
           <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <LogoLockup size="sm" />
+            <Link href="/" className="flex items-center" aria-label="Parentive home">
+              <LogoLockup size="sm" decorative />
             </Link>
 
             {/* Desktop Navigation */}

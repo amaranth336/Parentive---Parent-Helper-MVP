@@ -28,3 +28,6 @@ next-env.d.ts
 
 # local data store (runtime generated)
 /data/db.json
+
+# brand-asset download scratch
+/.tmp-brand-assets

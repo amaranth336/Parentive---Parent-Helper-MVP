@@ -131,6 +131,12 @@ All interactive elements meet WCAG 2.2 Level AA requirements:
 - ✅ Error messages announced to screen readers
 - ✅ Loading states announced
 - ✅ Alert regions properly marked
+- ✅ Logo mark, wordmark, and lockup images use `alt="Parentive"` unless they sit inside a named link (`aria-label="Parentive home"`), in which case the image is decorative
+
+## Brand imagery
+
+Logo files are raster/vector artwork from the locked 003 Drive folder, not CSS
+text. Decorative organic shapes remain `aria-hidden` where they are not content.
 
 ## Motion and Animation
 

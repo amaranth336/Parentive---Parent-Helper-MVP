@@ -23,6 +23,7 @@ import { Icon } from "@/components/brand/icon";
 import { Callout } from "@/components/brand/callout";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
+import { BRAND_ASSET_SOURCE, BRAND_ASSET_FILES } from "@/lib/brand-assets";
 import { Heart, Home, Calendar, Users, Settings, Sparkles } from "lucide-react";
 
 export default function DesignSystemPage() {
@@ -160,11 +161,39 @@ export default function DesignSystemPage() {
             Logo & Branding
           </Heading>
 
+          <Callout title="Canonical logo source" variant="brand" className="mb-8">
+            <Text className="mb-3">
+              Logo mark, wordmark, and horizontal lockup are the locked files from
+              Linear 003. They are served from <code>public/brand/</code>, which
+              must stay in sync with the Drive folder — not a CSS reconstruction
+              and not the brand-package PDF.
+            </Text>
+            <Text>
+              <a
+                href={BRAND_ASSET_SOURCE.driveFolderUrl}
+                className="text-text-brand underline underline-offset-2"
+              >
+                Parentive logos on Google Drive
+              </a>
+            </Text>
+            <ul className="mt-4 space-y-1 text-body-sm text-text-secondary">
+              {BRAND_ASSET_FILES.map((asset) => (
+                <li key={asset.kind}>
+                  <span className="font-medium text-text-primary">{asset.description}:</span>{" "}
+                  <code>{asset.svg}</code> / <code>{asset.png}</code>
+                </li>
+              ))}
+            </ul>
+          </Callout>
+
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <Card className="flex flex-col items-center justify-center p-8">
               <Logo size="xl" />
               <Text size="sm" color="muted" className="mt-4 text-center">
-                Standalone Logo
+                Standalone mark
+              </Text>
+              <Text size="utility" color="muted" className="mt-1 font-mono text-center">
+                {BRAND_ASSET_FILES[0].svg}
               </Text>
             </Card>
 
@@ -173,12 +202,33 @@ export default function DesignSystemPage() {
               <Text size="sm" color="muted" className="mt-4 text-center">
                 Wordmark
               </Text>
+              <Text size="utility" color="muted" className="mt-1 font-mono text-center">
+                {BRAND_ASSET_FILES[1].svg}
+              </Text>
             </Card>
 
             <Card className="flex flex-col items-center justify-center p-8">
               <LogoLockup size="md" tagline />
               <Text size="sm" color="muted" className="mt-4 text-center">
-                Horizontal Lockup
+                Horizontal lockup
+              </Text>
+              <Text size="utility" color="muted" className="mt-1 font-mono text-center">
+                {BRAND_ASSET_FILES[2].svg}
+              </Text>
+            </Card>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <Card className="flex flex-col items-center justify-center p-8 bg-surface-default">
+              <LogoLockup size="md" />
+              <Text size="sm" color="muted" className="mt-4 text-center">
+                Lockup on Oat
+              </Text>
+            </Card>
+            <Card className="flex flex-col items-center justify-center p-8 bg-moss">
+              <Logo size="lg" />
+              <Text size="sm" className="mt-4 text-center text-oat">
+                Mark on Deep Moss
               </Text>
             </Card>
           </div>

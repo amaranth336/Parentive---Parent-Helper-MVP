@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   title: "Parentive — Trusted, flexible help for real life",
   description:
     "Support isn't a last resort. It's part of how modern life gets done. Take something off your plate with Parentive's trusted family support services.",
+  icons: {
+    icon: [
+      { url: "/brand/logo-mark.svg", type: "image/svg+xml" },
+      { url: "/brand/logo-mark.png", type: "image/png" },
+    ],
+    apple: "/brand/logo-mark.png",
+  },
 };
 
 export default function RootLayout({

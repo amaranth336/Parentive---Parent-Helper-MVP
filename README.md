@@ -35,6 +35,8 @@ Then open http://localhost:3000.
 | `npm run build` | Production build                             |
 | `npm start`     | Run the production build                     |
 | `npm run lint`  | Lint with ESLint / `eslint-config-next`      |
+| `npm test`      | Brand-asset source-of-truth checks           |
+| `npm run sync:brand-assets` | Import logos from the locked Drive folder |
 
 ## API
 
@@ -51,14 +53,30 @@ Then open http://localhost:3000.
 ```
 app/
   api/children/...      Route handlers (REST API)
+  design-system/        Design-system showcase (`/design-system`)
   page.tsx              Main UI
   layout.tsx            Root layout
   globals.css           Styles
+components/
+  brand/logo.tsx        Logo mark, wordmark, and lockup (Drive-sourced files)
+  ui/                   Design-system primitives
 lib/
+  brand-assets.ts       Canonical Drive folder + public/brand paths
   db.ts                 JSON-file data access
   types.ts              Shared types
+public/brand/           Locked logo mark, wordmark, and lockup copies
 .cursor/environment.json  Cloud Agent dev environment config
 ```
+
+## Brand assets
+
+Logo mark, wordmark, and horizontal lockup are the locked files from Linear 003.
+
+Canonical Drive folder:
+https://drive.google.com/drive/folders/1r6GTJERQDf3pFb57RwftqhqY2StSo0yU?usp=drive_link
+
+Local copies live in `public/brand/`. Refresh them with `npm run sync:brand-assets`.
+See `public/brand/README.md` and `docs/DESIGN_SYSTEM.md`.
 
 ## Cloud Agent environment
 
