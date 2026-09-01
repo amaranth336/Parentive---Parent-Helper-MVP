@@ -125,3 +125,26 @@
 - ✅ Set proper font variables for Tailwind
 
 
+
+
+### Homepage (PAR-005) ✅ - 2026-09-01 17:32:22
+
+**Commit:** Rebuild homepage with design system components
+
+**Changes:**
+- ✅ Replaced custom header with `<Header>` component with Logo
+- ✅ Replaced custom footer with `<Footer>` component with Logo
+- ✅ All buttons now use `<Button>` component (Deep Moss primary, Soft Sage secondary)
+- ✅ All headings use `<Heading>` component with proper as prop
+- ✅ All body text uses `<Text>` component with size/color variants  
+- ✅ Category cards use `<Card>` component with elevated variant
+- ✅ Sections use `<Section>` component with proper spacing
+- ✅ Backgrounds alternate between Oat (bg-surface-default) and Warm Sand (bg-surface-secondary)
+- ✅ Number badges use Deep Moss (#30483B) background
+- ✅ All text uses Walnut (text-text-primary) or Deep Moss (text-text-brand)
+- ✅ Removed all custom CSS classes
+- ✅ No dark backgrounds - all light as specified
+
+**Result:** Homepage fully compliant with design system
+
+

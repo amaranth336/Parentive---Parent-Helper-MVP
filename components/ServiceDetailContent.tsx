@@ -1,5 +1,11 @@
 import Link from 'next/link';
 import type { CatalogueService } from '@/lib/catalogue';
+import { Heading } from './ui/heading';
+import { Text } from './ui/text';
+import { Button } from './ui/button';
+import { Card } from './ui/card';
+import { Alert } from './ui/alert';
+import { Divider } from './ui/divider';
 
 interface ServiceDetailContentProps {
   service: CatalogueService;
@@ -10,126 +16,189 @@ export function ServiceDetailContent({ service, relatedServices = [] }: ServiceD
   const { public: publicContent } = service;
 
   return (
-    <div className="service-detail">
-      <div className="service-detail-header">
-        <div className="breadcrumb">
-          <Link href="/services">Services</Link>
-          <span className="breadcrumb-separator">/</span>
-          <span>{publicContent.name}</span>
+    <div className="mx-auto max-w-4xl px-4">
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-2 text-body-sm text-text-muted mb-6">
+        <Link href="/services" className="text-brand-primary hover:underline">
+          Services
+        </Link>
+        <span>/</span>
+        <span>{publicContent.name}</span>
+      </nav>
+
+      <Card className="bg-surface-emphasis">
+        {/* Header */}
+        <div className="mb-8">
+          <Heading as="h1" className="mb-6 text-text-brand">
+            {publicContent.name}
+          </Heading>
+          
+          {publicContent.requiresReview && (
+            <Alert variant="info" className="mb-4">
+              <strong>Review required:</strong> This service requires individual review during scheduling.
+            </Alert>
+          )}
+          
+          {publicContent.availabilityStatus === 'add-on' && (
+            <Alert variant="success" className="mb-4">
+              <strong>Add-on service:</strong> This can be added to eligible service visits.
+            </Alert>
+          )}
         </div>
-        <h1>{publicContent.name}</h1>
-        {publicContent.requiresReview && (
-          <div className="notice notice-info">
-            <strong>Review required:</strong> This service requires individual review during scheduling.
+
+        {/* Outcome */}
+        <div className="mb-8">
+          <Heading as="h2" className="mb-4 text-text-brand">
+            Outcome
+          </Heading>
+          <Text size="lg" className="text-text-primary">
+            {publicContent.detailedDescription}
+          </Text>
+        </div>
+
+        {/* Inclusions */}
+        {publicContent.inclusions.length > 0 && (
+          <div className="mb-8">
+            <Heading as="h2" className="mb-4 text-text-brand">
+              What this can include
+            </Heading>
+            <ul className="space-y-2">
+              {publicContent.inclusions.map((item, index) => (
+                <li key={index} className="flex gap-3">
+                  <span className="text-brand-primary font-bold">✓</span>
+                  <Text size="sm">{item}</Text>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
-        {publicContent.availabilityStatus === 'add-on' && (
-          <div className="notice notice-addon">
-            <strong>Add-on service:</strong> This can be added to eligible service visits.
+
+        {/* Prerequisites */}
+        {publicContent.customerPrerequisites.length > 0 && (
+          <div className="mb-8">
+            <Heading as="h2" className="mb-4 text-text-brand">
+              What you'll provide
+            </Heading>
+            <ul className="space-y-2">
+              {publicContent.customerPrerequisites.map((item, index) => (
+                <li key={index} className="flex gap-3">
+                  <span className="text-brand-primary font-bold">✓</span>
+                  <Text size="sm">{item}</Text>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
-      </div>
 
-      <section className="detail-section">
-        <h2>Outcome</h2>
-        <p className="lead">{publicContent.detailedDescription}</p>
-      </section>
+        {/* Service Process */}
+        <div className="mb-8">
+          <Heading as="h2" className="mb-4 text-text-brand">
+            What to expect
+          </Heading>
+          <Text>{publicContent.serviceProcess}</Text>
+        </div>
 
-      {publicContent.inclusions.length > 0 && (
-        <section className="detail-section">
-          <h2>What this can include</h2>
-          <ul className="detail-list">
-            {publicContent.inclusions.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {publicContent.customerPrerequisites.length > 0 && (
-        <section className="detail-section">
-          <h2>What you&apos;ll provide</h2>
-          <ul className="detail-list">
-            {publicContent.customerPrerequisites.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      <section className="detail-section">
-        <h2>What to expect</h2>
-        <p>{publicContent.serviceProcess}</p>
-      </section>
-
-      {publicContent.importantNotes.length > 0 && (
-        <section className="detail-section">
-          <h2>Good to know</h2>
-          <ul className="detail-list">
-            {publicContent.importantNotes.map((note, index) => (
-              <li key={index}>{note}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {publicContent.exclusions.length > 0 && (
-        <section className="detail-section">
-          <h2>What&apos;s not included</h2>
-          <ul className="detail-list detail-list-muted">
-            {publicContent.exclusions.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {relatedServices.length > 0 && (
-        <section className="detail-section">
-          <h2>Combine it with</h2>
-          <div className="related-services">
-            {relatedServices.map((related) => (
-              <Link
-                key={related.public.sku}
-                href={`/services/${related.public.slug}`}
-                className="related-service-card"
-              >
-                <strong>{related.public.name}</strong>
-                <span>{related.public.shortDescription}</span>
-              </Link>
-            ))}
+        {/* Important Notes */}
+        {publicContent.importantNotes.length > 0 && (
+          <div className="mb-8">
+            <Heading as="h2" className="mb-4 text-text-brand">
+              Good to know
+            </Heading>
+            <ul className="space-y-2">
+              {publicContent.importantNotes.map((note, index) => (
+                <li key={index} className="flex gap-3">
+                  <span className="text-brand-primary font-bold">✓</span>
+                  <Text size="sm">{note}</Text>
+                </li>
+              ))}
+            </ul>
           </div>
-        </section>
-      )}
+        )}
 
-      {publicContent.eligibleAddOns.length > 0 && (
-        <section className="detail-section">
-          <h2>Available add-ons</h2>
-          <p className="text-muted">
-            You can add these to this visit:
-          </p>
-          <ul className="detail-list">
-            {publicContent.eligibleAddOns.map((addonSlug, index) => (
-              <li key={index}>
-                <Link href={`/services/${addonSlug}`} className="link-inline">
-                  {addonSlug.split('-').map(word => 
-                    word.charAt(0).toUpperCase() + word.slice(1)
-                  ).join(' ')}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+        {/* Exclusions */}
+        {publicContent.exclusions.length > 0 && (
+          <div className="mb-8">
+            <Heading as="h2" className="mb-4 text-text-brand">
+              What's not included
+            </Heading>
+            <ul className="space-y-2">
+              {publicContent.exclusions.map((item, index) => (
+                <li key={index} className="flex gap-3">
+                  <span className="text-text-muted">—</span>
+                  <Text size="sm" color="muted">{item}</Text>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-      <section className="detail-section cta-section">
-        <button className="btn btn-primary btn-large">
-          Take it off my plate
-        </button>
-        <p className="cta-note">
-          This is an early access pilot service. Your request will be reviewed before confirmation.
-        </p>
-      </section>
+        {/* Related Services */}
+        {relatedServices.length > 0 && (
+          <div className="mb-8">
+            <Heading as="h2" className="mb-4 text-text-brand">
+              Combine it with
+            </Heading>
+            <div className="space-y-3">
+              {relatedServices.map((related) => (
+                <Card 
+                  key={related.public.sku}
+                  variant="default"
+                  hover
+                  asChild
+                >
+                  <Link href={`/services/${related.public.slug}`} className="block">
+                    <Heading as="h3" className="mb-1 text-text-brand">
+                      {related.public.name}
+                    </Heading>
+                    <Text size="sm" color="muted">
+                      {related.public.shortDescription}
+                    </Text>
+                  </Link>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Add-ons */}
+        {publicContent.eligibleAddOns.length > 0 && (
+          <div className="mb-8">
+            <Heading as="h2" className="mb-4 text-text-brand">
+              Available add-ons
+            </Heading>
+            <Text size="sm" color="muted" className="mb-3">
+              You can add these to this visit:
+            </Text>
+            <ul className="space-y-2">
+              {publicContent.eligibleAddOns.map((addonSlug, index) => (
+                <li key={index} className="flex gap-3">
+                  <span className="text-brand-primary font-bold">✓</span>
+                  <Link 
+                    href={`/services/${addonSlug}`}
+                    className="text-body-sm text-brand-primary hover:underline font-semibold"
+                  >
+                    {addonSlug.split('-').map(word => 
+                      word.charAt(0).toUpperCase() + word.slice(1)
+                    ).join(' ')}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <Divider className="my-8" />
+
+        {/* CTA */}
+        <div className="text-center">
+          <Button variant="primary" size="lg" className="mb-4">
+            Take it off my plate
+          </Button>
+          <Text size="sm" color="muted">
+            This is an early access pilot service. Your request will be reviewed before confirmation.
+          </Text>
+        </div>
+      </Card>
     </div>
   );
 }

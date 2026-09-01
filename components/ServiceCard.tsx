@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import type { ServicePublicContent } from '@/lib/catalogue';
+import { Card } from './ui/card';
+import { Heading } from './ui/heading';
+import { Text } from './ui/text';
+import { Badge } from './ui/badge';
 
 interface ServiceCardProps {
   service: ServicePublicContent;
@@ -7,23 +11,26 @@ interface ServiceCardProps {
 
 export function ServiceCard({ service }: ServiceCardProps) {
   return (
-    <Link
-      href={`/services/${service.slug}`}
-      className="service-card"
-    >
-      <div className="service-card-header">
-        <h3>{service.name}</h3>
-        {service.requiresReview && (
-          <span className="badge badge-review">Review required</span>
-        )}
-        {service.availabilityStatus === 'add-on' && (
-          <span className="badge badge-addon">Add-on</span>
-        )}
-      </div>
-      <p className="service-card-description">{service.shortDescription}</p>
-      <div className="service-card-footer">
-        <span className="link-text">Learn more →</span>
-      </div>
-    </Link>
+    <Card variant="elevated" hover asChild>
+      <Link href={`/services/${service.slug}`} className="block h-full">
+        <div className="flex justify-between items-start gap-2 mb-3">
+          <Heading as="h3" className="text-text-brand">
+            {service.name}
+          </Heading>
+          {service.requiresReview && (
+            <Badge variant="default">Review required</Badge>
+          )}
+          {service.availabilityStatus === 'add-on' && (
+            <Badge variant="success">Add-on</Badge>
+          )}
+        </div>
+        <Text size="sm" color="muted" className="mb-4">
+          {service.shortDescription}
+        </Text>
+        <Text size="sm" className="text-brand-primary font-semibold">
+          Learn more →
+        </Text>
+      </Link>
+    </Card>
   );
 }
