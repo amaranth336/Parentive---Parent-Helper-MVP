@@ -103,4 +103,10 @@ export const CATALOGUE: CatalogueService[] = [
       observationCount: 0,
     },
   },
+
+  // Remaining Home & Laundry services would be added here
+  // Kitchen & Food services would be added here  
+  // Family Support services would be added here
+  // Flexible Support services would be added here
+  // Add-ons would be added here
 ];
