@@ -42,13 +42,33 @@ function BrandAssetImage({
   decorative?: boolean;
 }) {
   const asset = brandAssets[kind];
+  const imgRef = React.useRef<HTMLImageElement>(null);
   const [src, setSrc] = React.useState(asset.svg);
   const [missing, setMissing] = React.useState(false);
+
+  const handleUnavailable = React.useCallback(
+    (currentSrc: string) => {
+      if (currentSrc.endsWith(".svg") || currentSrc.includes(`${asset.basename}.svg`)) {
+        setSrc(asset.png);
+        return;
+      }
+      setMissing(true);
+    },
+    [asset.basename, asset.png]
+  );
 
   React.useEffect(() => {
     setSrc(asset.svg);
     setMissing(false);
   }, [asset.svg]);
+
+  React.useEffect(() => {
+    const image = imgRef.current;
+    if (!image) return;
+    if (image.complete && image.naturalWidth === 0) {
+      handleUnavailable(image.currentSrc || image.src);
+    }
+  }, [src, handleUnavailable]);
 
   if (missing) {
     return (
@@ -61,7 +81,7 @@ function BrandAssetImage({
         )}
         style={{
           height,
-          minWidth: width === "auto" || width === undefined ? height * 2 : width,
+          minWidth: width === "auto" || width === undefined ? Math.max(height * 2.4, 96) : width,
         }}
       >
         Missing {asset.kind} file
@@ -72,6 +92,7 @@ function BrandAssetImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element -- brand SVGs/PNGs need an onError PNG fallback
     <img
+      ref={imgRef}
       src={src}
       alt={decorative ? "" : alt}
       height={height}
@@ -83,12 +104,11 @@ function BrandAssetImage({
         maxWidth: "100%",
       }}
       onError={(event) => {
-        const current = event.currentTarget.getAttribute("src") ?? "";
-        if (current.endsWith(".svg")) {
-          setSrc(asset.png);
-          return;
-        }
-        setMissing(true);
+        handleUnavailable(
+          event.currentTarget.currentSrc ||
+            event.currentTarget.getAttribute("src") ||
+            src
+        );
       }}
     />
   );
