@@ -41,7 +41,6 @@ export const CATEGORIES: CategoryMetadata[] = [
  * Complete service catalogue - 14 pilot services + Pre-ordered Pickup add-on
  */
 export const CATALOGUE: CatalogueService[] = [
-  // HOME & LAUNDRY
   {
     public: {
       sku: "SVC-HL-001",
