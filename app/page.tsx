@@ -112,10 +112,17 @@ export default function Home() {
     <main className="page">
       <div className="header">
         <div className="logo">🧸</div>
-        <div>
+        <div style={{ flex: 1 }}>
           <h1>Parentive</h1>
           <p>Keep your kids&apos; daily routines on track.</p>
         </div>
+        <a 
+          href="/request"
+          className="btn btn-primary"
+          style={{ whiteSpace: 'nowrap', width: 'auto' }}
+        >
+          Take it off my plate
+        </a>
       </div>
 
       <div className="grid">
