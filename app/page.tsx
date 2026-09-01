@@ -1,258 +1,328 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Header } from "@/components/ui/header";
+import { Footer } from "@/components/ui/footer";
+import { Button } from "@/components/ui/button";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { Card } from "@/components/ui/card";
+import { Section } from "@/components/ui/section";
 
 export const metadata: Metadata = {
   title: "Parentive — Trusted, flexible help for real life",
   description: "Take something off your plate. Trusted, flexible help with the everyday things that keep a household and family moving — from laundry and meal prep to an extra pair of hands with the kids.",
 };
 
+const navigationLinks = [
+  { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/about", label: "About" },
+];
+
+const footerLinks = [
+  {
+    title: "Services",
+    items: [
+      { href: "/services", label: "All services" },
+      { href: "/pricing", label: "Pricing" },
+      { href: "/service-area", label: "Service area" },
+    ],
+  },
+  {
+    title: "Company",
+    items: [
+      { href: "/about", label: "About" },
+      { href: "/how-it-works", label: "How It Works" },
+      { href: "/trust", label: "Trust & Safety" },
+      { href: "/faq", label: "FAQ" },
+    ],
+  },
+  {
+    title: "Join Us",
+    items: [{ href: "/join", label: "Join the Hive" }],
+  },
+  {
+    title: "Legal",
+    items: [
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+    ],
+  },
+];
+
 export default function HomePage() {
   return (
     <>
-      {/* Header/Navigation */}
-      <header className="site-header">
-        <div className="site-header-inner">
-          <div className="site-logo">
-            <Link href="/">Parentive</Link>
-          </div>
-          <nav className="site-nav">
-            <Link href="/services">Services</Link>
-            <Link href="/pricing">Pricing</Link>
-            <Link href="/how-it-works">How It Works</Link>
-            <Link href="/about">About</Link>
-          </nav>
-          <div className="site-header-cta">
-            <Link href="/request" className="btn btn-primary">
-              Request a visit
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header 
+        links={navigationLinks}
+        ctaLabel="Request a visit"
+        ctaHref="/request"
+      />
 
-      <main>
+      <main className="bg-surface-default">
         {/* Hero Section */}
-        <section className="hero">
-          <div className="hero-content">
-            <h1>Take something off your plate.</h1>
-            <p className="hero-description">
+        <Section className="bg-surface-default text-center py-20 md:py-28">
+          <div className="mx-auto max-w-4xl px-4">
+            <Heading as="display" className="mb-6 text-text-brand">
+              Take something off your plate.
+            </Heading>
+            <Text size="lg" className="mb-8 text-text-primary max-w-3xl mx-auto">
               Trusted, flexible help with the everyday things that keep a household and family moving — from laundry and meal prep to an extra pair of hands with the kids.
-            </p>
-            <div className="hero-cta">
-              <Link href="/request" className="btn btn-primary btn-large">
-                Request a visit
-              </Link>
-              <Link href="/services" className="btn btn-ghost btn-large">
-                See services
-              </Link>
+            </Text>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild variant="primary" size="lg">
+                <Link href="/request">Request a visit</Link>
+              </Button>
+              <Button asChild variant="secondary" size="lg">
+                <Link href="/services">See services</Link>
+              </Button>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Service Categories */}
-        <section className="section section-categories">
-          <div className="section-inner">
-            <h2 className="section-title">What Parentive can take off your plate</h2>
-            <div className="categories-grid">
-              <Link href="/services#home-laundry" className="category-card">
-                <h3>Home resets</h3>
-                <p>Laundry, bedrooms, playrooms, kitchens and everyday household resets.</p>
-              </Link>
-              <Link href="/services#kitchen-food" className="category-card">
-                <h3>Food & prep</h3>
-                <p>Meal prep, lunches, produce prep and kitchen support.</p>
-              </Link>
-              <Link href="/services#family-support" className="category-card">
-                <h3>Kids & family</h3>
-                <p>An extra pair of hands while you&apos;re home, child engagement and parent-helper support.</p>
-              </Link>
-              <Link href="/services#flexible-support" className="category-card">
-                <h3>Everyday life</h3>
-                <p>Flexible practical support that doesn&apos;t fit neatly into one household category.</p>
-              </Link>
+        <Section className="bg-surface-secondary">
+          <div className="mx-auto max-w-6xl px-4">
+            <Heading as="h2" className="text-center mb-12 text-text-brand">
+              What Parentive can take off your plate
+            </Heading>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card variant="elevated" hover asChild>
+                <Link href="/services#home-laundry" className="block">
+                  <Heading as="h3" className="mb-3 text-text-brand">Home resets</Heading>
+                  <Text size="sm" color="muted">
+                    Laundry, bedrooms, playrooms, kitchens and everyday household resets.
+                  </Text>
+                </Link>
+              </Card>
+              <Card variant="elevated" hover asChild>
+                <Link href="/services#kitchen-food" className="block">
+                  <Heading as="h3" className="mb-3 text-text-brand">Food & prep</Heading>
+                  <Text size="sm" color="muted">
+                    Meal prep, lunches, produce prep and kitchen support.
+                  </Text>
+                </Link>
+              </Card>
+              <Card variant="elevated" hover asChild>
+                <Link href="/services#family-support" className="block">
+                  <Heading as="h3" className="mb-3 text-text-brand">Kids & family</Heading>
+                  <Text size="sm" color="muted">
+                    An extra pair of hands while you're home, child engagement and parent-helper support.
+                  </Text>
+                </Link>
+              </Card>
+              <Card variant="elevated" hover asChild>
+                <Link href="/services#flexible-support" className="block">
+                  <Heading as="h3" className="mb-3 text-text-brand">Everyday life</Heading>
+                  <Text size="sm" color="muted">
+                    Flexible practical support that doesn't fit neatly into one household category.
+                  </Text>
+                </Link>
+              </Card>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* How It Works */}
-        <section className="section section-how">
-          <div className="section-inner">
-            <h2 className="section-title">How Parentive works</h2>
-            <div className="how-steps">
-              <div className="how-step">
-                <div className="how-step-number">1</div>
-                <h3>Choose what you&apos;d like help with</h3>
-                <p>Select one or more Parentive services.</p>
+        <Section className="bg-surface-default">
+          <div className="mx-auto max-w-6xl px-4">
+            <Heading as="h2" className="text-center mb-12 text-text-brand">
+              How Parentive works
+            </Heading>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-brand-primary text-text-inverse flex items-center justify-center text-h3 font-bold mx-auto mb-4">
+                  1
+                </div>
+                <Heading as="h3" className="mb-2 text-text-brand">Choose what you'd like help with</Heading>
+                <Text size="sm" color="muted">
+                  Select one or more Parentive services.
+                </Text>
               </div>
-              <div className="how-step">
-                <div className="how-step-number">2</div>
-                <h3>Tell us when you need it</h3>
-                <p>Share your preferred day, timing and household details.</p>
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-brand-primary text-text-inverse flex items-center justify-center text-h3 font-bold mx-auto mb-4">
+                  2
+                </div>
+                <Heading as="h3" className="mb-2 text-text-brand">Tell us when you need it</Heading>
+                <Text size="sm" color="muted">
+                  Share your preferred day, timing and household details.
+                </Text>
               </div>
-              <div className="how-step">
-                <div className="how-step-number">3</div>
-                <h3>We&apos;ll confirm your visit</h3>
-                <p>Submit a request and we&apos;ll confirm availability.</p>
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-brand-primary text-text-inverse flex items-center justify-center text-h3 font-bold mx-auto mb-4">
+                  3
+                </div>
+                <Heading as="h3" className="mb-2 text-text-brand">We'll confirm your visit</Heading>
+                <Text size="sm" color="muted">
+                  Submit a request and we'll confirm availability.
+                </Text>
               </div>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Flexible Support / Recurring */}
-        <section className="section section-recurring">
-          <div className="section-inner section-inner-narrow">
-            <h2 className="section-title">Support can be part of the routine</h2>
-            <p className="section-lead">
+        <Section className="bg-surface-secondary">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <Heading as="h2" className="mb-6 text-text-brand">
+              Support can be part of the routine
+            </Heading>
+            <Text size="lg" className="text-text-primary">
               Some families want a one-time kitchen reset. Others choose recurring support every week. Parentive works however often makes sense for your household — once, occasionally, or as part of your normal routine.
-            </p>
+            </Text>
           </div>
-        </section>
+        </Section>
 
         {/* Brand Moment */}
-        <section className="section section-brand">
-          <div className="section-inner section-inner-narrow">
-            <h2 className="section-title-large">Make room for life.</h2>
-            <p className="section-lead">
-              Sometimes the most useful thing another pair of hands can give you isn&apos;t a finished load of laundry or a prepped dinner. It&apos;s what that time makes room for. Work. Time with your kids. Rest. Dinner together. Or simply choosing not to do that task yourself.
-            </p>
+        <Section className="bg-surface-default">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <Heading as="display" className="mb-6 text-text-brand text-display-md">
+              Make room for life.
+            </Heading>
+            <Text size="lg" className="text-text-primary">
+              Sometimes the most useful thing another pair of hands can give you isn't a finished load of laundry or a prepped dinner. It's what that time makes room for. Work. Time with your kids. Rest. Dinner together. Or simply choosing not to do that task yourself.
+            </Text>
           </div>
-        </section>
+        </Section>
 
         {/* Trust */}
-        <section className="section section-trust">
-          <div className="section-inner">
-            <h2 className="section-title">What you can expect</h2>
-            <div className="trust-grid">
-              <div className="trust-item">
-                <h3>Carefully selected Helpers</h3>
-                <p>Every Parentive Helper is chosen with care and matched to your household needs.</p>
+        <Section className="bg-surface-secondary">
+          <div className="mx-auto max-w-6xl px-4">
+            <Heading as="h2" className="text-center mb-12 text-text-brand">
+              What you can expect
+            </Heading>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="text-center">
+                <Heading as="h3" className="mb-2 text-text-brand">Carefully selected Helpers</Heading>
+                <Text size="sm" color="muted">
+                  Every Parentive Helper is chosen with care and matched to your household needs.
+                </Text>
               </div>
-              <div className="trust-item">
-                <h3>Clear service expectations</h3>
-                <p>Know exactly what&apos;s included in each service before you request.</p>
+              <div className="text-center">
+                <Heading as="h3" className="mb-2 text-text-brand">Clear service expectations</Heading>
+                <Text size="sm" color="muted">
+                  Know exactly what's included in each service before you request.
+                </Text>
               </div>
-              <div className="trust-item">
-                <h3>Transparent pricing</h3>
-                <p>Straightforward pricing for every service during our pilot phase.</p>
+              <div className="text-center">
+                <Heading as="h3" className="mb-2 text-text-brand">Transparent pricing</Heading>
+                <Text size="sm" color="muted">
+                  Straightforward pricing for every service during our pilot phase.
+                </Text>
               </div>
-              <div className="trust-item">
-                <h3>Respectful in-home support</h3>
-                <p>Helpers work with your household systems and respect your home.</p>
+              <div className="text-center">
+                <Heading as="h3" className="mb-2 text-text-brand">Respectful in-home support</Heading>
+                <Text size="sm" color="muted">
+                  Helpers work with your household systems and respect your home.
+                </Text>
               </div>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Helpers / Hive */}
-        <section className="section section-helpers">
-          <div className="section-inner section-inner-narrow">
-            <h2 className="section-title">The right kind of help feels human</h2>
-            <p className="section-lead">
+        <Section className="bg-surface-default">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <Heading as="h2" className="mb-6 text-text-brand">
+              The right kind of help feels human
+            </Heading>
+            <Text size="lg" className="mb-8 text-text-primary">
               Parentive Helpers are real people who understand that every household is different. They bring practical skills, attention to detail, and respect for the way your home works.
-            </p>
-            <div className="section-cta-group">
-              <Link href="/trust" className="link-with-arrow">
-                Learn how we choose Helpers
-              </Link>
-              <Link href="/join" className="link-with-arrow">
-                Join the Hive
-              </Link>
+            </Text>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild variant="secondary">
+                <Link href="/trust">Learn how we choose Helpers</Link>
+              </Button>
+              <Button asChild variant="secondary">
+                <Link href="/join">Join the Hive</Link>
+              </Button>
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Local Service Area */}
-        <section className="section section-local">
-          <div className="section-inner section-inner-narrow">
-            <h2 className="section-title">Local service, starting here</h2>
-            <p className="section-lead">
+        <Section className="bg-surface-secondary">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <Heading as="h2" className="mb-6 text-text-brand">
+              Local service, starting here
+            </Heading>
+            <Text size="lg" className="mb-8 text-text-primary">
               Parentive is currently available in select areas. Check if we serve your neighbourhood.
-            </p>
-            <Link href="/service-area" className="btn btn-ghost">
-              Check availability
-            </Link>
+            </Text>
+            <Button asChild variant="secondary">
+              <Link href="/service-area">Check availability</Link>
+            </Button>
           </div>
-        </section>
+        </Section>
 
         {/* FAQ Preview */}
-        <section className="section section-faq">
-          <div className="section-inner">
-            <h2 className="section-title">Common questions</h2>
-            <div className="faq-list">
-              <details className="faq-item">
-                <summary>Do I need to be home?</summary>
-                <p>For most services, yes. Parentive Helpers work while you&apos;re home, providing support that creates capacity for you during the visit. Some services like laundry or kitchen resets can happen while you focus on other things in your home.</p>
+        <Section className="bg-surface-default">
+          <div className="mx-auto max-w-4xl px-4">
+            <Heading as="h2" className="text-center mb-12 text-text-brand">
+              Common questions
+            </Heading>
+            <div className="space-y-4 mb-8">
+              <details className="bg-surface-emphasis border border-border-subtle rounded-card p-6">
+                <summary className="cursor-pointer font-semibold text-text-brand">
+                  Do I need to be home?
+                </summary>
+                <Text size="sm" color="muted" className="mt-4">
+                  For most services, yes. Parentive Helpers work while you're home, providing support that creates capacity for you during the visit. Some services like laundry or kitchen resets can happen while you focus on other things in your home.
+                </Text>
               </details>
-              <details className="faq-item">
-                <summary>Can I book more than one service during a visit?</summary>
-                <p>Yes. Many families combine services — like a kitchen reset with meal prep, or laundry with a playroom reset. Just let us know what you&apos;d like during your request.</p>
+              <details className="bg-surface-emphasis border border-border-subtle rounded-card p-6">
+                <summary className="cursor-pointer font-semibold text-text-brand">
+                  Can I book more than one service during a visit?
+                </summary>
+                <Text size="sm" color="muted" className="mt-4">
+                  Yes. Many families combine services — like a kitchen reset with meal prep, or laundry with a playroom reset. Just let us know what you'd like during your request.
+                </Text>
               </details>
-              <details className="faq-item">
-                <summary>Can I request recurring help?</summary>
-                <p>Absolutely. Some households use Parentive once, while others schedule regular visits weekly or biweekly. We&apos;ll work with you to find a rhythm that fits your routine.</p>
+              <details className="bg-surface-emphasis border border-border-subtle rounded-card p-6">
+                <summary className="cursor-pointer font-semibold text-text-brand">
+                  Can I request recurring help?
+                </summary>
+                <Text size="sm" color="muted" className="mt-4">
+                  Absolutely. Some households use Parentive once, while others schedule regular visits weekly or biweekly. We'll work with you to find a rhythm that fits your routine.
+                </Text>
               </details>
-              <details className="faq-item">
-                <summary>Where is Parentive available?</summary>
-                <p>Parentive is currently operating in select local areas as we grow. Check our service area page to see if we&apos;re available in your neighbourhood.</p>
+              <details className="bg-surface-emphasis border border-border-subtle rounded-card p-6">
+                <summary className="cursor-pointer font-semibold text-text-brand">
+                  Where is Parentive available?
+                </summary>
+                <Text size="sm" color="muted" className="mt-4">
+                  Parentive is currently operating in select local areas as we grow. Check our service area page to see if we're available in your neighbourhood.
+                </Text>
               </details>
             </div>
-            <Link href="/faq" className="link-with-arrow">
-              See all questions
-            </Link>
+            <div className="text-center">
+              <Button asChild variant="secondary">
+                <Link href="/faq">See all questions</Link>
+              </Button>
+            </div>
           </div>
-        </section>
+        </Section>
 
         {/* Final CTA */}
-        <section className="section section-final-cta">
-          <div className="section-inner section-inner-narrow">
-            <h2 className="section-title-large">What would you like off your plate?</h2>
-            <div className="section-cta-group-centered">
-              <Link href="/request" className="btn btn-primary btn-large">
-                Request a visit
-              </Link>
-              <Link href="/services" className="btn btn-ghost btn-large">
-                See services
-              </Link>
+        <Section className="bg-surface-secondary">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <Heading as="display" className="mb-6 text-text-brand text-display-md">
+              What would you like off your plate?
+            </Heading>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <Button asChild variant="primary" size="lg">
+                <Link href="/request">Request a visit</Link>
+              </Button>
+              <Button asChild variant="secondary" size="lg">
+                <Link href="/services">See services</Link>
+              </Button>
             </div>
           </div>
-        </section>
+        </Section>
       </main>
 
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="site-footer-inner">
-          <div className="footer-brand">
-            <div className="footer-logo">Parentive</div>
-            <p>Trusted, flexible help for real life.</p>
-          </div>
-          <nav className="footer-nav">
-            <div className="footer-nav-group">
-              <h4>Services</h4>
-              <Link href="/services">All services</Link>
-              <Link href="/pricing">Pricing</Link>
-              <Link href="/service-area">Service area</Link>
-            </div>
-            <div className="footer-nav-group">
-              <h4>Company</h4>
-              <Link href="/about">About</Link>
-              <Link href="/how-it-works">How It Works</Link>
-              <Link href="/trust">Trust & Safety</Link>
-              <Link href="/faq">FAQ</Link>
-            </div>
-            <div className="footer-nav-group">
-              <h4>Join Us</h4>
-              <Link href="/join">Join the Hive</Link>
-            </div>
-            <div className="footer-nav-group">
-              <h4>Legal</h4>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-            </div>
-          </nav>
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Parentive. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer links={footerLinks} />
     </>
   );
 }
