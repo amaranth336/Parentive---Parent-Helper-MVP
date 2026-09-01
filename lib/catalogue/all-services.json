@@ -1,0 +1,29 @@
+[
+  {
+    "sku": "SVC-HL-002",
+    "slug": "fold-and-put-away",
+    "name": "Fold & Put Away",
+    "category": "home-laundry",
+    "shortDescription": "Fold clean laundry and return it to its usual household storage.",
+    "detailedDescription": "We will fold or hang your clean laundry and put everything away in the right places, clearing the basket or pile that has been waiting.",
+    "inclusions": ["Folding or hanging clean laundry", "Returning items to designated storage", "Brief household orientation"],
+    "exclusions": ["Washing or drying", "Ironing or steaming", "Sorting through mixed unsorted items"],
+    "customerPrerequisites": ["Clean laundry ready to fold", "Brief orientation on where items belong"],
+    "serviceProcess": "This is a pilot service. Request through the early access form. Parentive will confirm availability and schedule your visit.",
+    "importantNotes": ["Laundry should already be clean and dry", "Covers one standard basket or equivalent"],
+    "relatedServices": ["laundry-reset", "bed-reset"],
+    "requiresReview": false,
+    "eligibleAddOns": ["pre-ordered-pickup"],
+    "pricingModel": "fixed-outcome",
+    "displayPrice": null,
+    "priceStatus": "pending-validation",
+    "availabilityStatus": "available",
+    "isAddOnEligible": true,
+    "isFeatured": false,
+    "isMvpPriority": true,
+    "seoTitle": "Fold & Put Away Laundry Service | Parentive",
+    "seoDescription": "Take the folding pile off your plate. Parentive will fold and put away your clean laundry.",
+    "estimatedActiveMinutes": 45,
+    "estimatedElapsedMinutes": 60
+  }
+]

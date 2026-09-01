@@ -88,14 +88,14 @@ describe('Catalogue Utilities', () => {
 
   describe('getServicesByCategory', () => {
     it('should filter services by category', () => {
-      const services = getServicesByCategory('laundry-clothing');
+      const services = getServicesByCategory('home-laundry');
       services.forEach((service) => {
-        expect(service.public.category).toBe('laundry-clothing');
+        expect(service.public.category).toBe('home-laundry');
       });
     });
 
     it('should return services for valid categories', () => {
-      const laundry = getServicesByCategory('laundry-clothing');
+      const laundry = getServicesByCategory('home-laundry');
       expect(laundry.length).toBeGreaterThanOrEqual(0);
     });
   });
@@ -190,7 +190,7 @@ describe('Catalogue Utilities', () => {
 
     it('should return categories in correct display order', () => {
       const categories = getCategories();
-      expect(categories[0].id).toBe('laundry-clothing');
+      expect(categories[0].id).toBe('home-laundry');
       expect(categories[1].id).toBe('kitchen-food');
       expect(categories[2].id).toBe('home-reset');
       expect(categories[3].id).toBe('kids-parent-support');
@@ -270,15 +270,15 @@ describe('Catalogue Utilities', () => {
       const grouped = groupServicesByCategory();
 
       // Check that grouping works correctly
-      expect(grouped['laundry-clothing']).toBeDefined();
-      expect(Array.isArray(grouped['laundry-clothing'])).toBe(true);
+      expect(grouped['home-laundry']).toBeDefined();
+      expect(Array.isArray(grouped['home-laundry'])).toBe(true);
     });
 
     it('should have all categories as keys', () => {
       const grouped = groupServicesByCategory();
       const keys = Object.keys(grouped);
 
-      expect(keys).toContain('laundry-clothing');
+      expect(keys).toContain('home-laundry');
       expect(keys).toContain('kitchen-food');
       expect(keys).toContain('home-reset');
       expect(keys).toContain('kids-parent-support');
@@ -288,8 +288,8 @@ describe('Catalogue Utilities', () => {
     it('should group services correctly', () => {
       const grouped = groupServicesByCategory();
 
-      grouped['laundry-clothing'].forEach((service) => {
-        expect(service.public.category).toBe('laundry-clothing');
+      grouped['home-laundry'].forEach((service) => {
+        expect(service.public.category).toBe('home-laundry');
       });
 
       grouped['kitchen-food'].forEach((service) => {
