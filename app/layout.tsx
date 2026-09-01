@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Parentive — Parent Helper",
+  title: "Parentive — Trusted, flexible help for real life",
   description:
-    "A lightweight parent helper for tracking your children's daily routines.",
+    "Take something off your plate. Parentive provides trusted, flexible help with everyday household tasks and family support — from laundry and meal prep to parent-home childcare.",
 };
 
 export default function RootLayout({
