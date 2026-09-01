@@ -34,7 +34,7 @@ else
   fi
   echo "Starting Next.js on ${HOST}:${PORT}..."
   : >"$LOG"
-  nohup npm run dev -- --hostname "$HOST" --port "$PORT" >>"$LOG" 2>&1 &
+  nohup npm run dev >>"$LOG" 2>&1 &
   echo $! > /tmp/parentive-dev.pid
   for i in $(seq 1 90); do
     if ready; then
