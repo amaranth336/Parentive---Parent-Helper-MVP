@@ -140,21 +140,20 @@ export function ServiceDetailContent({ service, relatedServices = [] }: ServiceD
             </Heading>
             <div className="space-y-3">
               {relatedServices.map((related) => (
-                <Card 
+                <Link 
                   key={related.public.sku}
-                  variant="default"
-                  hover
-                  asChild
+                  href={`/services/${related.public.slug}`} 
+                  className="block"
                 >
-                  <Link href={`/services/${related.public.slug}`} className="block">
+                  <Card variant="default">
                     <Heading as="h3" className="mb-1 text-text-brand">
                       {related.public.name}
                     </Heading>
                     <Text size="sm" color="muted">
                       {related.public.shortDescription}
                     </Text>
-                  </Link>
-                </Card>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>

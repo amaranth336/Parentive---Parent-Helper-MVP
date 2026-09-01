@@ -11,8 +11,8 @@ interface ServiceCardProps {
 
 export function ServiceCard({ service }: ServiceCardProps) {
   return (
-    <Card variant="elevated" hover asChild>
-      <Link href={`/services/${service.slug}`} className="block h-full">
+    <Link href={`/services/${service.slug}`} className="block h-full">
+      <Card variant="elevated">
         <div className="flex justify-between items-start gap-2 mb-3">
           <Heading as="h3" className="text-text-brand">
             {service.name}
@@ -30,7 +30,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <Text size="sm" className="text-brand-primary font-semibold">
           Learn more →
         </Text>
-      </Link>
-    </Card>
+      </Card>
+    </Link>
   );
 }

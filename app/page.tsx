@@ -88,38 +88,38 @@ export default function HomePage() {
               What Parentive can take off your plate
             </Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card variant="elevated" hover asChild>
-                <Link href="/services#home-laundry" className="block">
+              <Link href="/services#home-laundry" className="block">
+                <Card variant="elevated">
                   <Heading as="h3" className="mb-3 text-text-brand">Home resets</Heading>
                   <Text size="sm" color="muted">
                     Laundry, bedrooms, playrooms, kitchens and everyday household resets.
                   </Text>
-                </Link>
-              </Card>
-              <Card variant="elevated" hover asChild>
-                <Link href="/services#kitchen-food" className="block">
+                </Card>
+              </Link>
+              <Link href="/services#kitchen-food" className="block">
+                <Card variant="elevated">
                   <Heading as="h3" className="mb-3 text-text-brand">Food & prep</Heading>
                   <Text size="sm" color="muted">
                     Meal prep, lunches, produce prep and kitchen support.
                   </Text>
-                </Link>
-              </Card>
-              <Card variant="elevated" hover asChild>
-                <Link href="/services#family-support" className="block">
+                </Card>
+              </Link>
+              <Link href="/services#family-support" className="block">
+                <Card variant="elevated">
                   <Heading as="h3" className="mb-3 text-text-brand">Kids & family</Heading>
                   <Text size="sm" color="muted">
                     An extra pair of hands while you're home, child engagement and parent-helper support.
                   </Text>
-                </Link>
-              </Card>
-              <Card variant="elevated" hover asChild>
-                <Link href="/services#flexible-support" className="block">
+                </Card>
+              </Link>
+              <Link href="/services#flexible-support" className="block">
+                <Card variant="elevated">
                   <Heading as="h3" className="mb-3 text-text-brand">Everyday life</Heading>
                   <Text size="sm" color="muted">
                     Flexible practical support that doesn't fit neatly into one household category.
                   </Text>
-                </Link>
-              </Card>
+                </Card>
+              </Link>
             </div>
           </div>
         </Section>
