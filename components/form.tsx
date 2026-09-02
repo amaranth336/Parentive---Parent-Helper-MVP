@@ -112,7 +112,7 @@ export function Select({ error, className = '', children, ...props }: SelectProp
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'default' | 'sm';
+  size?: 'default' | 'sm' | 'lg';
 }
 
 export function Button({
@@ -125,8 +125,10 @@ export function Button({
   const classes = [
     'btn',
     variant === 'primary' && 'btn-primary',
+    variant === 'secondary' && 'btn-secondary',
     variant === 'ghost' && 'btn-ghost',
     size === 'sm' && 'btn-sm',
+    size === 'lg' && 'btn-lg',
     className,
   ]
     .filter(Boolean)
