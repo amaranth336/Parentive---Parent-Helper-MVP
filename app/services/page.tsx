@@ -42,14 +42,14 @@ export default function ServicesPage() {
                     {service.public.shortDescription}
                   </p>
                   <div className="cta-row">
-                    <Link
-                      href={`/services/${service.public.slug}`}
-                      className="btn btn-secondary btn-sm"
-                    >
-                      Learn more
-                    </Link>
                     <Link href="/request" className="btn btn-primary btn-sm">
                       {BRAND.customerCta}
+                    </Link>
+                    <Link
+                      href={`/services/${service.public.slug}`}
+                      className="text-link"
+                    >
+                      Learn more
                     </Link>
                   </div>
                 </article>

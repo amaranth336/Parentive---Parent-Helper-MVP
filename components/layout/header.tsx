@@ -1,13 +1,16 @@
 /**
- * Parentive Header Component
+ * Parentive Header
  *
- * Shared navigation header using approved brand assets and semantic tokens.
+ * Shared navigation using the approved lockup and 004 layout tokens.
  */
 
 'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import { LogoLockup } from '@/components/brand/logo';
+import { Icon } from '@/components/brand/icon';
 import { PRIMARY_NAV, BRAND } from '@/lib/content/site';
 
 interface HeaderProps {
@@ -21,32 +24,9 @@ export function Header({ className = '' }: HeaderProps) {
     <header className={`parentive-header ${className}`.trim()}>
       <div className="container">
         <div className="header-content">
-          <Link href="/" className="header-brand">
-            <div className="header-logo">
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <rect width="40" height="40" rx="8" fill="var(--moss)" />
-                <text
-                  x="50%"
-                  y="50%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                  fill="var(--oat)"
-                  fontSize="20"
-                  fontWeight="600"
-                  fontFamily="var(--font-heading)"
-                >
-                  P
-                </text>
-              </svg>
-            </div>
-            <span className="header-wordmark">{BRAND.name}</span>
+          <Link href="/" className="header-brand" onClick={() => setOpen(false)}>
+            <LogoLockup className="header-lockup" priority />
+            <span className="visually-hidden">{BRAND.name}</span>
           </Link>
 
           <nav className="header-nav" aria-label="Main navigation">
@@ -58,7 +38,7 @@ export function Header({ className = '' }: HeaderProps) {
           </nav>
 
           <div className="header-actions">
-            <Link href="/request" className="btn btn-primary">
+            <Link href="/request" className="btn btn-primary header-cta">
               {BRAND.customerCta}
             </Link>
             <button
@@ -66,9 +46,10 @@ export function Header({ className = '' }: HeaderProps) {
               className="header-menu-toggle"
               aria-expanded={open}
               aria-controls="mobile-nav"
+              aria-label={open ? 'Close navigation' : 'Open navigation'}
               onClick={() => setOpen((value) => !value)}
             >
-              {open ? 'Close' : 'Menu'}
+              <Icon icon={open ? X : Menu} size="lg" />
             </button>
           </div>
         </div>

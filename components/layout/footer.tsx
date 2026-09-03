@@ -1,11 +1,12 @@
 /**
- * Parentive Footer Component
+ * Parentive Footer
  *
- * Shared footer using approved brand and semantic tokens.
+ * Shared footer using the approved lockup and semantic tokens.
  */
 
 import React from 'react';
 import Link from 'next/link';
+import { LogoLockup } from '@/components/brand/logo';
 import { BRAND, SERVICE_AREA_LINE } from '@/lib/content/site';
 
 interface FooterProps {
@@ -18,34 +19,11 @@ export function Footer({ className = '' }: FooterProps) {
       <div className="container">
         <div className="footer-content">
           <div className="footer-brand">
-            <div className="footer-logo">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <rect width="32" height="32" rx="6" fill="var(--moss)" />
-                <text
-                  x="50%"
-                  y="50%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                  fill="var(--oat)"
-                  fontSize="16"
-                  fontWeight="600"
-                  fontFamily="var(--font-heading)"
-                >
-                  P
-                </text>
-              </svg>
-            </div>
-            <div className="footer-brand-text">
-              <p className="footer-wordmark">{BRAND.name}</p>
-              <p className="footer-tagline">{BRAND.descriptor}</p>
-            </div>
+            <Link href="/" className="footer-lockup-link">
+              <LogoLockup className="footer-lockup" />
+              <span className="visually-hidden">{BRAND.name}</span>
+            </Link>
+            <p className="footer-tagline">{BRAND.descriptor}</p>
           </div>
 
           <div className="footer-links">

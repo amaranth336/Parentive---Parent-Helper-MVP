@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow } from "@/components/typography";
+import { OrganicBrandSurface } from "@/components/brand/organic-shape";
 import {
   BRAND,
   DIFFERENTIATION,
@@ -205,10 +206,12 @@ export default function HomePage() {
       </section>
 
       <section className="brand-moment">
-        <div className="container">
-          <h2>{BRAND.payoff}</h2>
-          <p>{BRAND.belief}</p>
-        </div>
+        <OrganicBrandSurface shape="quiet-edge" color="sage">
+          <div className="container">
+            <h2>{BRAND.payoff}</h2>
+            <p>{BRAND.belief}</p>
+          </div>
+        </OrganicBrandSurface>
       </section>
 
       <section className="section" id="faq">

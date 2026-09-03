@@ -76,51 +76,33 @@ export default function Step1({ formData, onUpdate, errors }: Step1Props) {
         const services = getServicesByCategory(category.id);
         return (
           <div key={category.id} className="form-section">
-            <h3
-              style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                marginBottom: '12px',
-                color: 'var(--foreground)',
-              }}
-            >
-              {category.name}
-            </h3>
+            <h3 className="service-group-title">{category.name}</h3>
             <div className="service-grid">
-              {services.map((service) => (
-                <div
-                  key={service.public.slug}
-                  className={`service-card ${
-                    selectedServices.includes(service.public.slug) ? 'selected' : ''
-                  }`}
-                  onClick={() => toggleService(service.public.slug)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
-                      toggleService(service.public.slug);
-                    }
-                  }}
-                  role="checkbox"
-                  aria-checked={selectedServices.includes(service.public.slug)}
-                  tabIndex={0}
-                >
-                  <div className="service-card-header">
+              {services.map((service) => {
+                const selected = selectedServices.includes(service.public.slug);
+                const inputId = `service-${service.public.slug}`;
+                return (
+                  <label
+                    key={service.public.slug}
+                    htmlFor={inputId}
+                    className={`service-card ${selected ? 'selected' : ''}`}
+                  >
                     <input
+                      id={inputId}
                       type="checkbox"
-                      checked={selectedServices.includes(service.public.slug)}
+                      className="service-card-check"
+                      checked={selected}
                       onChange={() => toggleService(service.public.slug)}
-                      onClick={(event) => event.stopPropagation()}
-                      aria-label={service.public.name}
                     />
-                    <div style={{ flex: 1 }}>
-                      <div className="service-card-title">{service.public.name}</div>
-                    </div>
-                  </div>
-                  <div className="service-card-description">
-                    {service.public.shortDescription}
-                  </div>
-                </div>
-              ))}
+                    <span className="service-card-body">
+                      <span className="service-card-title">{service.public.name}</span>
+                      <span className="service-card-description">
+                        {service.public.shortDescription}
+                      </span>
+                    </span>
+                  </label>
+                );
+              })}
             </div>
           </div>
         );
