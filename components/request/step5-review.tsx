@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { Alert } from '@/components/form';
+import { getServiceBySlug } from '@/lib/catalogue';
 
 interface Step5Props {
   formData: any;
@@ -66,7 +67,11 @@ export default function Step5({ formData, onUpdate, errors, onEditStep }: Step5P
         {selectedServices.length > 0 && (
           <div className="review-item">
             <div className="review-label">Selected Services:</div>
-            <div className="review-value">{selectedServices.join(', ')}</div>
+            <div className="review-value">
+              {selectedServices
+                .map((slug: string) => getServiceBySlug(slug)?.public.name ?? slug)
+                .join(', ')}
+            </div>
           </div>
         )}
         {flexibleSupportDescription && (
@@ -200,7 +205,7 @@ export default function Step5({ formData, onUpdate, errors, onEditStep }: Step5P
       <Alert variant="info">
             <strong>What happens next?</strong>
             <br />
-            We&apos;ll save your request and use it to understand your support needs. When pilot bookings become available, we&apos;ll reach out via your preferred contact method to discuss scope and pricing.
+            We&apos;ll save your request so we can understand what support you&apos;re looking for and follow up as Parentive moves toward pilot availability.
           </Alert>
     </div>
   );

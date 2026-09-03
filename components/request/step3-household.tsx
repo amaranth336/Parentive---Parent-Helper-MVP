@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { Field, TextInput, TextArea, Radio, RadioGroup, Checkbox, Alert } from '@/components/form';
+import { CHILD_SUPPORT_SERVICE_SLUGS, FOOD_SERVICE_SLUGS } from '@/lib/catalogue';
 
 // GTA service area postal code prefixes
 const SERVICE_AREA_PREFIXES = [
@@ -18,21 +19,6 @@ const SERVICE_AREA_PREFIXES = [
   'L4A', // Whitchurch-Stouffville
   'L9N', // East Gwillimbury
   'L0E', // Georgina
-];
-
-// Food-related service slugs
-const FOOD_SERVICES = [
-  'dinner-prep',
-  'tomorrows-lunches',
-  'meal-prep-reset',
-  'produce-snack-prep',
-  'kitchen-reset',
-];
-
-// Child support service slugs
-const CHILD_SUPPORT_SERVICES = [
-  'uninterrupted-hour',
-  'parents-helper-visit',
 ];
 
 interface Step3Props {
@@ -67,8 +53,12 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
     parentRemainsOnsiteConfirmed = false,
   } = formData;
 
-  const showFoodQuestions = selectedServices.some((s: string) => FOOD_SERVICES.includes(s));
-  const showChildQuestions = selectedServices.some((s: string) => CHILD_SUPPORT_SERVICES.includes(s));
+  const showFoodQuestions = selectedServices.some((s: string) =>
+    (FOOD_SERVICE_SLUGS as readonly string[]).includes(s)
+  );
+  const showChildQuestions = selectedServices.some((s: string) =>
+    (CHILD_SUPPORT_SERVICE_SLUGS as readonly string[]).includes(s)
+  );
 
   const validatePostalCode = (code: string) => {
     const cleaned = code.toUpperCase().replace(/\s/g, '');
@@ -111,7 +101,7 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
     <div>
       <h2 className="form-section-title">Tell us about your household</h2>
       <p className="form-section-description">
-        We&apos;ll collect only the information needed to assess service suitability. Full address will be requested when bookings become available.
+        We&apos;ll collect only the information needed to assess service suitability. Full address is not collected at this stage.
       </p>
 
       <div className="form-section">
@@ -197,7 +187,7 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
       {showFoodQuestions && (
         <>
           <div className="form-section">
-            <h3 className="form-section-title" style={{ fontSize: '17px', color: 'var(--brand)' }}>
+            <h3 className="form-section-title" style={{ fontSize: '17px', color: 'var(--foreground)' }}>
               Food Service Questions
             </h3>
             <p className="form-section-description">
@@ -354,19 +344,17 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
 
       {showChildQuestions && (
         <div className="form-section">
-          <h3 className="form-section-title" style={{ fontSize: '17px', color: 'var(--brand)' }}>
-            Child Support Questions
+          <h3 className="form-section-title" style={{ fontSize: '17px', color: 'var(--foreground)' }}>
+            Parent-home child support
           </h3>
           <p className="form-section-description">
-            You&apos;ve selected parent-home child support. A few questions will help us understand your needs.
+            These questions appear only because you selected Uninterrupted Hour or Parent’s Helper Visit.
           </p>
 
           <Alert variant="info">
-            <strong>Parent/caregiver remains on premises during pilot child support.</strong>
-            <br />
-            Parentive Helpers actively and intentionally engage with children, not just passive supervision.
+            Parentive Helpers assigned to child support are there to actively engage with your child — not simply sit nearby and supervise.
             <br /><br />
-            <strong>Pilot exclusions:</strong> No medication administration, no bathing, no transportation, and children do not leave premises.
+            During the pilot, Parentive Helpers do not administer medication, bathe children, transport children, or take children off the premises. Independent childcare is not available.
           </Alert>
 
           <Field 
@@ -412,9 +400,9 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
           </Field>
 
           <Field 
-            label="Routine & Context (Optional)" 
+            label="Household context that would help (optional)" 
             htmlFor="child-routine-context"
-            hint="Any routines or context that would help?"
+            hint="Share only what is useful for this visit — for example nap timing, favourite activities, or how your child communicates."
           >
             <TextArea
               id="child-routine-context"
@@ -441,7 +429,7 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
 
           <div style={{ marginTop: '16px' }}>
             <Checkbox
-              label="I confirm that a parent/caregiver will remain on premises during the visit"
+              label="I understand that a parent or caregiver must remain on the premises for the duration of parent-home child support during the Parentive pilot."
               checked={parentRemainsOnsiteConfirmed}
               onChange={(e) => onUpdate({ ...formData, parentRemainsOnsiteConfirmed: e.target.checked })}
             />
