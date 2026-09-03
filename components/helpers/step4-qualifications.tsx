@@ -38,7 +38,7 @@ export default function Step4({ formData, onUpdate, errors }: Step4Props) {
         </h3>
         
         <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '12px', lineHeight: '1.6' }}>
-          These certifications are not required but are helpful to note if you have them.
+          For parent-home child support assignments, CPR / First Aid is preferred. It is not currently mandatory for every general Parentive Helper.
         </p>
 
         <Checkbox
@@ -105,8 +105,8 @@ export default function Step4({ formData, onUpdate, errors }: Step4Props) {
         </h3>
 
         <Checkbox
-          label="I can safely perform the physical requirements of household support assignments"
-          hint="This includes tasks like standing, walking, lifting moderate household items, bending, and maintaining physical activity throughout shifts"
+          label="I can safely perform the physical requirements of the assignments I accept"
+          hint="This may include standing, bending, light household activity, carrying everyday household items and moving throughout a customer’s home."
           checked={formData.physicalCapabilitiesConfirmed || false}
           onChange={(e) => handleChange('physicalCapabilitiesConfirmed', e.target.checked)}
         />
@@ -147,7 +147,7 @@ export default function Step4({ formData, onUpdate, errors }: Step4Props) {
         </h3>
         
         <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '16px', lineHeight: '1.6' }}>
-          Optional. Upload your resume or cover letter if you have them prepared. You can also provide these later in the process.
+          A conventional resume is optional. If you have a document that explains your skills, experience, practical capability, or why you are suited to the Parentive Helper role, you can upload it here.
         </p>
 
         <Field 
@@ -175,9 +175,9 @@ export default function Step4({ formData, onUpdate, errors }: Step4Props) {
         </Field>
 
         <Field 
-          label="Cover Letter"
+          label="Fit / experience document"
           htmlFor="coverLetterFile"
-          hint="Optional. PDF, DOC, or DOCX format"
+          hint="Optional. A written explanation of skills, experience and fit if you do not have a conventional resume."
         >
           <div className="file-input-wrapper">
             <label htmlFor="coverLetterFile" className="file-input-label">

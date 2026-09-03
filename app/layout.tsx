@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { DEFAULT_METADATA } from "@/lib/content/site";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -17,9 +20,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Parentive — Practical support for modern family life",
-  description:
-    "Trusted, flexible help with the everyday work that keeps home life moving — from laundry and meal prep to parent-home child support.",
+  title: DEFAULT_METADATA.title,
+  description: DEFAULT_METADATA.description,
+  openGraph: {
+    title: DEFAULT_METADATA.openGraphTitle,
+    description: DEFAULT_METADATA.openGraphDescription,
+    type: "website",
+    locale: "en_CA",
+    siteName: "Parentive",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +38,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <div className="site-content">{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }

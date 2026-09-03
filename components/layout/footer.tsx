@@ -1,11 +1,14 @@
 /**
  * Parentive Footer Component
- * 
+ *
  * Shared footer using approved brand and semantic tokens.
  */
 
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { BRAND, SERVICE_AREA_LINE } from '@/lib/content/site';
 
 interface FooterProps {
   className?: string;
@@ -16,17 +19,15 @@ export function Footer({ className = '' }: FooterProps) {
     <footer className={`parentive-footer ${className}`.trim()}>
       <div className="container">
         <div className="footer-content">
-          {/* Brand Section */}
           <div className="footer-brand">
             <div className="footer-logo">
-              {/* TODO: Replace with actual SVG from /public/brand/logo-mark.svg when available */}
               <svg
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                aria-label="Parentive"
+                aria-hidden="true"
               >
                 <rect width="32" height="32" rx="6" fill="var(--moss)" />
                 <text
@@ -44,61 +45,45 @@ export function Footer({ className = '' }: FooterProps) {
               </svg>
             </div>
             <div className="footer-brand-text">
-              <p className="footer-wordmark">Parentive</p>
-              <p className="footer-tagline">Practical support for modern family life.</p>
+              <p className="footer-wordmark">{BRAND.name}</p>
+              <p className="footer-tagline">{BRAND.descriptor}</p>
             </div>
           </div>
 
-          {/* Footer Links */}
           <div className="footer-links">
-            {/* Services */}
             <div className="footer-column">
-              <h3 className="footer-heading">Services</h3>
+              <h3 className="footer-heading">Explore</h3>
               <nav className="footer-nav">
-                <Link href="/services">All Services</Link>
+                <Link href="/services">Services</Link>
+                <Link href="/how-it-works">How it works</Link>
                 <Link href="/pricing">Pricing</Link>
-                <Link href="/how-it-works">How it Works</Link>
+                <Link href="/request">{BRAND.customerCta}</Link>
               </nav>
             </div>
 
-            {/* Company */}
             <div className="footer-column">
-              <h3 className="footer-heading">Company</h3>
+              <h3 className="footer-heading">Learn</h3>
               <nav className="footer-nav">
-                <Link href="/about">About</Link>
                 <Link href="/faq">FAQ</Link>
-                <Link href="/trust">Trust & Safety</Link>
+                <Link href="/trust">How we build trust</Link>
               </nav>
             </div>
 
-            {/* Join Us */}
             <div className="footer-column">
-              <h3 className="footer-heading">Join Us</h3>
+              <h3 className="footer-heading">Join us</h3>
               <nav className="footer-nav">
-                <Link href="/helpers">Join the Hive</Link>
-                <Link href="/helpers/apply">Apply Now</Link>
-              </nav>
-            </div>
-
-            {/* Legal */}
-            <div className="footer-column">
-              <h3 className="footer-heading">Legal</h3>
-              <nav className="footer-nav">
-                <Link href="/privacy">Privacy</Link>
-                <Link href="/terms">Terms</Link>
+                <Link href="/helpers">{BRAND.recruitmentCta}</Link>
+                <Link href="/helpers/apply">Apply to be a Helper</Link>
               </nav>
             </div>
           </div>
         </div>
 
-        {/* Footer Bottom */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © {new Date().getFullYear()} Parentive. All rights reserved.
+            © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
           </p>
-          <p className="footer-location">
-            Serving select GTA communities
-          </p>
+          <p className="footer-location">{SERVICE_AREA_LINE}</p>
         </div>
       </div>
 
@@ -107,7 +92,7 @@ export function Footer({ className = '' }: FooterProps) {
           background: var(--background-alt);
           border-top: 1px solid var(--border);
           padding: var(--space-12) 0 var(--space-6);
-          margin-top: var(--space-20);
+          margin-top: var(--space-16);
         }
 
         .footer-content {
@@ -163,7 +148,7 @@ export function Footer({ className = '' }: FooterProps) {
 
         @media (min-width: 640px) {
           .footer-links {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
           }
         }
 
@@ -207,15 +192,14 @@ export function Footer({ className = '' }: FooterProps) {
           gap: var(--space-2);
           padding-top: var(--space-6);
           border-top: 1px solid var(--border);
-          text-align: center;
         }
 
         @media (min-width: 640px) {
           .footer-bottom {
             flex-direction: row;
             justify-content: space-between;
-            align-items: center;
-            text-align: left;
+            align-items: flex-start;
+            gap: var(--space-6);
           }
         }
 
@@ -224,6 +208,7 @@ export function Footer({ className = '' }: FooterProps) {
           font-size: var(--text-xs);
           color: var(--muted-foreground);
           margin: 0;
+          max-width: 36rem;
         }
       `}</style>
     </footer>

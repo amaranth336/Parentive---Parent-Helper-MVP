@@ -1,201 +1,244 @@
 /**
  * Join the Hive - Helper Recruitment Landing Page
- * 
- * Recruitment page for Parentive Helpers, following Linear 009 requirements.
+ *
+ * Recruitment page for Parentive Helpers.
  */
 
-'use client';
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  BRAND,
+  SERVICE_AREA_COMMUNITIES,
+} from "@/lib/content/site";
 
-import { Button } from '@/components/form';
+export const metadata: Metadata = {
+  title: "Join the Hive",
+  description:
+    "Help build Parentive from the beginning as a Founding Helper. Flexible local household support work across select GTA communities. Pilot compensation $20–$23/hour.",
+};
+
+const HIRING_STEPS = [
+  {
+    title: "Apply",
+    description:
+      "Tell us about your availability, experience and what you’d bring to Parentive.",
+  },
+  {
+    title: "Intro conversation",
+    description: "Meet Parentive and learn more about the role.",
+  },
+  {
+    title: "Screening",
+    description:
+      "May include a job-related assessment and references. The assessment is designed so people can demonstrate capability even without a conventional resume.",
+  },
+  {
+    title: "Conditional offer",
+    description: "Successful candidates receive a conditional employment offer.",
+  },
+  {
+    title: "Accept offer + provide required criminal-record check",
+    description:
+      "After accepting, you provide the required criminal-record check and complete remaining pre-employment requirements.",
+  },
+  {
+    title: "Parentive onboarding",
+    description:
+      "Founder-led orientation covering Parentive purpose, the service catalogue, standards, household boundaries, privacy, and what successful delivery looks like.",
+  },
+  {
+    title: "Join the Hive",
+    description:
+      "Begin eligible Parentive assignments as demand becomes available.",
+  },
+];
+
+const ROLE_POINTS = [
+  {
+    title: "Flexible local work",
+    description:
+      "You share your availability. Parentive schedules around demand, geography and fit.",
+  },
+  {
+    title: "Meaningful household support",
+    description:
+      "The work creates practical capacity for households — laundry, kitchens, resets, and parent-home child support when you qualify.",
+  },
+  {
+    title: "Variety",
+    description:
+      "The role spans real household support rather than one narrowly defined task category.",
+  },
+  {
+    title: "Parentive handles coordination",
+    description:
+      "Parentive owns customer relationships, the service catalogue, scope and standards. Helpers are not expected to build a client base.",
+  },
+  {
+    title: "Clear expectations",
+    description:
+      "You work to an agreed outcome, follow household instructions, and communicate when circumstances change.",
+  },
+  {
+    title: "Fair, respectful compensation",
+    description:
+      "Parentive Helpers are employees. The work is treated as professional household support, not a side hustle.",
+  },
+  {
+    title: "Strong customer service",
+    description:
+      "Warmth, discretion, judgement and quality are core to the role. The experience a household has with a Helper is the Parentive experience.",
+  },
+  {
+    title: "Initiative within scope",
+    description:
+      "Notice what matters, work independently, and use good judgement inside the agreed service boundaries.",
+  },
+  {
+    title: "Help build a modern village",
+    description:
+      "Founding Helpers help shape how practical support gets done for modern households.",
+  },
+];
 
 export default function HelpersPage() {
   return (
-    <main className="page">
-      {/* Header */}
-      <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-          <div className="logo">🧸</div>
-          <h1 style={{ fontSize: '28px', margin: 0, color: '#fff' }}>Parentive</h1>
-        </div>
-        <h2 style={{ fontSize: '32px', fontWeight: 700, color: '#fff', margin: '16px 0 12px', letterSpacing: '-0.02em' }}>
-          Join the Hive
-        </h2>
-        <p style={{ fontSize: '18px', color: 'rgba(226, 232, 240, 0.9)', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
-          Become a Founding Helper and help shape a new kind of practical support for modern households.
-        </p>
-      </div>
-
-      {/* Main content */}
-      <div className="card" style={{ maxWidth: '900px', margin: '0 auto 28px' }}>
-        {/* Active hiring alert */}
-        <div className="alert alert-info" style={{ marginBottom: '24px' }}>
-          <strong>We&apos;re actively hiring.</strong> Preliminary hiring begins with the Parentive pilot. The first cohort will be relatively small, with hiring expected to increase as Parentive grows following pilot validation.
-        </div>
-
-        {/* Hero section */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Help shape the Hive from the beginning
-          </h3>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            Parentive&apos;s Founding Helpers won&apos;t just deliver the service — they&apos;ll help us understand what great work should look like here. Early Helpers will have a voice in how Parentive develops its standards, training, scheduling, employee experience and future benefits as the company grows.
+    <main className="section">
+      <div className="container">
+        <div className="section-intro">
+          <h1>{BRAND.recruitmentCta}</h1>
+          <p className="lead">
+            Help build Parentive from the beginning. Parentive Helpers provide
+            practical household and family support in customer homes — as
+            employees, not gig workers.
           </p>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            We&apos;re building something that doesn&apos;t fit neatly into traditional cleaning, babysitting or gig-work categories. Parentive is about meaningful practical support for modern households — and our Founding Helpers will be central to shaping what that looks like.
+        </div>
+
+        <div className="alert alert-info" style={{ marginBottom: "var(--space-8)" }}>
+          Parentive is actively assembling its first Hive for pilot launch. The
+          first cohort will be relatively small, with hiring expected to grow as
+          Parentive validates the service.
+        </div>
+
+        <section className="form-section">
+          <h2>Founding Helpers</h2>
+          <p>
+            Parentive’s Founding Helpers won’t just deliver the service —
+            they’ll help shape how Parentive grows. Early Helpers will have a
+            voice in how standards, onboarding, scheduling, employee experience
+            and future benefits evolve.
+          </p>
+          <p>
+            We’re building something that doesn’t fit neatly into traditional
+            cleaning, babysitting or gig-work categories. Parentive is about
+            meaningful practical support for modern households — and our
+            Founding Helpers will be central to shaping what that looks like.
           </p>
         </section>
 
-        {/* What we're looking for */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            What We&apos;re Looking For
-          </h3>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            We&apos;re recruiting broadly for people who are capable, dependable, practical, warm, service-oriented, comfortable working independently, committed to quality, and able to uphold Parentive&apos;s standards inside customers&apos; homes.
+        <section className="form-section">
+          <h2>The role</h2>
+          <p>
+            A Parentive Helper is capable of the standard non-childcare
+            catalogue: home and laundry, kitchen and food, and flexible
+            household support. Child-support assignments are a separate
+            capability, assessed on meaningful engagement rather than passive
+            supervision.
           </p>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text-muted)', marginBottom: '0' }}>
-            Relevant experience may come from household management, hospitality, customer service, food preparation, childcare, education, caregiving, cleaning, retail, parenting, or other practical work. We evaluate demonstrated ability over conventional employment history.
-          </p>
+          <div className="card-grid cols-2">
+            {ROLE_POINTS.map((point) => (
+              <article key={point.title} className="card">
+                <h3 className="card-title">{point.title}</h3>
+                <p className="card-description">{point.description}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
-        {/* Compensation */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Compensation
-          </h3>
-          <div style={{ padding: '18px 20px', background: 'var(--panel-muted)', borderRadius: '12px', marginBottom: '12px' }}>
-            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--brand)', marginBottom: '6px' }}>
+        <section className="form-section">
+          <h2>Pilot compensation</h2>
+          <div className="card">
+            <p style={{ fontSize: "var(--text-3xl)", fontWeight: 600, marginBottom: "var(--space-2)" }}>
               $20–$23/hour
-            </div>
-            <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
-              Pilot compensation range
-            </div>
-          </div>
-          <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text-muted)', marginBottom: '0' }}>
-            Compensation will be reviewed as Parentive moves through pilot and launch. Compensation within the range may ultimately reflect relevant experience, demonstrated skills and role requirements.
-          </p>
-        </section>
-
-        {/* Employment model */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Employment Model
-          </h3>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            <strong>Parentive Helpers are Parentive employees</strong> — not independent contractors or gig-platform workers.
-          </p>
-          <div className="alert alert-warning">
-            <strong>Pilot hours are flexible and will vary with customer demand.</strong> There is no guaranteed number of hours during this stage. Hours will depend on customer demand, geography, Helper availability and suitability. Preference will be given to applicants who can commit to at least 6 hours of availability per week.
+            </p>
+            <p>
+              Pilot compensation range. Compensation will be reviewed as
+              Parentive moves through pilot and launch.
+            </p>
+            <p>
+              Hours are flexible and not guaranteed during pilot. Preference
+              will be given to applicants who can offer at least 6 hours of
+              availability per week. That preference is not a promise of six
+              scheduled hours.
+            </p>
           </div>
         </section>
 
-        {/* Work geography */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Work Geography
-          </h3>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '8px' }}>
-            Parentive Helpers work in customer homes across select GTA communities, including:
+        <section className="form-section">
+          <h2>Where the work happens</h2>
+          <p>
+            Parentive Helpers work in customer homes across select GTA
+            communities, including:
           </p>
-          <ul style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', paddingLeft: '24px', marginBottom: '0' }}>
-            <li>East Gwillimbury</li>
-            <li>Newmarket</li>
-            <li>Aurora</li>
-            <li>Georgina</li>
-            <li>Whitchurch-Stouffville</li>
+          <ul>
+            {SERVICE_AREA_COMMUNITIES.map((place) => (
+              <li key={place}>{place}</li>
+            ))}
           </ul>
-          <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text-muted)', marginTop: '12px' }}>
-            Work locations vary by assignment.
+          <p>Work locations vary by assignment.</p>
+          <p>
+            Applicants need a valid driver’s licence, their own reliable
+            vehicle, and appropriate vehicle insurance.
           </p>
         </section>
 
-        {/* Requirements */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Core Requirements
-          </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '16px', background: 'var(--panel-muted)', borderRadius: '10px' }}>
-              <h4 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '8px', color: 'var(--text)' }}>
-                Age & Eligibility
-              </h4>
-              <ul style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text)', paddingLeft: '20px', margin: 0 }}>
-                <li>At least 18 years old</li>
-                <li>Legally eligible to work in Canada</li>
-              </ul>
-            </div>
-            <div style={{ padding: '16px', background: 'var(--panel-muted)', borderRadius: '10px' }}>
-              <h4 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '8px', color: 'var(--text)' }}>
-                Transportation
-              </h4>
-              <ul style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text)', paddingLeft: '20px', margin: 0 }}>
-                <li>Valid driver&apos;s license</li>
-                <li>Reliable personal vehicle</li>
-                <li>Appropriate insurance</li>
-              </ul>
-            </div>
-            <div style={{ padding: '16px', background: 'var(--panel-muted)', borderRadius: '10px' }}>
-              <h4 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '8px', color: 'var(--text)' }}>
-                Capabilities
-              </h4>
-              <ul style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text)', paddingLeft: '20px', margin: 0 }}>
-                <li>Dependable and punctual</li>
-                <li>Comfortable working independently</li>
-                <li>Excellent customer service</li>
-                <li>Committed to quality standards</li>
-              </ul>
-            </div>
+        <section className="form-section">
+          <h2>Who should apply</h2>
+          <p>
+            Recruiting is open and not aimed at any one gender, parent status,
+            or student background. Relevant experience can come from household
+            management, hospitality, customer service, food preparation,
+            childcare, education, caregiving, light household work, retail, or
+            lived household experience. Demonstrated ability matters more than a
+            conventional job title.
+          </p>
+          <p>Applicants must be 18+ and eligible to legally work in Canada.</p>
+        </section>
+
+        <section className="form-section">
+          <h2>Hiring process</h2>
+          <ol className="steps" style={{ listStyle: "none", padding: 0 }}>
+            {HIRING_STEPS.map((step, index) => (
+              <li key={step.title} className="card step-block">
+                <div className="step-number">{index + 1}</div>
+                <h3>{step.title}</h3>
+                <p className="card-description">{step.description}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="form-section">
+          <h2>A note on inclusion</h2>
+          <p>
+            Parentive welcomes qualified applicants from all backgrounds. Hiring
+            decisions are based on job-related qualifications, demonstrated
+            ability and the requirements of the role, without discrimination
+            contrary to applicable law.
+          </p>
+        </section>
+
+        <div className="card">
+          <h2>Ready to put your hand up?</h2>
+          <p>
+            Submit an application to be considered for Parentive’s Founding
+            Helper team.
+          </p>
+          <div className="cta-row">
+            <Link href="/helpers/apply" className="btn btn-primary btn-lg">
+              {BRAND.recruitmentCta}
+            </Link>
           </div>
-        </section>
-
-        {/* Child support */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Child Support Capability
-          </h3>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            Child-support assignments require an additional capability designation. Not every Parentive Helper automatically qualifies for child-support work.
-          </p>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            Parentive child support is intentionally hands-on. Helpers assigned to these tasks must demonstrate meaningful, active child engagement — not merely supervision. We assess relevant experience, comfort with children, appropriate judgement, ability to actively engage, and understanding of age-appropriate interaction.
-          </p>
-        </section>
-
-        {/* Hiring process */}
-        <section style={{ marginBottom: '40px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>
-            Hiring Process
-          </h3>
-          <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', marginBottom: '16px' }}>
-            Parentive&apos;s hiring process includes:
-          </p>
-          <ul style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--text)', paddingLeft: '24px', marginBottom: '16px' }}>
-            <li>Application submission</li>
-            <li>Interview process</li>
-            <li>Job-related practical assessment</li>
-            <li>Reference checks</li>
-            <li>Criminal record check (following conditional offer)</li>
-            <li>Parentive onboarding</li>
-          </ul>
-          <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text-muted)', marginBottom: '0' }}>
-            Our practical assessment allows candidates to demonstrate capability even when their resume doesn&apos;t contain directly comparable employment experience. Assessment focuses on organization, judgement, task execution, following instructions, attention to detail, communication, and customer-service thinking.
-          </p>
-        </section>
-
-        {/* CTA */}
-        <div style={{ textAlign: 'center', padding: '32px 20px', background: 'rgba(99, 102, 241, 0.05)', borderRadius: '12px' }}>
-          <h3 style={{ fontSize: '22px', fontWeight: 600, marginBottom: '12px', color: 'var(--text)' }}>
-            Ready to Join the Hive?
-          </h3>
-          <p style={{ fontSize: '16px', color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
-            Submit your application to become a Founding Helper with Parentive.
-          </p>
-          <Button
-            onClick={() => window.location.href = '/helpers/apply'}
-            style={{ maxWidth: '300px', margin: '0 auto' }}
-          >
-            Start Your Application
-          </Button>
         </div>
       </div>
     </main>

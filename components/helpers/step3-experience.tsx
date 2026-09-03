@@ -22,9 +22,9 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
 
   return (
     <div>
-      <h2 className="form-section-title">Experience & Background</h2>
+      <h2 className="form-section-title">Experience and fit</h2>
       <p className="form-section-description">
-        Tell us about your relevant experience and why you&apos;re interested in becoming a Parentive Helper.
+        Tell us about the experience or skills you would bring, how you work independently, and why Parentive.
       </p>
 
       {/* Relevant experience */}
@@ -32,7 +32,7 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
         <Field 
           label="Relevant Experience"
           htmlFor="relevantExperience"
-          hint="Tell us about your background. This may include household management, hospitality, customer service, food preparation, childcare, education, caregiving, cleaning, retail, parenting, or other practical work."
+          hint="This may include household management, hospitality, customer service, food preparation, childcare, education, caregiving, light household work, retail, parenting, or other practical work. Conventional employment history is not required."
         >
           <TextArea
             id="relevantExperience"
@@ -47,9 +47,9 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
       {/* Why interested */}
       <div className="form-section">
         <Field 
-          label="Why are you interested in becoming a Parentive Helper?"
+          label="Why Parentive?"
           htmlFor="whyInterested"
-          hint="What draws you to this role and to being part of Parentive's founding team?"
+          hint="What draws you to Parentive Helper work and to helping build the first Hive?"
         >
           <TextArea
             id="whyInterested"
@@ -64,9 +64,9 @@ export default function Step3({ formData, onUpdate, errors }: Step3Props) {
       {/* Strengths */}
       <div className="form-section">
         <Field 
-          label="What would you bring to this role?"
+          label="Working independently and customer service"
           htmlFor="strengths"
-          hint="What strengths, skills, or qualities would you bring as a Parentive Helper?"
+          hint="How do you take responsibility for work without continuous supervision? How do you approach customers, communication and quality?"
         >
           <TextArea
             id="strengths"

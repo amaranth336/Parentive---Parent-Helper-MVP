@@ -198,7 +198,7 @@ export default function Step5({ formData, onUpdate, errors, onEditStep }: Step5P
 
         <Checkbox
           label="I'd like to receive occasional updates about Parentive (optional)"
-          hint="Optional. Receive news about Parentive's development, hiring updates, and company milestones"
+          hint="Optional. Receive news about Parentive’s development, hiring updates, and company news"
           checked={formData.marketingConsent || false}
           onChange={(e) => handleChange('marketingConsent', e.target.checked)}
         />

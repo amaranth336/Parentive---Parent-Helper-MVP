@@ -96,13 +96,6 @@ export default function Step1({ formData, onUpdate, errors }: Step1Props) {
             />
             <Radio
               name="preferredContactMethod"
-              value="phone"
-              label="Phone call"
-              checked={formData.preferredContactMethod === 'phone'}
-              onChange={(e) => handleChange('preferredContactMethod', e.target.value)}
-            />
-            <Radio
-              name="preferredContactMethod"
               value="either"
               label="Either email or text"
               checked={formData.preferredContactMethod === 'either'}
@@ -156,7 +149,7 @@ export default function Step1({ formData, onUpdate, errors }: Step1Props) {
         />
 
         <Checkbox
-          label="I am legally eligible to work in Canada"
+          label="Eligible to legally work in Canada?"
           checked={formData.legallyEligibleToWorkInCanada || false}
           onChange={(e) => handleChange('legallyEligibleToWorkInCanada', e.target.checked)}
         />
@@ -173,7 +166,7 @@ export default function Step1({ formData, onUpdate, errors }: Step1Props) {
         </h3>
         
         <div className="alert alert-info" style={{ marginBottom: '16px' }}>
-          During the pilot, Helpers must have a valid driver&apos;s license, reliable personal vehicle, and appropriate insurance. This requirement may be revisited following pilot validation.
+          During the pilot, Helpers must have a valid driver&apos;s licence, their own reliable vehicle, and appropriate vehicle insurance.
         </div>
 
         <Checkbox

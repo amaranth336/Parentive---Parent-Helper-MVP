@@ -1,258 +1,256 @@
-"use client";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Eyebrow } from "@/components/typography";
+import {
+  BRAND,
+  DIFFERENTIATION,
+  FAQS,
+  HOMEPAGE_FAMILIES,
+  HOW_IT_WORKS_PREVIEW,
+  RECURRING_RHYTHMS,
+  SERVICE_AREA_LINE,
+} from "@/lib/content/site";
 
-import { useEffect, useMemo, useState } from "react";
-import type { Child } from "@/lib/types";
+export const metadata: Metadata = {
+  title: "Take something off your plate",
+  description:
+    "Parentive gives families flexible, practical help with the everyday work that keeps home life moving — from laundry and meal prep to parent-home child support.",
+  openGraph: {
+    title: "Parentive — Take something off your plate",
+    description:
+      "Trusted, flexible help for real life. Practical household and family support for modern family life.",
+  },
+};
 
-export default function Home() {
-  const [children, setChildren] = useState<Child[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState<string | null>(null);
-
-  const [childName, setChildName] = useState("");
-  const [childAge, setChildAge] = useState("");
-
-  const [activityTitle, setActivityTitle] = useState("");
-  const [activityTime, setActivityTime] = useState("");
-
-  const selected = useMemo(
-    () => children.find((c) => c.id === selectedId) ?? null,
-    [children, selectedId]
-  );
-
-  function flash(message: string) {
-    setToast(message);
-    setTimeout(() => setToast(null), 2200);
-  }
-
-  async function loadChildren(keepSelection = true) {
-    const res = await fetch("/api/children");
-    const data = await res.json();
-    const list: Child[] = data.children ?? [];
-    setChildren(list);
-    setSelectedId((prev) => {
-      if (keepSelection && prev && list.some((c) => c.id === prev)) return prev;
-      return list[0]?.id ?? null;
-    });
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    loadChildren();
-  }, []);
-
-  async function handleAddChild(e: React.FormEvent) {
-    e.preventDefault();
-    if (!childName.trim()) return;
-    const res = await fetch("/api/children", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: childName, ageYears: childAge || 0 }),
-    });
-    if (res.ok) {
-      const { child } = await res.json();
-      setChildName("");
-      setChildAge("");
-      await loadChildren(false);
-      setSelectedId(child.id);
-      flash(`Added ${child.name}`);
-    } else {
-      const err = await res.json();
-      flash(err.error ?? "Could not add child");
-    }
-  }
-
-  async function handleAddActivity(e: React.FormEvent) {
-    e.preventDefault();
-    if (!selected || !activityTitle.trim()) return;
-    const res = await fetch(`/api/children/${selected.id}/activities`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: activityTitle, time: activityTime }),
-    });
-    if (res.ok) {
-      setActivityTitle("");
-      setActivityTime("");
-      await loadChildren();
-      flash("Activity added");
-    } else {
-      const err = await res.json();
-      flash(err.error ?? "Could not add activity");
-    }
-  }
-
-  async function toggle(activityId: string) {
-    if (!selected) return;
-    await fetch(`/api/children/${selected.id}/activities/${activityId}`, {
-      method: "PATCH",
-    });
-    await loadChildren();
-  }
-
-  async function remove(activityId: string) {
-    if (!selected) return;
-    await fetch(`/api/children/${selected.id}/activities/${activityId}`, {
-      method: "DELETE",
-    });
-    await loadChildren();
-    flash("Activity removed");
-  }
-
-  const activities = selected?.activities ?? [];
-  const doneCount = activities.filter((a) => a.done).length;
-  const pct = activities.length
-    ? Math.round((doneCount / activities.length) * 100)
-    : 0;
-
-  const sortedActivities = [...activities].sort((a, b) =>
-    a.time.localeCompare(b.time)
-  );
-
+export default function HomePage() {
   return (
-    <main className="page">
-      <div className="header">
-        <div className="logo">🧸</div>
-        <div style={{ flex: 1 }}>
-          <h1>Parentive</h1>
-          <p>Keep your kids&apos; daily routines on track.</p>
-        </div>
-        <a 
-          href="/request"
-          className="btn btn-primary"
-          style={{ whiteSpace: 'nowrap', width: 'auto' }}
-        >
-          Take it off my plate
-        </a>
-      </div>
-
-      <div className="grid">
-        <section className="card">
-          <h2>Children</h2>
-          <form onSubmit={handleAddChild}>
-            <div className="field">
-              <label htmlFor="childName">Name</label>
-              <input
-                id="childName"
-                value={childName}
-                onChange={(e) => setChildName(e.target.value)}
-                placeholder="e.g. Noah"
-              />
+    <main>
+      <section className="section">
+        <div className="container">
+          <div className="section-intro">
+            <Eyebrow>Practical support for modern family life</Eyebrow>
+            <h1>{BRAND.proposition}</h1>
+            <p className="lead">
+              Parentive gives families flexible, practical help with the
+              everyday work that keeps home life moving — from laundry and meal
+              prep to parent-home child support and everything in between.
+            </p>
+            <div className="cta-row">
+              <Link href="/request" className="btn btn-primary btn-lg">
+                {BRAND.customerCta}
+              </Link>
+              <Link href="/services" className="btn btn-secondary btn-lg">
+                {BRAND.servicesCta}
+              </Link>
             </div>
-            <div className="field">
-              <label htmlFor="childAge">Age</label>
-              <input
-                id="childAge"
-                type="number"
-                min={0}
-                max={25}
-                value={childAge}
-                onChange={(e) => setChildAge(e.target.value)}
-                placeholder="years"
-              />
-            </div>
-            <button className="btn btn-primary" type="submit">
-              + Add child
-            </button>
-          </form>
-
-          <div className="child-list">
-            {loading ? (
-              <div className="empty">Loading…</div>
-            ) : children.length === 0 ? (
-              <div className="empty">No children yet. Add one above.</div>
-            ) : (
-              children.map((c) => (
-                <div
-                  key={c.id}
-                  className={`child-pill ${c.id === selectedId ? "active" : ""}`}
-                  onClick={() => setSelectedId(c.id)}
-                >
-                  <span className="name">{c.name}</span>
-                  <span className="age">{c.ageYears} yrs</span>
-                </div>
-              ))
-            )}
+            <p className="text-sm text-muted" style={{ marginTop: "var(--space-6)" }}>
+              {SERVICE_AREA_LINE}
+            </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="card">
-          {selected ? (
-            <>
-              <div className="section-head">
-                <h2>{selected.name}&apos;s routine</h2>
-                <span className="muted">
-                  {doneCount}/{activities.length} done
-                </span>
+      <section className="section section-alt" id="services">
+        <div className="container">
+          <div className="section-intro">
+            <h2>What would you like off your plate?</h2>
+            <p className="lead">
+              Choose one thing or combine a few. Parentive is designed around
+              the way household life actually works.
+            </p>
+          </div>
+          <div className="card-grid cols-4">
+            {HOMEPAGE_FAMILIES.map((family) => (
+              <Link key={family.id} href={family.href} className="card">
+                <h3 className="card-title">{family.name}</h3>
+                <p className="card-description">{family.description}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="cta-row">
+            <Link href="/services" className="btn btn-primary">
+              Explore all services
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="how-it-works">
+        <div className="container">
+          <div className="section-intro">
+            <h2>A simpler way to ask for help</h2>
+          </div>
+          <div className="steps cols-4">
+            {HOW_IT_WORKS_PREVIEW.map((step, index) => (
+              <div key={step.title} className="step-block card">
+                <div className="step-number">{index + 1}</div>
+                <h3>{step.title}</h3>
+                <p className="text-muted">{step.description}</p>
               </div>
+            ))}
+          </div>
+          <div className="cta-row">
+            <Link href="/how-it-works" className="btn btn-secondary">
+              How Parentive works
+            </Link>
+          </div>
+        </div>
+      </section>
 
-              <div className="progress" aria-label="completion">
-                <span style={{ width: `${pct}%` }} />
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-intro">
+            <h2>Help doesn’t have to be a one-off.</h2>
+            <p className="lead">
+              Some households need an extra pair of hands every week. Others
+              want a reset every couple of weeks, once a month, or only when
+              life calls for it. Parentive is being built to support all of
+              those rhythms.
+            </p>
+          </div>
+          <div className="card-grid cols-4">
+            {RECURRING_RHYTHMS.map((rhythm) => (
+              <div key={rhythm.name} className="card">
+                <h3 className="card-title">{rhythm.name}</h3>
+                <p className="card-description">{rhythm.description}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <form onSubmit={handleAddActivity} className="row">
-                <div className="field grow">
-                  <label htmlFor="activityTitle">Activity</label>
-                  <input
-                    id="activityTitle"
-                    value={activityTitle}
-                    onChange={(e) => setActivityTitle(e.target.value)}
-                    placeholder="e.g. Brush teeth"
-                  />
-                </div>
-                <div className="field">
-                  <label htmlFor="activityTime">Time</label>
-                  <input
-                    id="activityTime"
-                    type="time"
-                    value={activityTime}
-                    onChange={(e) => setActivityTime(e.target.value)}
-                  />
-                </div>
-                <button className="btn btn-primary" type="submit">
-                  Add
-                </button>
-              </form>
-
-              <div style={{ marginTop: 18 }}>
-                {sortedActivities.length === 0 ? (
-                  <div className="empty">
-                    No activities yet. Add the first routine above.
-                  </div>
-                ) : (
-                  sortedActivities.map((a) => (
-                    <div
-                      key={a.id}
-                      className={`activity ${a.done ? "done" : ""}`}
-                    >
-                      <button
-                        className={`check ${a.done ? "on" : ""}`}
-                        onClick={() => toggle(a.id)}
-                        aria-label={a.done ? "Mark not done" : "Mark done"}
-                      >
-                        {a.done ? "✓" : ""}
-                      </button>
-                      <span className="time">{a.time}</span>
-                      <span className="title">{a.title}</span>
-                      <button
-                        className="link-danger"
-                        onClick={() => remove(a.id)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ))
-                )}
+      <section className="section">
+        <div className="container">
+          <div className="section-intro">
+            <h2>A different kind of household support</h2>
+            <p className="lead">
+              Somewhere between cleaning, childcare and the everyday tasks that
+              keep a household running, there’s a lot of life that still needs
+              doing. Parentive is built for that space.
+            </p>
+          </div>
+          <div className="card-grid cols-2">
+            {DIFFERENTIATION.map((item) => (
+              <div key={item.name} className="card">
+                <h3 className="card-title">{item.name}</h3>
+                <p className="card-description">{item.description}</p>
               </div>
-            </>
-          ) : (
-            <div className="empty">
-              Select or add a child to start building their routine.
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-intro">
+            <h2>Support in your home should feel considered.</h2>
+            <p className="lead">
+              Parentive is being built around intentional Helper selection,
+              clear service expectations, respectful in-home support and
+              reliable communication.
+            </p>
+            <p>
+              For parent-home child support, Helpers will be selected for their
+              ability to engage meaningfully with children — not simply provide
+              passive supervision.
+            </p>
+            <div className="cta-row">
+              <Link href="/trust" className="btn btn-secondary">
+                How we build trust
+              </Link>
             </div>
-          )}
-        </section>
-      </div>
+          </div>
+        </div>
+      </section>
 
-      {toast && <div className="toast">{toast}</div>}
+      <section className="section">
+        <div className="container">
+          <div className="section-intro">
+            <h2>Clear pricing. No guesswork.</h2>
+            <p className="lead">
+              Parentive is being designed around straightforward pricing that
+              matches the kind of support you choose. Defined services are
+              priced around the outcome, while flexible support is based on
+              reserved Helper time.
+            </p>
+            <p>Pilot pricing is being finalized before bookings open.</p>
+            <div className="cta-row">
+              <Link href="/pricing" className="btn btn-secondary">
+                See pricing
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-intro">
+            <h2>Why Parentive</h2>
+            <p className="lead">
+              Modern households carry a lot, and the help available to them
+              often comes in narrow categories. You can hire someone to clean.
+              You can find childcare. You can outsource a particular task. But
+              everyday family life rarely fits neatly into one of those boxes.
+            </p>
+            <p>
+              Parentive was built around a simpler idea: practical support
+              should be easier to access, more flexible in what it can cover,
+              and a normal part of how families create capacity for the things
+              that matter to them.
+            </p>
+            <p>Built by parents, for modern family life.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="brand-moment">
+        <div className="container">
+          <h2>{BRAND.payoff}</h2>
+          <p>{BRAND.belief}</p>
+        </div>
+      </section>
+
+      <section className="section" id="faq">
+        <div className="container">
+          <div className="section-intro">
+            <h2>Questions, answered simply</h2>
+          </div>
+          <div className="faq-list">
+            {FAQS.map((item) => (
+              <details key={item.question} className="faq-item">
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+          <div className="cta-row">
+            <Link href="/faq" className="btn btn-secondary">
+              See all FAQs
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-intro">
+            <h2>What could you take off your plate?</h2>
+            <p className="lead">
+              Parentive is preparing for pilot launch. Tell us what kind of
+              support would make more room in your household.
+            </p>
+            <div className="cta-row">
+              <Link href="/request" className="btn btn-primary btn-lg">
+                {BRAND.customerCta}
+              </Link>
+              <Link href="/services" className="btn btn-secondary btn-lg">
+                {BRAND.servicesCta}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -117,6 +117,13 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Compatibility aliases used by existing form routes */
+  --text: var(--foreground);
+  --text-muted: var(--muted-foreground);
+  --panel-muted: var(--background-alt);
+  --brand: var(--primary);
+  --danger: var(--error);
 }
 
 /* ============================================ */
@@ -150,6 +157,13 @@ body {
   color: var(--foreground);
   background: var(--background);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.site-content {
+  flex: 1 0 auto;
 }
 
 /* ============================================ */
@@ -230,7 +244,6 @@ strong {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--space-8) var(--space-4);
-  min-height: 100vh;
 }
 
 @media (min-width: 768px) {
@@ -343,6 +356,20 @@ strong {
 .btn-primary {
   background: var(--primary);
   color: var(--primary-foreground);
+}
+
+a.btn {
+  color: inherit;
+}
+
+a.btn-primary,
+a.btn-primary:hover {
+  color: var(--primary-foreground);
+}
+
+a.btn-secondary,
+a.btn-secondary:hover {
+  color: var(--foreground);
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -871,6 +898,169 @@ select,
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* ============================================ */
+/* CONTENT LAYOUT PRIMITIVES */
+/* ============================================ */
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--foreground-secondary);
+  max-width: 42rem;
+  line-height: var(--leading-relaxed);
+}
+
+.section-intro {
+  max-width: 44rem;
+  margin-bottom: var(--space-8);
+}
+
+.section-intro.centered,
+.section-centered {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.section-centered .cta-row {
+  justify-content: center;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .card-grid.cols-2,
+  .card-grid.cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.steps {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .steps.cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps.cols-5 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .steps.cols-4,
+  .steps.cols-5 {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.step-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 48rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-4) 0;
+}
+
+.faq-item summary {
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  color: var(--foreground);
+}
+
+.faq-item p {
+  margin-top: var(--space-3);
+  color: var(--foreground-secondary);
+}
+
+.prelaunch-note {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--foreground-secondary);
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.narrow {
+  max-width: 44rem;
+}
+
+.form-section ul,
+.card ul,
+.narrow ul {
+  padding-left: 1.25rem;
+  margin: 0 0 var(--space-4);
+  color: var(--foreground-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.form-section li,
+.card li,
+.narrow li {
+  margin-bottom: var(--space-2);
+}
+
+.brand-moment {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+}
+
+.brand-moment h2 {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-4);
+}
+
+.brand-moment p {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: var(--foreground-secondary);
+  font-size: var(--text-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ============================================ */

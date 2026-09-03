@@ -211,16 +211,10 @@ export default function HelperApplicationPage() {
 
   return (
     <main className="page">
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-          <div className="logo">🧸</div>
-          <h1 style={{ fontSize: '28px', margin: 0, color: '#fff' }}>Parentive</h1>
-        </div>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#fff', margin: '8px 0' }}>
-          Join the Hive
-        </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(226, 232, 240, 0.9)', maxWidth: '600px', margin: '0 auto' }}>
-          Complete your application to become a Founding Helper with Parentive.
+      <div className="section-intro" style={{ marginBottom: '32px' }}>
+        <h1>Join the Hive</h1>
+        <p className="lead">
+          Apply to become a Parentive Helper. Tell us about your availability, experience and what you would bring to the role.
         </p>
       </div>
 
