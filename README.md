@@ -1,20 +1,25 @@
-# Parentive — Parent Helper MVP
+# Parentive — Parentive V2 (Pre-launch / Pilot)
 
-Parentive is a lightweight parent-helper web app for tracking your children's
-daily routines. Add a child, build their daily activity checklist, and check off
-each item as the day progresses.
+Parentive is a local flexible household and family support service preparing
+for pilot launch.
 
-Built with **Next.js 14 (App Router)**, **React 18**, and **TypeScript**. Data is
-persisted to a local JSON file (`data/db.json`), so there are no external
-services or databases to configure for local development.
+Households can submit early-access requests for practical help, including:
+home & laundry, kitchen & food, parent-home child support, and flexible support
+requests.
+
+Parentive is not yet accepting confirmed bookings.
+
+Built with **Next.js 14 (App Router)**, **React 18**, and **TypeScript**.
+Support requests and helper applications are persisted via Supabase when
+configured, falling back to file-based storage for local development.
 
 ## Features
 
-- Add children with a name and age
-- Add timed activities to each child's routine
-- Toggle activities done/undone and watch the daily progress bar update
-- Remove activities
-- Data persists across restarts via a local JSON store
+- Browse the pilot service catalogue and select one or more services
+- Share timing and household details needed to understand the request
+- Submit an early-access support request (not a confirmed booking)
+- Apply to join the Hive as a Founding Helper (pilot recruitment)
+- Persistence for support requests + helper applications
 
 ## Getting started
 
@@ -39,26 +44,26 @@ Agent browser preview (and other port-forwards) can reach it, not only loopback.
 
 ## API
 
-| Method   | Route                                          | Description            |
-| -------- | ---------------------------------------------- | ---------------------- |
-| `GET`    | `/api/children`                                | List children          |
-| `POST`   | `/api/children`                                | Create a child         |
-| `POST`   | `/api/children/:id/activities`                 | Add an activity        |
-| `PATCH`  | `/api/children/:id/activities/:activityId`     | Toggle activity done   |
-| `DELETE` | `/api/children/:id/activities/:activityId`     | Remove an activity     |
+| Method | Route | Description |
+| --- | --- | --- |
+| `POST` | `/api/support-requests` | Submit an early-access support request (includes file upload when provided) |
+| `POST` | `/api/helper-applications` | Submit a Helper recruitment application |
 
 ## Project structure
 
 ```
 app/
-  api/children/...      Route handlers (REST API)
-  page.tsx              Main UI
-  layout.tsx            Root layout
-  globals.css           Styles
+  api/support-requests/...   Support request submission
+  api/helper-applications/... Helper recruitment submission
+  page.tsx                    Customer UI routes
+  layout.tsx                  Root layout
+  globals.css                 Styles
 lib/
-  db.ts                 JSON-file data access
-  types.ts              Shared types
-.cursor/environment.json  Cloud Agent dev environment config
+  catalogue/*                Pilot service catalogue + slugs
+  content/site.ts            Shared Parentive V2 copy + nav
+  support-requests.ts       Request persistence (Supabase + file fallback)
+  helper-applications.ts    Recruitment persistence (Supabase + file fallback)
+.cursor/environment.json      Cloud Agent dev environment config
 ```
 
 ## Cloud Agent environment

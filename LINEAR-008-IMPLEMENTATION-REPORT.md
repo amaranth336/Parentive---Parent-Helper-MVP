@@ -345,7 +345,7 @@ Services organized by category (hard-coded matching Linear 008 spec):
 - Full address collection
 - GPS tracking
 - Arrival notification delivery
-- Admin dashboard
+- Internal admin console
 - General photo/file upload
 
 ---
@@ -407,7 +407,7 @@ None. All requirements from Linear 008 have been implemented as specified.
 
 ### When Moving to Live Bookings
 1. Integrate with actual booking system
-2. Build admin dashboard for request management
+2. Build internal admin console for request management
 3. Implement email notifications
 4. Add real-time availability checking
 5. Implement pricing calculation and display
