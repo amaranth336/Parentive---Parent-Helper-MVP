@@ -1331,9 +1331,11 @@ select,
   color: var(--walnut);
 }
 
-@media (min-width: 1024px) {
+/* Tablet and typical Cursor preview widths: full nav, no Menu button. */
+@media (min-width: 768px) {
   .header-nav {
     display: flex;
+    gap: var(--space-5);
   }
 
   .header-actions {
@@ -1347,6 +1349,12 @@ select,
   .header-menu-toggle,
   .header-mobile-nav {
     display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-nav {
+    gap: var(--space-8);
   }
 }
 
