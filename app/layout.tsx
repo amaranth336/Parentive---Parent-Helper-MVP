@@ -22,6 +22,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: DEFAULT_METADATA.title,
   description: DEFAULT_METADATA.description,
+  icons: {
+    icon: "/brand/parentive_logo_mark_final.png",
+    apple: "/brand/parentive_logo_mark_final.png",
+  },
   openGraph: {
     title: DEFAULT_METADATA.openGraphTitle,
     description: DEFAULT_METADATA.openGraphDescription,

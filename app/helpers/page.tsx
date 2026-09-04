@@ -10,6 +10,7 @@ import {
   BRAND,
   SERVICE_AREA_COMMUNITIES,
 } from "@/lib/content/site";
+import { OrganicBrandSurface } from "@/components/brand/organic-shape";
 
 export const metadata: Metadata = {
   title: "Join the Hive",
@@ -120,20 +121,22 @@ export default function HelpersPage() {
           Parentive validates the service.
         </div>
 
-        <section className="form-section">
-          <h2>Founding Helpers</h2>
-          <p>
-            Parentive’s Founding Helpers won’t just deliver the service —
-            they’ll help shape how Parentive grows. Early Helpers will have a
-            voice in how standards, onboarding, scheduling, employee experience
-            and future benefits evolve.
-          </p>
-          <p>
-            We’re building something that doesn’t fit neatly into traditional
-            cleaning, babysitting or gig-work categories. Parentive is about
-            meaningful practical support for modern households — and our
-            Founding Helpers will be central to shaping what that looks like.
-          </p>
+        <section className="founding-moment">
+          <OrganicBrandSurface shape="pebble" color="sage">
+            <h2>Founding Helpers</h2>
+            <p>
+              Parentive’s Founding Helpers won’t just deliver the service —
+              they’ll help shape how Parentive grows. Early Helpers will have a
+              voice in how standards, onboarding, scheduling, employee experience
+              and future benefits evolve.
+            </p>
+            <p>
+              We’re building something that doesn’t fit neatly into traditional
+              cleaning, babysitting or gig-work categories. Parentive is about
+              meaningful practical support for modern households — and our
+              Founding Helpers will be central to shaping what that looks like.
+            </p>
+          </OrganicBrandSurface>
         </section>
 
         <section className="form-section">
@@ -157,7 +160,7 @@ export default function HelpersPage() {
 
         <section className="form-section">
           <h2>Pilot compensation</h2>
-          <div className="card">
+          <div className="callout compensation-callout">
             <p style={{ fontSize: "var(--text-3xl)", fontWeight: 600, marginBottom: "var(--space-2)" }}>
               $20–$23/hour
             </p>

@@ -67,11 +67,11 @@ export default function PricingPage() {
           confirmed.
         </div>
 
-        <div className="card-grid">
+        <div className="callout-grid">
           {SECTIONS.map((section) => (
-            <article key={section.title} className="card">
-              <h2 className="card-title">{section.title}</h2>
-              <p className="card-description">{section.body}</p>
+            <article key={section.title} className="callout">
+              <h2 className="callout-title">{section.title}</h2>
+              <p className="callout-body">{section.body}</p>
             </article>
           ))}
         </div>
