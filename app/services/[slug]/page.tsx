@@ -125,7 +125,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           </section>
         ) : null}
 
-        <div className="card">
+        <div className="card card-emphasis">
           <h2>{BRAND.customerCta}</h2>
           <p>
             Submitting a request tells Parentive what support you’re looking

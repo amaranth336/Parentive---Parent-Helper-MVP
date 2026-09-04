@@ -148,11 +148,11 @@ export default function HelpersPage() {
             capability, assessed on meaningful engagement rather than passive
             supervision.
           </p>
-          <div className="card-grid cols-2">
+          <div className="stack-grid cols-2">
             {ROLE_POINTS.map((point) => (
-              <article key={point.title} className="card">
-                <h3 className="card-title">{point.title}</h3>
-                <p className="card-description">{point.description}</p>
+              <article key={point.title} className="stack-item">
+                <h3>{point.title}</h3>
+                <p>{point.description}</p>
               </article>
             ))}
           </div>
@@ -212,7 +212,7 @@ export default function HelpersPage() {
           <h2>Hiring process</h2>
           <ol className="steps" style={{ listStyle: "none", padding: 0 }}>
             {HIRING_STEPS.map((step, index) => (
-              <li key={step.title} className="card step-block">
+              <li key={step.title} className="step-block">
                 <div className="step-number">{index + 1}</div>
                 <h3>{step.title}</h3>
                 <p className="card-description">{step.description}</p>
@@ -231,7 +231,7 @@ export default function HelpersPage() {
           </p>
         </section>
 
-        <div className="card">
+        <div className="card card-emphasis">
           <h2>Ready to put your hand up?</h2>
           <p>
             Submit an application to be considered for Parentive’s Founding

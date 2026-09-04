@@ -79,19 +79,5 @@ interface EyebrowProps {
 }
 
 export function Eyebrow({ children, className = '' }: EyebrowProps) {
-  return (
-    <p
-      className={`eyebrow ${className}`.trim()}
-      style={{
-        fontSize: 'var(--text-xs)',
-        fontWeight: 'var(--font-semibold)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
-        color: 'var(--muted-foreground)',
-        marginBottom: 'var(--space-2)',
-      }}
-    >
-      {children}
-    </p>
-  );
+  return <p className={`eyebrow ${className}`.trim()}>{children}</p>;
 }

@@ -37,7 +37,8 @@ export default function DesignSystemPage() {
           <h1>Parentive design system</h1>
           <p className="lead">
             Internal reference for the locked 004 tokens, brand assets, and
-            shared primitives. This is not a customer-facing page.
+            shared primitives. Surfaces follow Oat → Sand → Sage → Moss, with
+            Honey as punctuation. This is not a customer-facing page.
           </p>
         </div>
 
@@ -115,18 +116,35 @@ export default function DesignSystemPage() {
           <h2>Surfaces</h2>
           <div className="card-grid cols-2">
             <article className="card">
-              <h3 className="card-title">Card</h3>
+              <h3 className="card-title">Card / default</h3>
               <p className="card-description">
-                Shared surface used across homepage, services, and helpers.
+                Warm light surface. Default for service cards and catalogues.
+              </p>
+            </article>
+            <article className="card card-soft">
+              <h3 className="card-title">Card / soft</h3>
+              <p className="card-description">
+                Sage-derived supporting surface for selected or quiet emphasis.
+              </p>
+            </article>
+            <article className="card card-emphasis">
+              <h3 className="card-title">Card / emphasis</h3>
+              <p className="card-description">
+                Moss brand moment. Use sparingly for CTA or founding moments.
               </p>
             </article>
             <article className="callout">
               <h3 className="callout-title">Callout</h3>
               <p className="callout-body">
-                Supporting information without a floating identical card.
+                Sand surface with Honey punctuation. Not a dark panel.
               </p>
             </article>
           </div>
+        </section>
+
+        <section className="form-section">
+          <h2>Section variants</h2>
+          <p>Oat default, Sand alternate, Sage support, Moss emphasis.</p>
         </section>
       </div>
     </main>

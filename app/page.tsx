@@ -28,26 +28,32 @@ export default function HomePage() {
     <main>
       <section className="section">
         <div className="container">
-          <div className="section-intro">
-            <Eyebrow>Practical support for modern family life</Eyebrow>
-            <h1>{BRAND.proposition}</h1>
-            <p className="lead">
-              Parentive gives families flexible, practical help with the
-              everyday work that keeps home life moving — from laundry and meal
-              prep to parent-home child support and everything in between.
-            </p>
-            <div className="cta-row">
-              <Link href="/request" className="btn btn-primary btn-lg">
-                {BRAND.customerCta}
-              </Link>
-              <Link href="/services" className="btn btn-secondary btn-lg">
-                {BRAND.servicesCta}
-              </Link>
+          <OrganicBrandSurface
+            shape="open"
+            color="sand"
+            className="hero-surface"
+          >
+            <div className="section-intro">
+              <Eyebrow>Practical support for modern family life</Eyebrow>
+              <h1>{BRAND.proposition}</h1>
+              <p className="lead">
+                Parentive gives families flexible, practical help with the
+                everyday work that keeps home life moving — from laundry and meal
+                prep to parent-home child support and everything in between.
+              </p>
+              <div className="cta-row">
+                <Link href="/request" className="btn btn-primary btn-lg">
+                  {BRAND.customerCta}
+                </Link>
+                <Link href="/services" className="btn btn-secondary btn-lg">
+                  {BRAND.servicesCta}
+                </Link>
+              </div>
+              <p className="text-sm text-muted" style={{ marginTop: "var(--space-6)" }}>
+                {SERVICE_AREA_LINE}
+              </p>
             </div>
-            <p className="text-sm text-muted" style={{ marginTop: "var(--space-6)" }}>
-              {SERVICE_AREA_LINE}
-            </p>
-          </div>
+          </OrganicBrandSurface>
         </div>
       </section>
 
@@ -83,7 +89,7 @@ export default function HomePage() {
           </div>
           <div className="steps cols-4">
             {HOW_IT_WORKS_PREVIEW.map((step, index) => (
-              <div key={step.title} className="step-block card">
+              <div key={step.title} className="step-block">
                 <div className="step-number">{index + 1}</div>
                 <h3>{step.title}</h3>
                 <p className="text-muted">{step.description}</p>
@@ -109,11 +115,11 @@ export default function HomePage() {
               those rhythms.
             </p>
           </div>
-          <div className="card-grid cols-4">
+          <div className="stack-grid cols-4">
             {RECURRING_RHYTHMS.map((rhythm) => (
-              <div key={rhythm.name} className="card">
-                <h3 className="card-title">{rhythm.name}</h3>
-                <p className="card-description">{rhythm.description}</p>
+              <div key={rhythm.name} className="stack-item">
+                <h3>{rhythm.name}</h3>
+                <p>{rhythm.description}</p>
               </div>
             ))}
           </div>
@@ -130,11 +136,11 @@ export default function HomePage() {
               doing. Parentive is built for that space.
             </p>
           </div>
-          <div className="card-grid cols-2">
+          <div className="stack-grid cols-2">
             {DIFFERENTIATION.map((item) => (
-              <div key={item.name} className="card">
-                <h3 className="card-title">{item.name}</h3>
-                <p className="card-description">{item.description}</p>
+              <div key={item.name} className="stack-item">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
               </div>
             ))}
           </div>
@@ -188,6 +194,7 @@ export default function HomePage() {
         <div className="container">
           <div className="section-intro">
             <h2>Why Parentive</h2>
+            <hr className="honey-rule" />
             <p className="lead">
               Modern households carry a lot, and the help available to them
               often comes in narrow categories. You can hire someone to clean.
@@ -205,7 +212,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="brand-moment">
+      <section className="section-emphasis brand-moment">
         <OrganicBrandSurface shape="quiet-edge" color="sage">
           <div className="container">
             <h2>{BRAND.payoff}</h2>
@@ -235,7 +242,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section section-emphasis">
         <div className="container">
           <div className="section-intro">
             <h2>What could you take off your plate?</h2>
