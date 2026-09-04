@@ -25,7 +25,7 @@ export default function HowItWorksPage() {
 
         <ol className="steps cols-5" style={{ listStyle: "none", padding: 0 }}>
           {HOW_IT_WORKS_LIFECYCLE.map((step, index) => (
-            <li key={step.title} className="card step-block">
+            <li key={step.title} className="step-block">
               <div className="step-number">{index + 1}</div>
               <h2>{step.title}</h2>
               <p className="card-description">{step.description}</p>

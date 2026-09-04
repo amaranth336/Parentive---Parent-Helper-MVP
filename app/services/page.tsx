@@ -58,7 +58,7 @@ export default function ServicesPage() {
           </section>
         ))}
 
-        <div className="card">
+        <div className="card card-emphasis">
           <h2>Ready to tell us what would help?</h2>
           <p>
             Requests currently collect early-access interest. They are not
