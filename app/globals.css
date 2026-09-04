@@ -1473,9 +1473,9 @@ select,
 .footer-lockup,
 .brand-lockup {
   display: block;
-  width: 7.75rem !important;
+  width: 8.75rem !important;
   height: auto !important;
-  max-width: 7.75rem;
+  max-width: 8.75rem;
   object-fit: contain;
 }
 
@@ -1566,7 +1566,7 @@ select,
   }
 
   .header-content {
-    gap: var(--space-12);
+    gap: var(--space-6);
   }
 
   .header-lockup,
@@ -1577,7 +1577,7 @@ select,
 
   .header-nav {
     display: flex;
-    gap: var(--space-5);
+    gap: var(--space-4);
   }
 
   .header-actions {
@@ -1595,6 +1595,17 @@ select,
 }
 
 @media (min-width: 1024px) {
+  .header-content {
+    gap: var(--space-12);
+  }
+
+  .header-lockup,
+  .brand-lockup {
+    /* Lockup includes the mark; this width keeps “parentive” ~150px. */
+    width: 15rem !important;
+    max-width: 15rem;
+  }
+
   .header-nav {
     gap: var(--space-8);
   }
