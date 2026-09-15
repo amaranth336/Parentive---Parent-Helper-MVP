@@ -88,15 +88,15 @@ describe('Catalogue Utilities', () => {
 
   describe('getServicesByCategory', () => {
     it('should filter services by category', () => {
-      const services = getServicesByCategory('laundry-clothing');
+      const services = getServicesByCategory('home-laundry');
       services.forEach((service) => {
-        expect(service.public.category).toBe('laundry-clothing');
+        expect(service.public.category).toBe('home-laundry');
       });
     });
 
     it('should return services for valid categories', () => {
-      const laundry = getServicesByCategory('laundry-clothing');
-      expect(laundry.length).toBeGreaterThanOrEqual(0);
+      const laundry = getServicesByCategory('home-laundry');
+      expect(laundry.length).toBeGreaterThan(0);
     });
   });
 
@@ -144,7 +144,13 @@ describe('Catalogue Utilities', () => {
     });
 
     it('should find expected slugs that exist', () => {
-      const slugs = ['laundry-reset'];
+      const slugs = [
+        'laundry-reset',
+        'fold-and-put-away',
+        'uninterrupted-hour',
+        'parents-helper-visit',
+        'flexible-support-request',
+      ];
 
       slugs.forEach((slug) => {
         const service = getServiceBySlug(slug);
@@ -156,9 +162,9 @@ describe('Catalogue Utilities', () => {
 
   describe('getServiceBySku', () => {
     it('should find service by SKU', () => {
-      const service = getServiceBySku('SVC-LAU-001');
+      const service = getServiceBySku('SVC-HL-001');
       expect(service).toBeDefined();
-      expect(service?.public.sku).toBe('SVC-LAU-001');
+      expect(service?.public.sku).toBe('SVC-HL-001');
       expect(service?.public.name).toBe('Laundry Reset');
     });
 
@@ -183,18 +189,17 @@ describe('Catalogue Utilities', () => {
   });
 
   describe('getCategories', () => {
-    it('should return all 5 categories', () => {
+    it('should return all 4 categories', () => {
       const categories = getCategories();
-      expect(categories.length).toBe(5);
+      expect(categories.length).toBe(4);
     });
 
     it('should return categories in correct display order', () => {
       const categories = getCategories();
-      expect(categories[0].id).toBe('laundry-clothing');
+      expect(categories[0].id).toBe('home-laundry');
       expect(categories[1].id).toBe('kitchen-food');
-      expect(categories[2].id).toBe('home-reset');
-      expect(categories[3].id).toBe('kids-parent-support');
-      expect(categories[4].id).toBe('life-outdoors');
+      expect(categories[2].id).toBe('family-support');
+      expect(categories[3].id).toBe('flexible-support');
     });
 
     it('should have all required metadata fields', () => {
@@ -213,7 +218,7 @@ describe('Catalogue Utilities', () => {
       const category = getCategoryById('kitchen-food');
       expect(category).toBeDefined();
       expect(category?.id).toBe('kitchen-food');
-      expect(category?.name).toBe('Kitchen & Food');
+      expect(category?.name).toBe('Kitchen & food');
     });
 
     it('should return undefined for non-existent category', () => {
@@ -230,7 +235,7 @@ describe('Catalogue Utilities', () => {
     });
 
     it('should find services by description', () => {
-      const results = searchServices('basket');
+      const results = searchServices('washed');
       expect(results.length).toBeGreaterThan(0);
     });
 
@@ -270,26 +275,25 @@ describe('Catalogue Utilities', () => {
       const grouped = groupServicesByCategory();
 
       // Check that grouping works correctly
-      expect(grouped['laundry-clothing']).toBeDefined();
-      expect(Array.isArray(grouped['laundry-clothing'])).toBe(true);
+      expect(grouped['home-laundry']).toBeDefined();
+      expect(Array.isArray(grouped['home-laundry'])).toBe(true);
     });
 
     it('should have all categories as keys', () => {
       const grouped = groupServicesByCategory();
       const keys = Object.keys(grouped);
 
-      expect(keys).toContain('laundry-clothing');
+      expect(keys).toContain('home-laundry');
       expect(keys).toContain('kitchen-food');
-      expect(keys).toContain('home-reset');
-      expect(keys).toContain('kids-parent-support');
-      expect(keys).toContain('life-outdoors');
+      expect(keys).toContain('family-support');
+      expect(keys).toContain('flexible-support');
     });
 
     it('should group services correctly', () => {
       const grouped = groupServicesByCategory();
 
-      grouped['laundry-clothing'].forEach((service) => {
-        expect(service.public.category).toBe('laundry-clothing');
+      grouped['home-laundry'].forEach((service) => {
+        expect(service.public.category).toBe('home-laundry');
       });
 
       grouped['kitchen-food'].forEach((service) => {
@@ -300,7 +304,7 @@ describe('Catalogue Utilities', () => {
 
   describe('Data Integrity', () => {
     it('should have services defined', () => {
-      expect(CATALOGUE.length).toBeGreaterThan(0);
+      expect(CATALOGUE.length).toBe(14);
     });
 
     it('should have unique SKUs', () => {
@@ -326,6 +330,9 @@ describe('Catalogue Utilities', () => {
         expect(service.public.inclusions).toBeInstanceOf(Array);
         expect(service.public.exclusions).toBeInstanceOf(Array);
         expect(service.public.customerPrerequisites).toBeInstanceOf(Array);
+        expect(service.public.relatedServices).toBeInstanceOf(Array);
+        expect(service.public.importantNotes).toBeInstanceOf(Array);
+        expect(service.public.seo.title).toBeDefined();
         expect(service.public.pricingModel).toBeDefined();
       });
     });
@@ -342,11 +349,9 @@ describe('Catalogue Utilities', () => {
       });
     });
 
-    it('should not have fabricated pricing for unvalidated services', () => {
+    it('should not invent public prices', () => {
       CATALOGUE.forEach((service) => {
-        if (service.public.priceStatus === 'pending-validation') {
-          expect(service.public.displayPrice).toBeNull();
-        }
+        expect(service.public.displayPrice).toBeNull();
       });
     });
 
@@ -367,8 +372,18 @@ describe('Catalogue Utilities', () => {
         s.operational.requiredHelperCapabilities.includes('childcare')
       );
 
+      expect(childcareServices.length).toBe(2);
+
       childcareServices.forEach((service) => {
         expect(service.operational.riskClassification).toBe('requires-screening');
+      });
+    });
+
+    it('should resolve related service slugs', () => {
+      CATALOGUE.forEach((service) => {
+        service.public.relatedServices.forEach((slug) => {
+          expect(CATALOGUE.some((item) => item.public.slug === slug)).toBe(true);
+        });
       });
     });
   });

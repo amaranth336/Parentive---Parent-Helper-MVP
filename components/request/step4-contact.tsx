@@ -30,7 +30,7 @@ export default function Step4({ formData, onUpdate, errors }: Step4Props) {
     <div>
       <h2 className="form-section-title">Your contact details</h2>
       <p className="form-section-description">
-        We&apos;ll use this information to follow up about your request when bookings become available.
+        We&apos;ll use this information to follow up about your request as Parentive moves toward pilot availability.
       </p>
 
       <div className="form-section">
@@ -132,7 +132,7 @@ export default function Step4({ formData, onUpdate, errors }: Step4Props) {
         <div style={{ padding: '16px', background: 'var(--panel-muted)', borderRadius: '12px', marginBottom: '16px' }}>
           <Checkbox
             label="I consent to Parentive contacting me about this support request"
-            hint="Required. This allows us to follow up about your request and confirm details when bookings become available."
+            hint="Required. This allows Parentive to follow up about your request."
             checked={contactConsent}
             onChange={(e) => onUpdate({ ...formData, contactConsent: e.target.checked })}
           />

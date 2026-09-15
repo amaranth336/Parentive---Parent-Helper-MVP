@@ -20,7 +20,14 @@ export type {
 } from './types';
 
 // Data
-export { CATALOGUE, CATEGORIES } from './data';
+export {
+  CATALOGUE,
+  CATEGORIES,
+  FOOD_SERVICE_SLUGS,
+  CHILD_SUPPORT_SERVICE_SLUGS,
+  FLEXIBLE_SUPPORT_SLUG,
+  PREORDERED_PICKUP_ADDON,
+} from './data';
 
 // Utilities
 export {

@@ -65,7 +65,7 @@ export default function Step2({ formData, onUpdate, errors }: Step2Props) {
     <div>
       <h2 className="form-section-title">When and how often?</h2>
       <p className="form-section-description">
-        During our pre-launch phase, these are your preferred dates and times. We&apos;ll confirm exact scheduling when bookings become available.
+        During pre-launch, these are preferred dates and times so Parentive can understand when support would help. They are not a confirmed booking.
       </p>
 
       <div className="form-section">

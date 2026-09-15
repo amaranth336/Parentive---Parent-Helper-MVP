@@ -2,7 +2,7 @@
   "name": "parentive",
   "version": "0.1.0",
   "private": true,
-  "description": "Parentive - a lightweight parent helper MVP for tracking children's daily routines.",
+  "description": "Parentive — practical household and family support for modern family life.",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0 --port 3000",
     "build": "next build",

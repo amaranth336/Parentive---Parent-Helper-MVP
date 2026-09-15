@@ -193,16 +193,10 @@ export default function RequestPage() {
 
   return (
     <main className="page">
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-          <div className="logo">🧸</div>
-          <h1 style={{ fontSize: '28px', margin: 0, color: '#fff' }}>Parentive</h1>
-        </div>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#fff', margin: '8px 0' }}>
-          Request Parentive Support
-        </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(226, 232, 240, 0.9)', maxWidth: '600px', margin: '0 auto' }}>
-          Tell us what you&apos;d like help with. We&apos;re preparing for launch and will follow up when pilot availability opens.
+      <div className="section-intro" style={{ marginBottom: '32px' }}>
+        <h1>Request Parentive Support</h1>
+        <p className="lead">
+          Tell us what you&apos;d like help with. Parentive is preparing for launch and will use your request to understand the support you&apos;re looking for.
         </p>
       </div>
 
