@@ -8,6 +8,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { BrandLockup } from '@/components/brand-lockup';
 import { MultiStepForm } from '@/components/multi-step-form';
 import Step1 from '@/components/request/step1-services';
 import Step2 from '@/components/request/step2-timing';
@@ -195,13 +196,12 @@ export default function RequestPage() {
     <main className="page">
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-          <div className="logo">🧸</div>
-          <h1 style={{ fontSize: '28px', margin: 0, color: '#fff' }}>Parentive</h1>
+          <BrandLockup href="/" />
         </div>
-        <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#fff', margin: '8px 0' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text)', margin: '8px 0' }}>
           Request Parentive Support
-        </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(226, 232, 240, 0.9)', maxWidth: '600px', margin: '0 auto' }}>
+        </h1>
+        <p style={{ fontSize: '16px', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
           Tell us what you&apos;d like help with. We&apos;re preparing for launch and will follow up when pilot availability opens.
         </p>
       </div>

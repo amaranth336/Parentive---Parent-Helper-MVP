@@ -7,9 +7,10 @@
 
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { BrandLockup } from '@/components/brand-lockup';
 import { Card, Alert } from '@/components/form';
 
 function ConfirmationContent() {
@@ -20,8 +21,7 @@ function ConfirmationContent() {
     <main className="page">
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-          <div className="logo">🧸</div>
-          <h1 style={{ fontSize: '28px', margin: 0, color: '#fff' }}>Parentive</h1>
+          <BrandLockup href="/" />
         </div>
       </div>
 
@@ -108,7 +108,7 @@ function ConfirmationContent() {
                 padding: '11px 24px',
                 borderRadius: '10px',
                 background: 'var(--brand)',
-                color: '#fff',
+                color: '#FBF8F2',
                 textDecoration: 'none',
                 fontWeight: 600,
                 fontSize: '14px',
@@ -124,7 +124,7 @@ function ConfirmationContent() {
           marginTop: '24px', 
           textAlign: 'center',
           fontSize: '14px',
-          color: 'rgba(226, 232, 240, 0.8)'
+          color: 'var(--text-muted)'
         }}>
           <p>
             Questions? We&apos;d love to hear from you.
@@ -132,7 +132,7 @@ function ConfirmationContent() {
             You can reach us at{' '}
             <a 
               href="mailto:hello@parentive.ca" 
-              style={{ color: 'rgba(226, 232, 240, 0.9)', textDecoration: 'underline' }}
+              style={{ color: 'var(--brand)', textDecoration: 'underline' }}
             >
               hello@parentive.ca
             </a>
@@ -147,7 +147,7 @@ export default function ConfirmationPage() {
   return (
     <Suspense fallback={
       <main className="page">
-        <div style={{ textAlign: 'center', color: '#fff' }}>Loading...</div>
+        <div style={{ textAlign: 'center', color: 'var(--text)' }}>Loading...</div>
       </main>
     }>
       <ConfirmationContent />

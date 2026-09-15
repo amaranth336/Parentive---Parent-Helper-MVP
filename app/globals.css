@@ -1,16 +1,20 @@
 :root {
-  --bg: #0f172a;
-  --bg-soft: #1e293b;
-  --panel: #ffffff;
-  --panel-muted: #f1f5f9;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --brand: #6366f1;
-  --brand-dark: #4f46e5;
-  --success: #16a34a;
-  --danger: #ef4444;
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --bg: #FBF8F2;              /* Cream — page canvas */
+  --bg-soft: #F5F2EA;         /* Oat */
+  --panel: #FBF8F2;           /* Cream — cards */
+  --panel-muted: #F5F2EA;     /* Oat */
+  --border: #E7DECF;          /* Warm Sand */
+  --text: #30483B;            /* Deep Moss */
+  --text-muted: #594B41;      /* Walnut */
+  --brand: #30483B;           /* Deep Moss — primary actions/text */
+  --brand-hover: #24362D;     /* interaction-only darker moss, not a brand colour */
+  --brand-dark: var(--brand-hover);
+  --brand-muted: #AEBBA6;     /* Soft Sage — tints only, never small text */
+  --accent: #D5A552;          /* Muted Honey — punctuation only, never fills */
+  --success: #16a34a;         /* functional, unchanged */
+  --danger: #ef4444;          /* functional, unchanged */
+  --shadow: 0 10px 30px rgba(48, 72, 59, 0.08);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--brand) 22%, transparent);
 }
 
 * {
@@ -24,21 +28,21 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
   color: var(--text);
-  background: radial-gradient(
-      1200px 600px at 10% -10%,
-      rgba(99, 102, 241, 0.25),
-      transparent
-    ),
-    radial-gradient(
-      1000px 500px at 100% 0%,
-      rgba(16, 185, 129, 0.18),
-      transparent
-    ),
-    var(--bg);
+  background: var(--bg);
   min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.form-section-title,
+.header {
+  font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
 }
 
 .page {
@@ -49,9 +53,10 @@ body {
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 14px;
-  color: #fff;
+  color: var(--text);
   margin-bottom: 28px;
 }
 
@@ -59,15 +64,39 @@ body {
   text-decoration: none;
 }
 
-.logo {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--brand), #22d3ee);
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  box-shadow: var(--shadow);
+.header-copy {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  max-width: min(220px, 70vw);
+  min-width: 0;
+  flex: 1 1 auto;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.brand-lockup-image {
+  display: block;
+  height: 40px;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .header-copy {
+    flex: 1 1 100%;
+    order: 3;
+  }
+
+  .brand-lockup {
+    max-width: min(160px, 50vw);
+  }
 }
 
 .header h1 {
@@ -78,7 +107,7 @@ body {
 
 .header p {
   margin: 2px 0 0;
-  color: rgba(226, 232, 240, 0.8);
+  color: var(--text-muted);
   font-size: 14px;
 }
 
@@ -99,7 +128,7 @@ body {
   border-radius: 18px;
   padding: 22px;
   box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border);
 }
 
 .card h2 {
@@ -123,6 +152,13 @@ body {
   letter-spacing: 0.04em;
 }
 
+input,
+.select,
+.textarea,
+.btn {
+  font-family: inherit;
+}
+
 input {
   width: 100%;
   padding: 11px 13px;
@@ -133,9 +169,9 @@ input {
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-input:focus {
+input:focus-visible {
   border-color: var(--brand);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .btn {
@@ -154,12 +190,18 @@ input:focus {
 
 .btn-primary {
   background: var(--brand);
-  color: #fff;
+  color: #FBF8F2;
   width: 100%;
 }
 
 .btn-primary:hover {
-  background: var(--brand-dark);
+  background: var(--brand-hover);
+}
+
+.header .header-cta {
+  width: auto;
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .btn-ghost {
@@ -197,7 +239,7 @@ input:focus {
 
 .child-pill.active {
   border-color: var(--brand);
-  background: rgba(99, 102, 241, 0.08);
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
 }
 
 .child-pill .name {
@@ -233,8 +275,8 @@ input:focus {
 
 .activity .time {
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  color: var(--brand-dark);
+  font-weight: 600;
+  color: var(--brand-hover);
   min-width: 52px;
 }
 
@@ -256,8 +298,8 @@ input:focus {
   display: grid;
   place-items: center;
   cursor: pointer;
-  background: #fff;
-  color: #fff;
+  background: var(--panel);
+  color: #FBF8F2;
   font-size: 14px;
   transition: background 0.15s, border-color 0.15s;
 }
@@ -318,7 +360,7 @@ input:focus {
 .progress > span {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--brand), #22d3ee);
+  background: var(--brand);
   transition: width 0.3s ease;
 }
 
@@ -328,11 +370,22 @@ input:focus {
   left: 50%;
   transform: translateX(-50%);
   background: var(--text);
-  color: #fff;
+  color: #FBF8F2;
   padding: 11px 18px;
   border-radius: 10px;
   font-size: 14px;
   box-shadow: var(--shadow);
+}
+
+a:focus-visible,
+.btn:focus-visible,
+.check:focus-visible,
+.child-pill:focus-visible,
+.service-card:focus-visible,
+.link-danger:focus-visible,
+.review-section-title button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 /* ============================================ */
@@ -370,9 +423,9 @@ input:focus {
   min-height: 100px;
 }
 
-.textarea:focus {
+.textarea:focus-visible {
   border-color: var(--brand);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .select {
@@ -383,13 +436,13 @@ input:focus {
   font-size: 14px;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
-  background: #fff;
+  background: var(--panel);
   cursor: pointer;
 }
 
-.select:focus {
+.select:focus-visible {
   border-color: var(--brand);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .checkbox-label,
@@ -452,8 +505,8 @@ input:focus {
 }
 
 .alert-info {
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: color-mix(in srgb, var(--brand-muted) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand) 22%, transparent);
   color: var(--text);
 }
 
@@ -522,13 +575,13 @@ input:focus {
 
 .step-indicator-item.active .step-number {
   background: var(--brand);
-  color: #fff;
+  color: #FBF8F2;
   border-color: var(--brand);
 }
 
 .step-indicator-item.completed .step-number {
   background: var(--success);
-  color: #fff;
+  color: #FBF8F2;
   border-color: var(--success);
 }
 
@@ -550,7 +603,7 @@ input:focus {
   border-radius: 18px;
   padding: 28px;
   box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border);
   margin-bottom: 20px;
 }
 
@@ -573,17 +626,17 @@ input:focus {
   border: 2px solid var(--border);
   cursor: pointer;
   transition: all 0.15s;
-  background: #fff;
+  background: var(--panel);
 }
 
 .service-card:hover {
   border-color: var(--brand);
-  background: rgba(99, 102, 241, 0.03);
+  background: color-mix(in srgb, var(--brand) 3%, transparent);
 }
 
 .service-card.selected {
   border-color: var(--brand);
-  background: rgba(99, 102, 241, 0.08);
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
 }
 
 .service-card-header {
@@ -703,7 +756,7 @@ input:focus {
   padding: 11px 16px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--panel);
   font-size: 14px;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
@@ -711,7 +764,7 @@ input:focus {
 
 .file-input-label:hover {
   border-color: var(--brand);
-  background: rgba(99, 102, 241, 0.03);
+  background: color-mix(in srgb, var(--brand) 3%, transparent);
 }
 
 .file-selected {

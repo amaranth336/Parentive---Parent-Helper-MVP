@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { BrandLockup } from "@/components/brand-lockup";
 import type { Child } from "@/lib/types";
 
 export default function Home() {
@@ -111,16 +112,11 @@ export default function Home() {
   return (
     <main className="page">
       <div className="header">
-        <div className="logo">🧸</div>
-        <div style={{ flex: 1 }}>
-          <h1>Parentive</h1>
+        <BrandLockup href="/" />
+        <div className="header-copy">
           <p>Keep your kids&apos; daily routines on track.</p>
         </div>
-        <a 
-          href="/request"
-          className="btn btn-primary"
-          style={{ whiteSpace: 'nowrap', width: 'auto' }}
-        >
+        <a href="/request" className="btn btn-primary header-cta">
           Take it off my plate
         </a>
       </div>

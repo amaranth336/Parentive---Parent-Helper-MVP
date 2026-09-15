@@ -1,0 +1,50 @@
+{
+  "brand": "Parentive",
+  "status": "Final / locked brand package",
+  "logo": {
+    "standalone_mark": "Option 14",
+    "description": "Full lowercase serif p in Deep Moss centered in a soft organic Oat/cream form, with a small Muted Honey dot tight to the upper-right without touching.",
+    "wordmark": "lowercase parentive, Deep Moss, Muted Honey i-dot only",
+    "do_not": [
+      "break or gap the p",
+      "isolate ive",
+      "add bees or honeycomb",
+      "add family silhouettes",
+      "make Honey dominant"
+    ]
+  },
+  "colors": {
+    "Deep Moss": "#30483B",
+    "Soft Sage": "#AEBBA6",
+    "Oat": "#F5F2EA",
+    "Warm Sand": "#E7DECF",
+    "Walnut": "#594B41",
+    "Muted Honey": "#D5A552",
+    "Cream": "#FBF8F2"
+  },
+  "typography": {
+    "headlines_brand": "Manrope — Regular / Medium / Semibold",
+    "body_ui": "Inter — Regular / Medium / Semibold",
+    "avoid": [
+      "ExtraBold",
+      "Black",
+      "heavy all-caps"
+    ]
+  },
+  "shapes": [
+    "Open",
+    "Drift",
+    "Lean",
+    "Pebble",
+    "Room",
+    "Sidecar",
+    "Quiet Edge"
+  ],
+  "messaging": {
+    "belief": "Support isn't a last resort. It's part of how modern life gets done.",
+    "proposition": "Take something off your plate.",
+    "descriptor": "Trusted, flexible help for real life.",
+    "payoff": "Make room for life.",
+    "recruitment_cta": "Join the Hive."
+  }
+}
