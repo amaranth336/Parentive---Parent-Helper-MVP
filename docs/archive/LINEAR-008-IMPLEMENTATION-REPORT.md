@@ -1,4 +1,7 @@
 # Linear 008 Implementation Report
+
+> Archived. This document describes a superseded `/request` wizard implementation and is not current Parentive launch scope.
+
 ## Request Parentive Support Flow
 
 **Implementation Date**: September 1, 2026

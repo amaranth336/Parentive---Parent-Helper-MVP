@@ -1,20 +1,10 @@
-# Parentive — Parent Helper MVP
+# Parentive
 
-Parentive is a lightweight parent-helper web app for tracking your children's
-daily routines. Add a child, build their daily activity checklist, and check off
-each item as the day progresses.
+Parentive is a local household and parents' helper service. This repository is
+the launch-site foundation for the early-access website.
 
-Built with **Next.js 14 (App Router)**, **React 18**, and **TypeScript**. Data is
-persisted to a local JSON file (`data/db.json`), so there are no external
-services or databases to configure for local development.
-
-## Features
-
-- Add children with a name and age
-- Add timed activities to each child's routine
-- Toggle activities done/undone and watch the daily progress bar update
-- Remove activities
-- Data persists across restarts via a local JSON store
+Built with **Next.js 14 (App Router)**, **React 18**, **TypeScript**, and
+**Supabase**.
 
 ## Getting started
 
@@ -36,28 +26,21 @@ Agent browser preview (and other port-forwards) can reach it, not only loopback.
 | `npm run build` | Production build                             |
 | `npm start`     | Run the production build                     |
 | `npm run lint`  | Lint with ESLint / `eslint-config-next`      |
-
-## API
-
-| Method   | Route                                          | Description            |
-| -------- | ---------------------------------------------- | ---------------------- |
-| `GET`    | `/api/children`                                | List children          |
-| `POST`   | `/api/children`                                | Create a child         |
-| `POST`   | `/api/children/:id/activities`                 | Add an activity        |
-| `PATCH`  | `/api/children/:id/activities/:activityId`     | Toggle activity done   |
-| `DELETE` | `/api/children/:id/activities/:activityId`     | Remove an activity     |
+| `npm test`      | Run unit tests                               |
 
 ## Project structure
 
 ```
 app/
-  api/children/...      Route handlers (REST API)
-  page.tsx              Main UI
-  layout.tsx            Root layout
-  globals.css           Styles
+  page.tsx                Placeholder home
+  layout.tsx              Root layout
+  globals.css             Brand styles
+components/
+  brand-lockup.tsx        Approved lockup
+  form.tsx                Shared form primitives
 lib/
-  db.ts                 JSON-file data access
-  types.ts              Shared types
+  catalogue/              Service catalogue (partial)
+  supabase/               Client and types
 .cursor/environment.json  Cloud Agent dev environment config
 ```
 

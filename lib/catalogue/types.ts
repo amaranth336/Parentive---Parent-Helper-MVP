@@ -9,8 +9,7 @@ export type ServiceCategory =
   | 'laundry-clothing'
   | 'kitchen-food'
   | 'home-reset'
-  | 'kids-parent-support'
-  | 'life-outdoors';
+  | 'kids-parent-support';
 
 export type PricingModel =
   | 'fixed-outcome'

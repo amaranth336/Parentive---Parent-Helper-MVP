@@ -35,12 +35,6 @@ export const CATEGORIES: CategoryMetadata[] = [
     description: 'Extra hands when you need uninterrupted time or trusted care.',
     displayOrder: 4,
   },
-  {
-    id: 'life-outdoors',
-    name: 'Life & Outdoors',
-    description: 'Garden care and errands that keep your household running smoothly.',
-    displayOrder: 5,
-  },
 ];
 
 /**

@@ -25,13 +25,14 @@ Read that file before making decisions that affect:
 
 An explicit current task or Linear issue may override the documented baseline.
 
+Do not reintroduce children lists, routine/activity tracking, or related tracker functionality unless the product context explicitly authorizes it.
+
 ## Technology
 
 Primary stack:
 - Next.js
 - React
 - TypeScript
-- Tailwind CSS
 - Supabase
 - Vercel
 

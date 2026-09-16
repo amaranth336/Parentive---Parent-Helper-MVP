@@ -247,6 +247,8 @@ Avoid:
 
 # Product Scope Discipline
 
+The children/routine-tracker concept is not a Parentive product feature. Children lists, routine/activity tracking, schedules, progress tracking and related functionality must not be introduced unless explicitly authorized by a future product decision.
+
 When a feature request is ambiguous, prefer the smallest implementation that
 supports the documented pilot.
 

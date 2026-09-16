@@ -183,9 +183,9 @@ describe('Catalogue Utilities', () => {
   });
 
   describe('getCategories', () => {
-    it('should return all 5 categories', () => {
+    it('should return all 4 categories', () => {
       const categories = getCategories();
-      expect(categories.length).toBe(5);
+      expect(categories.length).toBe(4);
     });
 
     it('should return categories in correct display order', () => {
@@ -194,7 +194,6 @@ describe('Catalogue Utilities', () => {
       expect(categories[1].id).toBe('kitchen-food');
       expect(categories[2].id).toBe('home-reset');
       expect(categories[3].id).toBe('kids-parent-support');
-      expect(categories[4].id).toBe('life-outdoors');
     });
 
     it('should have all required metadata fields', () => {
@@ -282,7 +281,7 @@ describe('Catalogue Utilities', () => {
       expect(keys).toContain('kitchen-food');
       expect(keys).toContain('home-reset');
       expect(keys).toContain('kids-parent-support');
-      expect(keys).toContain('life-outdoors');
+      expect(keys).not.toContain('life-outdoors');
     });
 
     it('should group services correctly', () => {
