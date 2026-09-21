@@ -113,27 +113,35 @@ export function Select({ error, className = '', children, ...props }: SelectProp
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'default' | 'sm';
+  block?: boolean;
 }
 
 export function Button({
   variant = 'primary',
   size = 'default',
+  block = false,
   className = '',
   children,
+  disabled,
   ...props
 }: ButtonProps) {
+  const ariaDisabled = props['aria-disabled'];
+  const isDisabled =
+    Boolean(disabled) || ariaDisabled === true || ariaDisabled === 'true';
   const classes = [
     'btn',
     variant === 'primary' && 'btn-primary',
+    variant === 'secondary' && 'btn-secondary',
     variant === 'ghost' && 'btn-ghost',
     size === 'sm' && 'btn-sm',
+    block && 'btn-block',
     className,
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <button className={classes} {...props}>
+    <button className={classes} {...props} disabled={isDisabled}>
       {children}
     </button>
   );
@@ -155,8 +163,10 @@ interface AlertProps {
 }
 
 export function Alert({ children, variant = 'info', className = '' }: AlertProps) {
+  const role = variant === 'error' ? 'alert' : 'status';
+
   return (
-    <div className={`alert alert-${variant} ${className}`.trim()}>
+    <div role={role} className={`alert alert-${variant} ${className}`.trim()}>
       {children}
     </div>
   );
