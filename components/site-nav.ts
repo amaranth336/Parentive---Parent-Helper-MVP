@@ -1,23 +1,43 @@
+import { EARLY_ACCESS_PATH } from "@/lib/early-access/copy";
+import { homepage } from "@/lib/homepage/content";
+
 export type SiteNavItem = {
   label: string;
   href: string;
-  available: boolean;
 };
 
+export function homepageSectionHref(sectionId: string): string {
+  return `/#${sectionId}`;
+}
+
 export const siteNav: SiteNavItem[] = [
-  { label: "Home", href: "/", available: true },
-  { label: "Services", href: "/services", available: false },
-  { label: "Early Access", href: "/early-access", available: false },
+  { label: "Home", href: "/" },
+  {
+    label: "Our Support",
+    href: homepageSectionHref(homepage.support.id),
+  },
+  {
+    label: "How It Works",
+    href: homepageSectionHref(homepage.howItWorks.id),
+  },
+  {
+    label: "Early Access",
+    href: EARLY_ACCESS_PATH,
+  },
 ];
 
-export function getVisibleNavItems(
-  previewUnavailable = false,
-): SiteNavItem[] {
-  return siteNav.filter((item) => {
-    if (item.href === "/") {
-      return false;
-    }
+export function getVisibleNavItems(): SiteNavItem[] {
+  return siteNav;
+}
 
-    return previewUnavailable || item.available;
-  });
+export function isHomepageHashHref(href: string): boolean {
+  return href.startsWith("/#") && href.length > 2;
+}
+
+export function homepageHashId(href: string): string | null {
+  if (!isHomepageHashHref(href)) {
+    return null;
+  }
+
+  return href.slice(2);
 }

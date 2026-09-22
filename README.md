@@ -18,6 +18,14 @@ npm run dev   # start the dev server on http://localhost:3000
 Then open http://localhost:3000. The dev server binds `0.0.0.0:3000` so Cloud
 Agent browser preview (and other port-forwards) can reach it, not only loopback.
 
+The early-access waitlist lives at `/early-access`. Persisting submissions
+requires these environment variable names (copy `.env.example`; do not commit
+secrets):
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
 ## Scripts
 
 | Command         | Description                                  |

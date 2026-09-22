@@ -13,6 +13,7 @@ import {
   TextArea,
   TextInput,
 } from "@/components/form";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
@@ -354,15 +355,15 @@ export default function DesignSystemPage() {
       <section className="ds-block" aria-labelledby="ds-header">
         <h2 id="ds-header">Header</h2>
         <p className="ds-note">
-          The live header is at the top of the page. The customer header only
-          links available destinations, so Home is the lockup and no extra links
-          or menu button appear yet. Narrow the viewport below 640px on the
-          specimen below, then use Menu to open the push-down list. Escape
-          closes it. Services and Early Access are shown as unavailable, without
-          links.
+          The live header is at the top of the page. It uses the official lockup
+          plus Home, Our Support, How It Works, and Early Access. Hash links
+          open the matching homepage section from any route. Narrow the viewport
+          below 800px on the specimen below, then use Menu to open the push-down
+          list. The button name becomes Close menu while open. Escape closes it
+          and returns focus to the button.
         </p>
         <div className="ds-specimen">
-          <SiteHeader previewUnavailable />
+          <SiteHeader label="Header specimen" />
         </div>
       </section>
 
@@ -370,8 +371,13 @@ export default function DesignSystemPage() {
         <h2 id="ds-footer">Footer</h2>
         <p className="ds-note">
           The live footer is at the bottom of the page. It uses the official
-          lockup and the line “Trusted, flexible help for real life.”
+          lockup, “Trusted, flexible help for real life.”, the same four
+          destinations as the header, the pilot service-area copy, and a
+          copyright line. No contact or legal pages are linked yet.
         </p>
+        <div className="ds-specimen">
+          <SiteFooter />
+        </div>
       </section>
     </main>
   );

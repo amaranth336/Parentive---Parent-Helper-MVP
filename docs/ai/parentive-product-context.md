@@ -55,6 +55,7 @@ Current pilot communities:
 - Aurora
 - Georgina
 - Whitchurch-Stouffville
+- Uxbridge
 
 Do not imply GTA-wide coverage unless product scope is explicitly expanded.
 

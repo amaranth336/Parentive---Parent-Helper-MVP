@@ -14,13 +14,47 @@ interface FieldProps {
   hint?: string;
 }
 
+type FieldControlProps = {
+  "aria-invalid"?: boolean | "true" | "false";
+  "aria-describedby"?: string;
+};
+
+function describedById(htmlFor: string | undefined, suffix: "hint" | "error") {
+  return htmlFor ? `${htmlFor}-${suffix}` : undefined;
+}
+
 export function Field({ label, htmlFor, children, error, hint }: FieldProps) {
+  const hintId = hint ? describedById(htmlFor, "hint") : undefined;
+  const errorId = error ? describedById(htmlFor, "error") : undefined;
+  const fieldDescribedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
+
+  let control = children;
+  if (React.isValidElement(children) && React.Children.count(children) === 1) {
+    const child = children as React.ReactElement<FieldControlProps>;
+    const existingDescribedBy = child.props["aria-describedby"];
+    const ariaDescribedBy =
+      [existingDescribedBy, fieldDescribedBy].filter(Boolean).join(" ") || undefined;
+
+    control = React.cloneElement(child, {
+      "aria-invalid": error ? true : child.props["aria-invalid"],
+      "aria-describedby": ariaDescribedBy,
+    });
+  }
+
   return (
     <div className="field">
       <label htmlFor={htmlFor}>{label}</label>
-      {hint && <span className="field-hint">{hint}</span>}
-      {children}
-      {error && <span className="field-error">{error}</span>}
+      {hint && (
+        <span className="field-hint" id={hintId}>
+          {hint}
+        </span>
+      )}
+      {control}
+      {error && (
+        <span className="field-error" id={errorId}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }
@@ -57,10 +91,23 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   hint?: string;
 }
 
-export function Checkbox({ label, hint, className = '', ...props }: CheckboxProps) {
+export function Checkbox({
+  label,
+  hint,
+  className = '',
+  'aria-invalid': ariaInvalid,
+  'aria-describedby': ariaDescribedBy,
+  ...props
+}: CheckboxProps) {
   return (
     <label className={`checkbox-label ${className}`.trim()}>
-      <input type="checkbox" className="checkbox" {...props} />
+      <input
+        type="checkbox"
+        className="checkbox"
+        {...props}
+        aria-invalid={ariaInvalid}
+        aria-describedby={ariaDescribedBy}
+      />
       <span className="checkbox-content">
         <span className="checkbox-text">{label}</span>
         {hint && <span className="checkbox-hint">{hint}</span>}
@@ -89,10 +136,22 @@ export function Radio({ label, hint, className = '', ...props }: RadioProps) {
 interface RadioGroupProps {
   children: React.ReactNode;
   className?: string;
+  legend?: string;
 }
 
-export function RadioGroup({ children, className = '' }: RadioGroupProps) {
-  return <div className={`radio-group ${className}`.trim()}>{children}</div>;
+export function RadioGroup({ children, className = '', legend }: RadioGroupProps) {
+  const classes = `radio-group ${className}`.trim();
+
+  if (legend) {
+    return (
+      <fieldset className={classes}>
+        <legend>{legend}</legend>
+        {children}
+      </fieldset>
+    );
+  }
+
+  return <div className={classes}>{children}</div>;
 }
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {

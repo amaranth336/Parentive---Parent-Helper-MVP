@@ -1,25 +1,27 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { BrandLockup } from "@/components/brand-lockup";
+import { SiteNavLink } from "@/components/site-nav-link";
 import { getVisibleNavItems } from "@/components/site-nav";
 
 interface SiteHeaderProps {
-  previewUnavailable?: boolean;
+  label?: string;
 }
 
-export function SiteHeader({ previewUnavailable = false }: SiteHeaderProps) {
+export function SiteHeader({ label = "Site" }: SiteHeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const navItems = getVisibleNavItems(previewUnavailable);
+  const navItems = getVisibleNavItems();
   const showMenuButton = navItems.length > 0;
-  const lockupPriority =
-    !previewUnavailable &&
-    (pathname === "/" || pathname === "/design-system");
+  const lockupPriority = pathname === "/" || pathname === "/design-system";
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) {
@@ -39,14 +41,12 @@ export function SiteHeader({ previewUnavailable = false }: SiteHeaderProps) {
 
   return (
     <header
-      className="site-header"
-      aria-label={
-        previewUnavailable ? "Header preview, unavailable destinations" : "Site"
-      }
+      className={`site-header${open ? " is-nav-open" : ""}`}
+      aria-label={label}
     >
       <div className="site-header-inner">
-        <BrandLockup href="/" priority={lockupPriority} />
-        <nav className="site-nav" aria-label="Primary">
+        <div className="site-header-bar">
+          <BrandLockup href="/" priority={lockupPriority} />
           {showMenuButton ? (
             <button
               ref={buttonRef}
@@ -61,38 +61,32 @@ export function SiteHeader({ previewUnavailable = false }: SiteHeaderProps) {
                 <span />
                 <span />
               </span>
-              <span className="visually-hidden">Menu</span>
+              <span className="visually-hidden">
+                {open ? "Close menu" : "Menu"}
+              </span>
             </button>
           ) : null}
-          {navItems.length > 0 ? (
+        </div>
+        {navItems.length > 0 ? (
+          <nav className="site-nav" aria-label="Primary">
             <ul
               id={menuId}
               className={`site-nav-list${open ? " is-open" : ""}`}
             >
               {navItems.map((item) => (
                 <li key={item.href}>
-                  {item.available ? (
-                    <Link
-                      href={item.href}
-                      className="site-nav-link"
-                      aria-current={pathname === item.href ? "page" : undefined}
-                      onClick={() => setOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ) : (
-                    <span className="site-nav-unavailable" aria-disabled="true">
-                      {item.label}
-                      <span className="visually-hidden">
-                        , not yet available
-                      </span>
-                    </span>
-                  )}
+                  <SiteNavLink
+                    href={item.href}
+                    className="site-nav-link"
+                    onNavigate={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </SiteNavLink>
                 </li>
               ))}
             </ul>
-          ) : null}
-        </nav>
+          </nav>
+        ) : null}
       </div>
     </header>
   );
