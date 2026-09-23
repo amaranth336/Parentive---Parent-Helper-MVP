@@ -5,7 +5,7 @@ import { homepage, homepageCtas } from "@/lib/homepage/content";
 import { EARLY_ACCESS_COPY, PRIVACY_PAGE } from "./copy";
 
 const ALLOWED_HREF =
-  /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/privacy$|^\/design-system$/;
+  /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/helpers$|^\/privacy$|^\/privacy#founding-helper-applications$|^\/design-system$/;
 
 function collectPublicHrefs(...values: unknown[]): string[] {
   const hrefs = new Set<string>();

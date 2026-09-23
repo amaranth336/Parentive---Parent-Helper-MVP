@@ -1083,3 +1083,139 @@ fieldset.radio-group legend,
   padding: 0;
   margin-bottom: 8px;
 }
+
+.helpers h1,
+.helpers > p,
+.helpers .helpers-section,
+.helpers .card {
+  max-width: 40rem;
+}
+
+.helpers .helpers-eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.helpers .helpers-intro {
+  margin-bottom: 20px;
+}
+
+.helpers .helpers-compensation-group {
+  margin: 4px 0 28px;
+  padding: 2px 0 2px 14px;
+  border-left: 3px solid var(--accent);
+  max-width: 40rem;
+}
+
+.helpers .helpers-compensation {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.3;
+}
+
+.helpers .helpers-compensation-support {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.helpers .helpers-compensation-support + .helpers-compensation-support {
+  margin-top: 2px;
+}
+
+.helpers-section {
+  margin: 28px 0;
+}
+
+.helpers-section h2 {
+  margin-bottom: 10px;
+}
+
+.helpers-lifecycle {
+  margin: 12px 0 16px;
+  padding-left: 1.2em;
+}
+
+.helpers-lifecycle li {
+  margin-bottom: 4px;
+}
+
+.helpers .card {
+  margin-top: 8px;
+}
+
+.helpers-form-section {
+  margin: 0 0 28px;
+}
+
+.helpers-form-heading {
+  margin: 0 0 14px;
+  font-size: 1.0625rem;
+}
+
+.helpers-form .helpers-error-list {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+}
+
+.helpers-fieldset {
+  border: 0;
+  margin: 0 0 16px;
+  padding: 0;
+  min-width: 0;
+}
+
+.helpers-fieldset legend {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.helpers-checkbox-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.helpers-confirmations {
+  margin-top: 8px;
+}
+
+.helpers-consents {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+.helpers-privacy {
+  margin: 0 0 16px;
+}
+
+.helpers-file-input {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 0;
+  font: inherit;
+  color: var(--text);
+}
+
+.helpers-form .btn-primary {
+  min-height: 44px;
+}
+
+.helpers-success-heading {
+  margin: 0 0 12px;
+}
