@@ -2,12 +2,14 @@ import {
   COMPENSATION_LINE,
   DOCUMENT_ATTACH_COPY,
   EXPERIENCE_SUPPORTING,
+  FIELD_LABELS,
   HELPERS_EYEBROW,
   HELPERS_HEADING,
   HELPERS_INTRO,
   HELPERS_PRIVACY_POLICY_VERSION,
   INTEREST_OPTIONS,
   POSTAL_PLACEHOLDER,
+  SCREENING_ACK_HELPER_TEXT,
   SUCCESS_HEADING,
   WEEKLY_HOURS_OPTIONS,
 } from "./copy";
@@ -55,5 +57,17 @@ describe("helpers copy", () => {
   it("uses A1A 1A1 as the postal placeholder and a helpers privacy version", () => {
     expect(POSTAL_PLACEHOLDER).toBe("A1A 1A1");
     expect(HELPERS_PRIVACY_POLICY_VERSION).toBe("2026-09-22-helpers");
+  });
+
+  it("uses the owner-approved vehicle and screening helper wording", () => {
+    expect(FIELD_LABELS.hasOwnVehicle).toBe(
+      "I have my own vehicle with adequate insurance and can travel to customer homes.",
+    );
+    expect(SCREENING_ACK_HELPER_TEXT).toBe(
+      "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer. Do not upload criminal-record documents with this application.",
+    );
+    expect(SCREENING_ACK_HELPER_TEXT).not.toContain(
+      "This acknowledgement is not a substitute for later specific informed authorization.",
+    );
   });
 });

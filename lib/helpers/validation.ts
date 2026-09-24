@@ -37,7 +37,8 @@ export const FIELD_ERROR_MESSAGES = {
   hoursInvalid: "Choose one of the listed weekly hours ranges.",
   age18Required: "Confirm that you are at least 18 years old.",
   workEligibleRequired: "Confirm that you are legally eligible to work in Canada.",
-  vehicleRequired: "Confirm that you have your own vehicle for travel.",
+  vehicleRequired:
+    "Confirm that you have your own vehicle with adequate insurance for travel.",
   screeningRequired:
     "Confirm that you consent to participating in reference and criminal background checks if selected for further screening.",
   documentRequired: "Attach a PDF or DOCX experience document.",

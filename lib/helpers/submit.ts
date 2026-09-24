@@ -81,11 +81,35 @@ function storagePathFor(id: string, extension: "pdf" | "docx"): string {
   return `${id}/experience.${extension}`;
 }
 
+function recordCleanupFailure(path: string, message: string): void {
+  // Path is a generated UUID folder — do not log applicant PII.
+  console.error(
+    JSON.stringify({
+      scope: "helpers.submit",
+      event: "storage_cleanup_failed",
+      path,
+      message: message.slice(0, 160),
+    }),
+  );
+}
+
 async function deleteStorageObject(
   client: ServiceRoleClient,
   path: string,
-): Promise<void> {
-  await client.storage.from(DOCUMENT_BUCKET).remove([path]);
+): Promise<boolean> {
+  let lastMessage = "unknown cleanup error";
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const removed = await client.storage.from(DOCUMENT_BUCKET).remove([path]);
+    if (!removed.error) {
+      return true;
+    }
+
+    lastMessage = removed.error.message || lastMessage;
+  }
+
+  recordCleanupFailure(path, lastMessage);
+  return false;
 }
 
 export async function submitHelperApplication(
@@ -134,6 +158,10 @@ export async function submitHelperApplication(
     return { ok: true };
   }
 
-  await deleteStorageObject(client, documentStoragePath);
+  const cleaned = await deleteStorageObject(client, documentStoragePath);
+  if (!cleaned) {
+    return { ok: false, error: HELPERS_ERRORS.unexpected };
+  }
+
   return { ok: false, error: HELPERS_ERRORS.unexpected };
 }

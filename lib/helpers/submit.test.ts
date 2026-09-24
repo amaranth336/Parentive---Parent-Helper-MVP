@@ -56,10 +56,13 @@ type QueryResult = {
 function createMockClient(options: {
   uploadError?: { message?: string } | null;
   insertResult?: QueryResult;
+  removeError?: { message?: string } | null;
+  removeErrorTwice?: boolean;
   onUpload?: (path: string, body: unknown) => void;
   onInsert?: (row: unknown) => void;
   onRemove?: (paths: string[]) => void;
 }): ServiceRoleClient {
+  let removeAttempts = 0;
   const client = {
     storage: {
       from(bucket: string) {
@@ -74,6 +77,12 @@ function createMockClient(options: {
           },
           remove: async (paths: string[]) => {
             options.onRemove?.(paths);
+            removeAttempts += 1;
+            if (options.removeError) {
+              if (options.removeErrorTwice || removeAttempts === 1) {
+                return { data: null, error: options.removeError };
+              }
+            }
             return { data: paths, error: null };
           },
         };
@@ -164,6 +173,32 @@ describe("helpers submit", () => {
 
     expect(result.ok).toBe(false);
     expect(onRemove).toHaveBeenCalledWith([`${fixedId}/experience.pdf`]);
+  });
+
+  it("retries and records when storage cleanup fails after insert failure", async () => {
+    const onRemove = jest.fn();
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const client = createMockClient({
+      insertResult: { data: null, error: { message: "insert failed" } },
+      removeError: { message: "remove denied" },
+      removeErrorTwice: true,
+      onRemove,
+    });
+
+    const result = await submitHelperApplication(validated, document, {
+      client,
+      now,
+      id: fixedId,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(onRemove).toHaveBeenCalledTimes(2);
+    expect(errorSpy).toHaveBeenCalled();
+    const logged = String(errorSpy.mock.calls[0]?.[0] ?? "");
+    expect(logged).toContain("storage_cleanup_failed");
+    expect(logged).toContain(`${fixedId}/experience.pdf`);
+    expect(logged).not.toContain(validated.email);
+    errorSpy.mockRestore();
   });
 
   it("does not insert a row when upload fails", async () => {

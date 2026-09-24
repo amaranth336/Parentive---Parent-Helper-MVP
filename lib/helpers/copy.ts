@@ -34,7 +34,7 @@ export const WEEKLY_HOURS_HELPER_TEXT =
   "Six or more hours per week is preferred, but hours and schedules are not guaranteed during the pilot.";
 
 export const SCREENING_ACK_HELPER_TEXT =
-  "This acknowledgement is not a substitute for later specific informed authorization. References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer. Do not upload criminal-record documents with this application.";
+  "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer. Do not upload criminal-record documents with this application.";
 
 export const VEHICLE_REQUIREMENT_TEXT =
   "This role requires a valid driver's licence and appropriate vehicle insurance for lawful travel between assignments.";
@@ -58,6 +58,12 @@ export const HELPERS_SOURCE_PATH = "/helpers";
 export const DOCUMENT_BUCKET = "helper-application-documents";
 
 export const MAX_DOCUMENT_BYTES = 5_242_880;
+
+/** Multipart overhead allowance beyond the document itself (fields + boundaries). */
+export const MAX_HELPERS_REQUEST_BYTES = MAX_DOCUMENT_BYTES + 512_000;
+
+export const HELPERS_RATE_LIMIT_MAX_REQUESTS = 3;
+export const HELPERS_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 
 export const INTEREST_OPTIONS = [
   {
@@ -145,7 +151,8 @@ export const FIELD_LABELS = {
   preferredWeeklyHours: "Preferred weekly hours",
   age18Confirmed: "I am at least 18 years old.",
   workEligibleCanada: "I am legally eligible to work in Canada.",
-  hasOwnVehicle: "I have my own vehicle and can travel to customer homes.",
+  hasOwnVehicle:
+    "I have my own vehicle with adequate insurance and can travel to customer homes.",
   screeningAcknowledgement:
     "I consent to participating in reference and criminal background checks should I be selected for further candidate screening.",
   document: "Experience document",
@@ -166,6 +173,8 @@ export const HELPERS_ERRORS = {
   unavailable:
     "Helper applications are temporarily unavailable. Please try again later.",
   unexpected: "Something went wrong. Please try again.",
+  payloadTooLarge:
+    "The application upload is too large. Use a PDF or DOCX of 5 MB or smaller.",
   documentRequired: "Attach a PDF or DOCX experience document to continue.",
   documentReselect:
     "Your experience document must be selected again before submitting.",

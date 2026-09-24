@@ -1,10 +1,11 @@
-import { HELPERS_ERRORS } from "@/lib/helpers/copy";
+import { HELPERS_ERRORS, MAX_DOCUMENT_BYTES } from "@/lib/helpers/copy";
 import {
   validateHelperDocument,
   type DocumentValidationResult,
 } from "@/lib/helpers/document";
 import {
-  createSlidingWindowLimiter,
+  createHelpersRateLimiter,
+  createSlidingWindowHelpersLimiter,
   helpersRateLimiter,
   type SlidingWindowRateLimiter,
 } from "@/lib/helpers/rate-limit";
@@ -134,8 +135,12 @@ export function createHelpersHandler(
   formData: FormData,
   context: { ip: string },
 ) => Promise<HelpersHandlerResult> {
-  const limiter = deps.limiter ?? helpersRateLimiter;
   const getAdminClient = deps.getAdminClient ?? createServiceRoleClient;
+  const limiter =
+    deps.limiter ??
+    createHelpersRateLimiter({
+      getClient: getAdminClient,
+    });
   const submit = deps.submit ?? submitHelperApplication;
   const validateDocument = deps.validateDocument ?? validateHelperDocument;
 
@@ -143,7 +148,7 @@ export function createHelpersHandler(
     formData: FormData,
     context: { ip: string },
   ): Promise<HelpersHandlerResult> {
-    if (limiter.isLimited(context.ip || "unknown")) {
+    if (await limiter.isLimited(context.ip || "unknown")) {
       return {
         status: 429,
         body: { ok: false, error: HELPERS_ERRORS.rateLimit },
@@ -151,6 +156,20 @@ export function createHelpersHandler(
     }
 
     const { fields, file } = parseHelpersFormData(formData);
+
+    if (file && file.size > MAX_DOCUMENT_BYTES) {
+      return {
+        status: 400,
+        body: {
+          ok: false,
+          error: HELPERS_ERRORS.validation,
+          fieldErrors: {
+            document: "Documents must be 5 MB or smaller.",
+          },
+        },
+      };
+    }
+
     const validated = validateHelpersInput(fields);
     if (!validated.ok) {
       return {
@@ -230,6 +249,8 @@ export function createIsolatedHelpersHandler(
 ) {
   return createHelpersHandler({
     ...deps,
-    limiter: deps.limiter ?? createSlidingWindowLimiter({ maxRequests: 3 }),
+    limiter: deps.limiter ?? createSlidingWindowHelpersLimiter(),
   });
 }
+
+export { helpersRateLimiter };

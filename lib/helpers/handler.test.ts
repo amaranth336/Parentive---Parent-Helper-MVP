@@ -75,6 +75,34 @@ describe("helpers handler", () => {
     });
   });
 
+  it("rejects oversized files before reading bytes into memory", async () => {
+    const handle = createIsolatedHelpersHandler({
+      getAdminClient: () => fakeClient,
+      submit: async () => ({ ok: true }),
+      validateDocument: () => {
+        throw new Error("validateDocument should not run for oversized files");
+      },
+    });
+
+    const formData = buildValidFormData();
+    const oversized = new File([new Uint8Array(5_242_881)], "huge.pdf", {
+      type: "application/pdf",
+    });
+    Object.defineProperty(oversized, "arrayBuffer", {
+      value: async () => {
+        throw new Error("arrayBuffer should not be called");
+      },
+    });
+    formData.set("document", oversized);
+
+    const result = await handle(formData, { ip: "7.7.7.7" });
+    expect(result.status).toBe(400);
+    expect(result.body.ok).toBe(false);
+    if (!result.body.ok) {
+      expect(result.body.fieldErrors?.document).toMatch(/5 MB/i);
+    }
+  });
+
   it("returns 503 when config is missing", async () => {
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => null,

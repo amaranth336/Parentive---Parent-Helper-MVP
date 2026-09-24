@@ -195,6 +195,27 @@ export type HelperApplicationUpdate = {
   updated_at?: string;
 };
 
+export type HelperApplicationRateLimitRow = {
+  rate_key: string;
+  window_started_at: string;
+  hit_count: number;
+  updated_at: string;
+};
+
+export type HelperApplicationRateLimitInsert = {
+  rate_key: string;
+  window_started_at: string;
+  hit_count?: number;
+  updated_at?: string;
+};
+
+export type HelperApplicationRateLimitUpdate = {
+  rate_key?: string;
+  window_started_at?: string;
+  hit_count?: number;
+  updated_at?: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -208,6 +229,12 @@ export type Database = {
         Row: HelperApplicationRow;
         Insert: HelperApplicationInsert;
         Update: HelperApplicationUpdate;
+        Relationships: [];
+      };
+      helper_application_rate_limits: {
+        Row: HelperApplicationRateLimitRow;
+        Insert: HelperApplicationRateLimitInsert;
+        Update: HelperApplicationRateLimitUpdate;
         Relationships: [];
       };
     };
