@@ -1204,6 +1204,7 @@ fieldset.radio-group legend,
 .helpers-section-number::after {
   content: " •";
   color: var(--accent);
+  font-weight: 400;
 }
 
 .helpers-form .helpers-error-list {
