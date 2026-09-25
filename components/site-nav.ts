@@ -1,4 +1,5 @@
 import { EARLY_ACCESS_PATH } from "@/lib/early-access/copy";
+import { HELPERS_PATH } from "@/lib/helpers/copy";
 import { homepage } from "@/lib/homepage/content";
 
 export type SiteNavItem = {
@@ -23,6 +24,10 @@ export const siteNav: SiteNavItem[] = [
   {
     label: "Early Access",
     href: EARLY_ACCESS_PATH,
+  },
+  {
+    label: "Join the team",
+    href: HELPERS_PATH,
   },
 ];
 

@@ -12,16 +12,16 @@ const UNIMPLEMENTED_PATHS = [
   "/pricing",
   "/how-it-works",
   "/request",
-  "/helpers",
 ] as const;
 
 describe("site navigation", () => {
-  it("includes the four live labels", () => {
+  it("includes the five live labels", () => {
     expect(siteNav.map((item) => item.label)).toEqual([
       "Home",
       "Our Support",
       "How It Works",
       "Early Access",
+      "Join the team",
     ]);
   });
 
@@ -31,12 +31,14 @@ describe("site navigation", () => {
       homepageSectionHref(homepage.support.id),
       homepageSectionHref(homepage.howItWorks.id),
       "/early-access",
+      "/helpers",
     ]);
     expect(siteNav.map((item) => item.href)).toEqual([
       "/",
       "/#support",
       "/#how-it-works",
       "/early-access",
+      "/helpers",
     ]);
   });
 
@@ -48,7 +50,13 @@ describe("site navigation", () => {
     }
   });
 
-  it("includes Home and the three section links in the live header", () => {
+  it("includes Join the team linking to /helpers", () => {
+    expect(siteNav.find((item) => item.label === "Join the team")?.href).toBe(
+      "/helpers",
+    );
+  });
+
+  it("includes Home and the live section links in the header", () => {
     const items = getVisibleNavItems();
 
     expect(items).toEqual(siteNav);
@@ -57,6 +65,7 @@ describe("site navigation", () => {
       { label: "Our Support", href: "/#support" },
       { label: "How It Works", href: "/#how-it-works" },
       { label: "Early Access", href: "/early-access" },
+      { label: "Join the team", href: "/helpers" },
     ]);
   });
 
