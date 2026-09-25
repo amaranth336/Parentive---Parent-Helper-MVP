@@ -97,7 +97,11 @@ function toggleInterest(
   return current.filter((item) => item !== key);
 }
 
-export function EarlyAccessForm() {
+type EarlyAccessFormProps = {
+  onSuccess?: () => void;
+};
+
+export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
   const [values, setValues] = useState<FormValues>(EMPTY_VALUES);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
@@ -178,6 +182,7 @@ export function EarlyAccessForm() {
       if (isVerifiedEarlyAccessSuccess(response.ok, data)) {
         setSuccess(true);
         setFocusTarget("success");
+        onSuccess?.();
         return;
       }
 

@@ -10,6 +10,12 @@ export const EARLY_ACCESS_SUPPORTING =
 export const EARLY_ACCESS_SUCCESS_MESSAGE =
   "Thank you for your interest in Parentive! We will contact you once details of our services launching in your area become available.";
 
+export const POST_SUBMIT_HEADING = "You're on the list.";
+export const POST_SUBMIT_SUPPORTING =
+  "Thanks for joining Parentive's early-access community. We'll be in touch when there are updates about our pilot and service availability in your area.";
+export const POST_SUBMIT_CTA_LABEL = "Return to home";
+export const POST_SUBMIT_CTA_HREF = "/";
+
 export const SERVICE_INTEREST_QUESTION =
   "What can Parentive take off your plate?";
 
