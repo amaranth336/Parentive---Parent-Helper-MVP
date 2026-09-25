@@ -58,8 +58,9 @@ function createMockClient(options: {
   insertResult?: QueryResult;
   removeError?: { message?: string } | null;
   removeErrorTwice?: boolean;
+  orphanInsertError?: { message?: string } | null;
   onUpload?: (path: string, body: unknown) => void;
-  onInsert?: (row: unknown) => void;
+  onInsert?: (table: string, row: unknown) => void;
   onRemove?: (paths: string[]) => void;
 }): ServiceRoleClient {
   let removeAttempts = 0;
@@ -89,10 +90,17 @@ function createMockClient(options: {
       },
     },
     from(table: string) {
-      expect(table).toBe("helper_applications");
       return {
         insert(row: unknown) {
-          options.onInsert?.(row);
+          options.onInsert?.(table, row);
+          if (table === "helper_application_storage_orphan_events") {
+            return Promise.resolve({
+              data: options.orphanInsertError ? null : [{ id: "orphan-1" }],
+              error: options.orphanInsertError ?? null,
+            });
+          }
+
+          expect(table).toBe("helper_applications");
           return {
             select() {
               return {
@@ -125,8 +133,10 @@ describe("helpers submit", () => {
       onUpload: (path) => {
         uploadedPath = path;
       },
-      onInsert: (row) => {
-        persisted = row;
+      onInsert: (table, row) => {
+        if (table === "helper_applications") {
+          persisted = row;
+        }
       },
       onRemove,
     });
@@ -158,11 +168,13 @@ describe("helpers submit", () => {
     expect(onRemove).not.toHaveBeenCalled();
   });
 
-  it("cleans up the storage object when insert fails", async () => {
+  it("cleans up the storage object when insert fails and does not record an orphan", async () => {
     const onRemove = jest.fn();
+    const onInsert = jest.fn();
     const client = createMockClient({
       insertResult: { data: null, error: { message: "insert failed" } },
       onRemove,
+      onInsert,
     });
 
     const result = await submitHelperApplication(validated, document, {
@@ -173,16 +185,22 @@ describe("helpers submit", () => {
 
     expect(result.ok).toBe(false);
     expect(onRemove).toHaveBeenCalledWith([`${fixedId}/experience.pdf`]);
+    expect(onInsert).not.toHaveBeenCalledWith(
+      "helper_application_storage_orphan_events",
+      expect.anything(),
+    );
   });
 
-  it("retries and records when storage cleanup fails after insert failure", async () => {
+  it("retries cleanup successfully on the second attempt without recording an orphan", async () => {
     const onRemove = jest.fn();
+    const onInsert = jest.fn();
     const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     const client = createMockClient({
       insertResult: { data: null, error: { message: "insert failed" } },
-      removeError: { message: "remove denied" },
-      removeErrorTwice: true,
+      removeError: { message: "transient remove failure" },
+      // removeErrorTwice omitted: first remove fails, second succeeds
       onRemove,
+      onInsert,
     });
 
     const result = await submitHelperApplication(validated, document, {
@@ -193,11 +211,75 @@ describe("helpers submit", () => {
 
     expect(result.ok).toBe(false);
     expect(onRemove).toHaveBeenCalledTimes(2);
+    expect(onInsert).not.toHaveBeenCalledWith(
+      "helper_application_storage_orphan_events",
+      expect.anything(),
+    );
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockRestore();
+  });
+
+  it("retries cleanup and records an orphan event on permanent failure", async () => {
+    const onRemove = jest.fn();
+    const onInsert = jest.fn();
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const client = createMockClient({
+      insertResult: { data: null, error: { message: "insert failed" } },
+      removeError: { message: "remove denied" },
+      removeErrorTwice: true,
+      onRemove,
+      onInsert,
+    });
+
+    const result = await submitHelperApplication(validated, document, {
+      client,
+      now,
+      id: fixedId,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(onRemove).toHaveBeenCalledTimes(2);
+    expect(onInsert).toHaveBeenCalledWith(
+      "helper_application_storage_orphan_events",
+      expect.objectContaining({
+        bucket: DOCUMENT_BUCKET,
+        storage_path: `${fixedId}/experience.pdf`,
+        reason: "cleanup_failed_after_insert",
+        attempt_count: 2,
+        error_excerpt: "remove denied",
+        status: "pending",
+      }),
+    );
     expect(errorSpy).toHaveBeenCalled();
     const logged = String(errorSpy.mock.calls[0]?.[0] ?? "");
     expect(logged).toContain("storage_cleanup_failed");
     expect(logged).toContain(`${fixedId}/experience.pdf`);
     expect(logged).not.toContain(validated.email);
+    errorSpy.mockRestore();
+  });
+
+  it("still returns ok:false when orphan insert fails after cleanup failure", async () => {
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const client = createMockClient({
+      insertResult: { data: null, error: { message: "insert failed" } },
+      removeError: { message: "remove denied" },
+      removeErrorTwice: true,
+      orphanInsertError: { message: "orphan insert denied" },
+    });
+
+    const result = await submitHelperApplication(validated, document, {
+      client,
+      now,
+      id: fixedId,
+    });
+
+    expect(result.ok).toBe(false);
+    const orphanLog = errorSpy.mock.calls
+      .map((call) => String(call[0] ?? ""))
+      .find((line) => line.includes("orphan_event_insert_failed"));
+    expect(orphanLog).toBeDefined();
+    expect(orphanLog).toContain(`${fixedId}/experience.pdf`);
+    expect(orphanLog).not.toContain(validated.email);
     errorSpy.mockRestore();
   });
 

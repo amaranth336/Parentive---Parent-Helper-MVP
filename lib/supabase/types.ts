@@ -216,6 +216,42 @@ export type HelperApplicationRateLimitUpdate = {
   updated_at?: string;
 };
 
+export type HelperApplicationStorageOrphanEventRow = {
+  id: string;
+  bucket: string;
+  storage_path: string;
+  reason: string;
+  attempt_count: number;
+  error_excerpt: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type HelperApplicationStorageOrphanEventInsert = {
+  id?: string;
+  bucket?: string;
+  storage_path: string;
+  reason: string;
+  attempt_count: number;
+  error_excerpt?: string | null;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type HelperApplicationStorageOrphanEventUpdate = {
+  id?: string;
+  bucket?: string;
+  storage_path?: string;
+  reason?: string;
+  attempt_count?: number;
+  error_excerpt?: string | null;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -237,12 +273,25 @@ export type Database = {
         Update: HelperApplicationRateLimitUpdate;
         Relationships: [];
       };
+      helper_application_storage_orphan_events: {
+        Row: HelperApplicationStorageOrphanEventRow;
+        Insert: HelperApplicationStorageOrphanEventInsert;
+        Update: HelperApplicationStorageOrphanEventUpdate;
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      check_helper_application_rate_limit: {
+        Args: {
+          p_rate_key: string;
+          p_max_requests?: number;
+          p_window_ms?: number;
+        };
+        Returns: boolean;
+      };
     };
     Enums: {
       [_ in never]: never;

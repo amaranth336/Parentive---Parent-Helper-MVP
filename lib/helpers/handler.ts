@@ -4,9 +4,7 @@ import {
   type DocumentValidationResult,
 } from "@/lib/helpers/document";
 import {
-  createHelpersRateLimiter,
   createSlidingWindowHelpersLimiter,
-  helpersRateLimiter,
   type SlidingWindowRateLimiter,
 } from "@/lib/helpers/rate-limit";
 import type { HelpersApiResponse } from "@/lib/helpers/response";
@@ -35,6 +33,11 @@ export type HelpersHandlerResult = {
 };
 
 export type HelpersHandlerDeps = {
+  /**
+   * Optional limiter for isolated/unit tests.
+   * Production route owns rate limiting and uses handleHelpersSubmission
+   * without a limiter to avoid double-counting.
+   */
   limiter?: SlidingWindowRateLimiter;
   getAdminClient?: () => ServiceRoleClient | null;
   submit?: (
@@ -136,11 +139,7 @@ export function createHelpersHandler(
   context: { ip: string },
 ) => Promise<HelpersHandlerResult> {
   const getAdminClient = deps.getAdminClient ?? createServiceRoleClient;
-  const limiter =
-    deps.limiter ??
-    createHelpersRateLimiter({
-      getClient: getAdminClient,
-    });
+  const limiter = deps.limiter;
   const submit = deps.submit ?? submitHelperApplication;
   const validateDocument = deps.validateDocument ?? validateHelperDocument;
 
@@ -148,7 +147,7 @@ export function createHelpersHandler(
     formData: FormData,
     context: { ip: string },
   ): Promise<HelpersHandlerResult> {
-    if (await limiter.isLimited(context.ip || "unknown")) {
+    if (limiter && (await limiter.isLimited(context.ip || "unknown"))) {
       return {
         status: 429,
         body: { ok: false, error: HELPERS_ERRORS.rateLimit },
@@ -240,8 +239,10 @@ export function createHelpersHandler(
   };
 }
 
+/** Production route path: no limiter (route owns rate limiting). */
 export const handleHelpersSubmission = createHelpersHandler();
 
+/** Unit-test helper: attaches an in-memory limiter by default. */
 export function createIsolatedHelpersHandler(
   deps: Omit<HelpersHandlerDeps, "limiter"> & {
     limiter?: SlidingWindowRateLimiter;
@@ -252,5 +253,3 @@ export function createIsolatedHelpersHandler(
     limiter: deps.limiter ?? createSlidingWindowHelpersLimiter(),
   });
 }
-
-export { helpersRateLimiter };

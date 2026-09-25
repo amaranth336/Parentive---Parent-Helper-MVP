@@ -81,6 +81,10 @@ function storagePathFor(id: string, extension: "pdf" | "docx"): string {
   return `${id}/experience.${extension}`;
 }
 
+function truncateErrorExcerpt(message: string): string {
+  return message.slice(0, 160);
+}
+
 function recordCleanupFailure(path: string, message: string): void {
   // Path is a generated UUID folder — do not log applicant PII.
   console.error(
@@ -88,28 +92,65 @@ function recordCleanupFailure(path: string, message: string): void {
       scope: "helpers.submit",
       event: "storage_cleanup_failed",
       path,
-      message: message.slice(0, 160),
+      message: truncateErrorExcerpt(message),
     }),
   );
+}
+
+async function recordStorageOrphanEvent(
+  client: ServiceRoleClient,
+  path: string,
+  errorExcerpt: string,
+): Promise<void> {
+  try {
+    const inserted = await client
+      .from("helper_application_storage_orphan_events")
+      .insert({
+        bucket: DOCUMENT_BUCKET,
+        storage_path: path,
+        reason: "cleanup_failed_after_insert",
+        attempt_count: 2,
+        error_excerpt: truncateErrorExcerpt(errorExcerpt),
+        status: "pending",
+      });
+
+    if (inserted.error) {
+      console.error(
+        JSON.stringify({
+          scope: "helpers.submit",
+          event: "orphan_event_insert_failed",
+          path,
+        }),
+      );
+    }
+  } catch {
+    console.error(
+      JSON.stringify({
+        scope: "helpers.submit",
+        event: "orphan_event_insert_failed",
+        path,
+      }),
+    );
+  }
 }
 
 async function deleteStorageObject(
   client: ServiceRoleClient,
   path: string,
-): Promise<boolean> {
+): Promise<{ cleaned: boolean; lastMessage: string }> {
   let lastMessage = "unknown cleanup error";
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const removed = await client.storage.from(DOCUMENT_BUCKET).remove([path]);
     if (!removed.error) {
-      return true;
+      return { cleaned: true, lastMessage: "" };
     }
 
     lastMessage = removed.error.message || lastMessage;
   }
 
   recordCleanupFailure(path, lastMessage);
-  return false;
+  return { cleaned: false, lastMessage };
 }
 
 export async function submitHelperApplication(
@@ -158,10 +199,15 @@ export async function submitHelperApplication(
     return { ok: true };
   }
 
-  const cleaned = await deleteStorageObject(client, documentStoragePath);
-  if (!cleaned) {
-    return { ok: false, error: HELPERS_ERRORS.unexpected };
+  const cleanup = await deleteStorageObject(client, documentStoragePath);
+  if (!cleanup.cleaned) {
+    await recordStorageOrphanEvent(
+      client,
+      documentStoragePath,
+      cleanup.lastMessage,
+    );
   }
 
+  // Never treat a failed insert as success, even if cleanup/orphan logging fails.
   return { ok: false, error: HELPERS_ERRORS.unexpected };
 }

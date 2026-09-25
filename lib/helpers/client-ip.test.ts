@@ -8,11 +8,20 @@ function requestWith(headers: Record<string, string>): Request {
 }
 
 describe("resolveClientIp", () => {
-  it("prefers x-vercel-forwarded-for over spoofable x-forwarded-for heads", () => {
+  it("prefers x-vercel-forwarded-for and ignores spoofed x-forwarded-for", () => {
     const ip = resolveClientIp(
       requestWith({
         "x-forwarded-for": "1.1.1.1, 2.2.2.2",
         "x-vercel-forwarded-for": "9.9.9.9",
+      }),
+    );
+    expect(ip).toBe("9.9.9.9");
+  });
+
+  it("uses the first x-vercel-forwarded-for value", () => {
+    const ip = resolveClientIp(
+      requestWith({
+        "x-vercel-forwarded-for": "9.9.9.9, 8.8.8.8",
       }),
     );
     expect(ip).toBe("9.9.9.9");
@@ -28,13 +37,13 @@ describe("resolveClientIp", () => {
     expect(ip).toBe("8.8.8.8");
   });
 
-  it("falls back to the last x-forwarded-for hop, not the first", () => {
+  it("ignores x-forwarded-for alone and returns unknown", () => {
     const ip = resolveClientIp(
       requestWith({
         "x-forwarded-for": "1.1.1.1, 10.0.0.5",
       }),
     );
-    expect(ip).toBe("10.0.0.5");
+    expect(ip).toBe("unknown");
   });
 
   it("returns unknown when no usable header is present", () => {

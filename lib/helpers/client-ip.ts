@@ -1,9 +1,15 @@
 /**
  * Resolve a client IP for helper-application rate limiting.
  *
- * Prefer platform-controlled headers that callers cannot freely set.
- * Never prefer the first X-Forwarded-For hop: clients can prepend spoofed IPs
- * and reverse proxies append the real address.
+ * Vercel deployment assumptions:
+ * - On Vercel, `x-vercel-forwarded-for` is platform-set to the connecting client
+ *   IP (take the first value if a list is present).
+ * - `x-real-ip` is also treated as platform-controlled on Vercel and is used
+ *   only when the Vercel header is absent.
+ * - Do NOT trust `x-forwarded-for`: clients can prepend spoofed hops. Custom
+ *   reverse proxies that strip Vercel headers will collapse callers into the
+ *   shared `"unknown"` rate-limit bucket (intentional fail-safe).
+ * - Local `next dev` typically has neither header → `"unknown"`.
  */
 
 const IPV4_LIKE =
@@ -16,18 +22,6 @@ function firstHeaderValue(header: string | null): string | null {
 
   const first = header.split(",")[0]?.trim();
   return first || null;
-}
-
-function lastHeaderValue(header: string | null): string | null {
-  if (!header) {
-    return null;
-  }
-
-  const parts = header
-    .split(",")
-    .map((part) => part.trim())
-    .filter(Boolean);
-  return parts.length > 0 ? parts[parts.length - 1] : null;
 }
 
 function looksLikeIp(value: string): boolean {
@@ -45,12 +39,6 @@ export function resolveClientIp(request: Request): string {
   const realIp = request.headers.get("x-real-ip")?.trim();
   if (realIp && looksLikeIp(realIp)) {
     return realIp;
-  }
-
-  // Proxies append the connecting peer. Prefer the last hop over the first.
-  const forwardedLast = lastHeaderValue(request.headers.get("x-forwarded-for"));
-  if (forwardedLast && looksLikeIp(forwardedLast)) {
-    return forwardedLast;
   }
 
   return "unknown";

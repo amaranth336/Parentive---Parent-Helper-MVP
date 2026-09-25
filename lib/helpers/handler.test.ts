@@ -56,7 +56,7 @@ describe("helpers handler", () => {
     }
   });
 
-  it("returns 429 on the 4th request from the same IP", async () => {
+  it("returns 429 on the 4th request from the same IP via isolated limiter", async () => {
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => fakeClient,
       submit: async () => ({ ok: true }),
@@ -73,6 +73,19 @@ describe("helpers handler", () => {
       ok: false,
       error: HELPERS_ERRORS.rateLimit,
     });
+  });
+
+  it("does not rate-limit when createHelpersHandler has no limiter (route owns RL)", async () => {
+    const { createHelpersHandler } = await import("./handler");
+    const handle = createHelpersHandler({
+      getAdminClient: () => fakeClient,
+      submit: async () => ({ ok: true }),
+    });
+
+    for (let index = 0; index < 5; index += 1) {
+      const result = await handle(buildValidFormData(), { ip: "4.4.4.4" });
+      expect(result.status).toBe(200);
+    }
   });
 
   it("rejects oversized files before reading bytes into memory", async () => {
