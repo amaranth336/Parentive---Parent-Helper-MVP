@@ -15,6 +15,7 @@ export function SiteFooter() {
           <p className="site-footer-tagline">{LOCKED_DESCRIPTOR}</p>
         </div>
         <nav className="site-footer-nav" aria-label="Footer">
+          <h2 className="site-footer-nav-heading">Explore</h2>
           <ul className="site-footer-nav-list">
             {navItems.map((item) => (
               <li key={item.href}>
