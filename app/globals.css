@@ -1201,9 +1201,9 @@ fieldset.radio-group legend,
   font-size: 1.0625rem;
 }
 
-.helpers-section-number::after {
+.helpers-form-heading .helpers-section-number::after {
   content: " •";
-  color: var(--accent);
+  color: var(--accent) !important;
   font-weight: 400;
 }
 
