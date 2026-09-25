@@ -1199,11 +1199,16 @@ fieldset.radio-group legend,
 .helpers-form-heading {
   margin: 0 0 14px;
   font-size: 1.0625rem;
+  color: var(--text);
+}
+
+.helpers-form-heading .helpers-section-number {
+  color: var(--text);
 }
 
 .helpers-form-heading .helpers-section-number::after {
   content: " •";
-  color: var(--accent) !important;
+  color: #D5A552 !important;
   font-weight: 400;
 }
 
