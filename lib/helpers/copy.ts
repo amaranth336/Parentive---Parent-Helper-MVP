@@ -13,28 +13,25 @@ export const COMPENSATION_LINE =
   "Flexible Hours - $20–$23/hr Compensation";
 
 export const COMPENSATION_SUPPORT_PRIMARY =
-  "You tell us when you're available · Pilot-phase compensation, subject to review after the pilot";
-
-export const COMPENSATION_SUPPORT_SECONDARY =
-  "Employee positions · No guaranteed pilot hours · Preference for 6+ hours of weekly availability";
+  "Pilot-phase compensation, subject to review after the pilot · Employee positions · No guaranteed pilot hours · Preference for 6+ hours of weekly availability · Flexible hours";
 
 export const DOCUMENT_ATTACH_COPY =
-  "Attach a résumé if you have one. Or, alternatively, a document outlining relevant experience to the services Parentive provides.";
+  "Attach a résumé if you have one. Alternatively, upload a document outlining relevant experience to the services Parentive provides.";
 
 export const EXPERIENCE_SUPPORTING =
   "Formal professional experience is not required for every task. We value experience acquired from everyday life and lived experiences where relevant to the services we provide.";
 
 export const INTEREST_QUESTION =
-  "Which types of support would you enjoy providing?";
+  "Which types of support best match your skills and experience?";
 
 export const INTEREST_HELPER_TEXT =
-  "These selections indicate interests and skills for screening. They do not guarantee task-specific employment or add new public services. Garden and light outdoor work is recorded as a candidate capability, not a customer-facing service.";
+  "These selections indicate interests and skills for screening. They do not guarantee task-specific employment.";
 
 export const WEEKLY_HOURS_HELPER_TEXT =
-  "Six or more hours per week is preferred, but hours and schedules are not guaranteed during the pilot.";
+  "Note: hours and schedules are not guaranteed during the pilot.";
 
 export const SCREENING_ACK_HELPER_TEXT =
-  "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer. Do not upload criminal-record documents with this application.";
+  "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer.";
 
 export const VEHICLE_REQUIREMENT_TEXT =
   "This role requires a valid driver's licence and appropriate vehicle insurance for lawful travel between assignments.";
@@ -68,11 +65,11 @@ export const HELPERS_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 export const INTEREST_OPTIONS = [
   {
     key: "laundry_household_resets",
-    label: "Laundry, folding and household resets",
+    label: "Laundry, including putting items away",
   },
   {
     key: "tidying_organizing",
-    label: "Tidying and organizing family spaces",
+    label: "Tidying, light cleaning and organizing family spaces",
   },
   {
     key: "food_kitchen",
@@ -84,7 +81,7 @@ export const INTEREST_OPTIONS = [
   },
   {
     key: "flexible_household",
-    label: "Flexible household support",
+    label: "Additional household support as Parentive services evolve",
   },
   {
     key: "garden_outdoor",
@@ -145,7 +142,7 @@ export const FIELD_LABELS = {
   postalCode: "Postal code",
   interestKeys: INTEREST_QUESTION,
   experienceText: "Tell us about your relevant experience.",
-  motivationText: "Why are you interested in becoming a Founding Helper?",
+  motivationText: "Why are you interested in becoming a Parentive Helper?",
   availableDays: "What days are you generally available?",
   preferredTimeBlocks: "Preferred times",
   preferredWeeklyHours: "Preferred weekly hours",

@@ -29,7 +29,7 @@ describe("helpers copy", () => {
     );
     expect(COMPENSATION_LINE).toContain("$20–$23");
     expect(DOCUMENT_ATTACH_COPY).toBe(
-      "Attach a résumé if you have one. Or, alternatively, a document outlining relevant experience to the services Parentive provides.",
+      "Attach a résumé if you have one. Alternatively, upload a document outlining relevant experience to the services Parentive provides.",
     );
     expect(EXPERIENCE_SUPPORTING).toBe(
       "Formal professional experience is not required for every task. We value experience acquired from everyday life and lived experiences where relevant to the services we provide.",
@@ -39,11 +39,11 @@ describe("helpers copy", () => {
 
   it("keeps the exact interest labels and weekly-hour keys", () => {
     expect(INTEREST_OPTIONS.map((option) => option.label)).toEqual([
-      "Laundry, folding and household resets",
-      "Tidying and organizing family spaces",
+      "Laundry, including putting items away",
+      "Tidying, light cleaning and organizing family spaces",
       "Food preparation and kitchen support",
       "Parent-present childcare and child engagement",
-      "Flexible household support",
+      "Additional household support as Parentive services evolve",
       "Garden and light outdoor/landscape duties",
     ]);
     expect(WEEKLY_HOURS_OPTIONS.map((option) => option.key)).toEqual([
@@ -64,7 +64,7 @@ describe("helpers copy", () => {
       "I have my own vehicle with adequate insurance and can travel to customer homes.",
     );
     expect(SCREENING_ACK_HELPER_TEXT).toBe(
-      "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer. Do not upload criminal-record documents with this application.",
+      "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer.",
     );
     expect(SCREENING_ACK_HELPER_TEXT).not.toContain(
       "This acknowledgement is not a substitute for later specific informed authorization.",

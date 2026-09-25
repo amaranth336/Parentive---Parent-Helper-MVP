@@ -367,7 +367,7 @@ export function HelpersApplicationForm() {
           aria-labelledby="helpers-about-heading"
         >
           <h2 id="helpers-about-heading" className="helpers-form-heading">
-            01 About you
+            <span className="helpers-section-number">01</span> About you
           </h2>
 
           <Field
@@ -494,7 +494,7 @@ export function HelpersApplicationForm() {
           aria-labelledby="helpers-interests-heading"
         >
           <h2 id="helpers-interests-heading" className="helpers-form-heading">
-            02 Experience and interests
+            <span className="helpers-section-number">02</span> Experience and interests
           </h2>
 
           <fieldset className="helpers-fieldset">
@@ -583,7 +583,7 @@ export function HelpersApplicationForm() {
             id="helpers-availability-heading"
             className="helpers-form-heading"
           >
-            03 Availability and practical details
+            <span className="helpers-section-number">03</span> Availability and practical details
           </h2>
 
           <fieldset className="helpers-fieldset">
@@ -780,7 +780,7 @@ export function HelpersApplicationForm() {
           aria-labelledby="helpers-document-heading"
         >
           <h2 id="helpers-document-heading" className="helpers-form-heading">
-            04 Details of Experience and Qualifications
+            <span className="helpers-section-number">04</span> Details of experience and qualifications
           </h2>
           <p>{DOCUMENT_ATTACH_COPY}</p>
           <Field
@@ -825,7 +825,7 @@ export function HelpersApplicationForm() {
           aria-labelledby="helpers-consent-heading"
         >
           <h2 id="helpers-consent-heading" className="helpers-form-heading">
-            05 Consent and submission
+            <span className="helpers-section-number">05</span> Consent and submission
           </h2>
 
           <div className="helpers-consents">

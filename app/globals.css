@@ -1104,16 +1104,56 @@ fieldset.radio-group legend,
   margin-bottom: 20px;
 }
 
+.helpers-hero-placeholder {
+  margin: 28px 0;
+  width: 100%;
+  max-width: 56rem;
+  height: 320px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--panel-muted) 0%, var(--bg-soft) 100%);
+  border: 2px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.helpers-secondary-placeholder {
+  margin: 32px 0;
+  width: 100%;
+  max-width: 40rem;
+  height: 240px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg-soft) 0%, var(--panel-muted) 100%);
+  border: 2px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.helpers-placeholder-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.helpers-placeholder-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
 .helpers .helpers-compensation-group {
-  margin: 4px 0 28px;
-  padding: 2px 0 2px 14px;
-  border-left: 3px solid var(--accent);
+  margin: 28px 0 36px;
+  padding: 3px 0 3px 16px;
+  border-left: 4px solid var(--accent);
   max-width: 40rem;
 }
 
 .helpers .helpers-compensation {
-  margin: 0 0 6px;
-  font-size: 1.25rem;
+  margin: 0 0 8px;
+  font-size: 1.3125rem;
   font-weight: 600;
   color: var(--accent);
   line-height: 1.3;
@@ -1123,7 +1163,7 @@ fieldset.radio-group legend,
   margin: 0;
   font-size: 0.9375rem;
   color: var(--text-muted);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .helpers .helpers-compensation-support + .helpers-compensation-support {
@@ -1131,11 +1171,12 @@ fieldset.radio-group legend,
 }
 
 .helpers-section {
-  margin: 28px 0;
+  margin: 32px 0;
 }
 
 .helpers-section h2 {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 1.375rem;
 }
 
 .helpers-lifecycle {
@@ -1158,6 +1199,11 @@ fieldset.radio-group legend,
 .helpers-form-heading {
   margin: 0 0 14px;
   font-size: 1.0625rem;
+}
+
+.helpers-section-number::after {
+  content: " •";
+  color: var(--accent);
 }
 
 .helpers-form .helpers-error-list {
