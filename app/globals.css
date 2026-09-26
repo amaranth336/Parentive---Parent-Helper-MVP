@@ -148,25 +148,48 @@ h3 {
 .brand-lockup {
   display: inline-flex;
   align-items: center;
-  max-width: min(220px, 70vw);
+  gap: 16px;
   min-width: 0;
   flex: 1 1 auto;
   line-height: 0;
   text-decoration: none;
 }
 
-.brand-lockup-image {
+.brand-lockup-mark {
   display: block;
-  height: 40px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  flex: 0 0 52px;
+  object-fit: contain;
+}
+
+.brand-lockup-wordmark {
+  display: block;
+  height: 30px;
   width: auto;
-  max-width: 100%;
+  max-width: 140px;
   min-width: 0;
   object-fit: contain;
 }
 
 @media (max-width: 640px) {
   .brand-lockup {
-    max-width: min(160px, 50vw);
+    gap: 12px;
+  }
+
+  .brand-lockup-mark {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    flex: 0 0 40px;
+  }
+
+  .brand-lockup-wordmark {
+    height: 24px;
+    max-width: 120px;
   }
 }
 

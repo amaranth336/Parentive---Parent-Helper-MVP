@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const LOCKUP_WIDTH = 2500;
-const LOCKUP_HEIGHT = 850;
+const MARK_SIZE = 1200;
+const WORDMARK_WIDTH = 1181;
+const WORDMARK_HEIGHT = 268;
 
 interface BrandLockupProps {
   href?: string | null;
@@ -10,25 +11,36 @@ interface BrandLockupProps {
 }
 
 export function BrandLockup({ href = "/", priority = true }: BrandLockupProps) {
-  const image = (
-    <Image
-      src="/brand/parentive-lockup.png"
-      alt="Parentive"
-      width={LOCKUP_WIDTH}
-      height={LOCKUP_HEIGHT}
-      priority={priority}
-      className="brand-lockup-image"
-      sizes="220px"
-    />
+  const content = (
+    <>
+      <Image
+        src="/brand/parentive-mark.png"
+        alt=""
+        width={MARK_SIZE}
+        height={MARK_SIZE}
+        priority={priority}
+        className="brand-lockup-mark"
+        sizes="(max-width: 640px) 40px, 52px"
+      />
+      <Image
+        src="/brand/parentive-wordmark.png"
+        alt="Parentive"
+        width={WORDMARK_WIDTH}
+        height={WORDMARK_HEIGHT}
+        priority={priority}
+        className="brand-lockup-wordmark"
+        sizes="(max-width: 640px) 120px, 140px"
+      />
+    </>
   );
 
   if (href) {
     return (
       <Link href={href} className="brand-lockup" aria-label="Parentive">
-        {image}
+        {content}
       </Link>
     );
   }
 
-  return <span className="brand-lockup">{image}</span>;
+  return <span className="brand-lockup">{content}</span>;
 }
