@@ -8,7 +8,6 @@ import {
   Checkbox,
   Field,
   Radio,
-  RadioGroup,
   TextArea,
   TextInput,
 } from "@/components/form";
@@ -312,7 +311,9 @@ export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
         </Field>
 
         <fieldset className="radio-group early-access-fieldset">
-          <legend>{SERVICE_INTEREST_QUESTION}</legend>
+          <legend className="early-access-form-heading">
+            <span className="early-access-section-number">01</span> {SERVICE_INTEREST_QUESTION}
+          </legend>
           {SERVICE_INTEREST_OPTIONS.map((option) => (
             <Checkbox
               key={option.key}
@@ -356,7 +357,10 @@ export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
           </Field>
         ) : null}
 
-        <RadioGroup legend={FREQUENCY_QUESTION}>
+        <fieldset className="radio-group early-access-fieldset">
+          <legend className="early-access-form-heading">
+            <span className="early-access-section-number">02</span> {FREQUENCY_QUESTION}
+          </legend>
           {FREQUENCY_OPTIONS.map((option) => (
             <Radio
               key={option.key}
@@ -370,7 +374,7 @@ export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
               }
             />
           ))}
-        </RadioGroup>
+        </fieldset>
         <p className="field-hint early-access-frequency-note">{FREQUENCY_PLANNING_NOTE}</p>
 
         {otherFrequencySelected ? (
