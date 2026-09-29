@@ -21,6 +21,10 @@ export const siteNav: SiteNavItem[] = [
     href: homepageSectionHref(homepage.howItWorks.id),
   },
   {
+    label: "Join The Team",
+    href: "/helpers",
+  },
+  {
     label: "Early Access",
     href: EARLY_ACCESS_PATH,
   },
