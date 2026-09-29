@@ -83,21 +83,21 @@ export default function DesignSystemPage() {
           </div>
           <div className="ds-identity-item">
             <Image
-              src="/brand/parentive-mark.png"
-              alt="Parentive mark"
-              width={1200}
-              height={1200}
+              src="/brand/parentive-logo.png"
+              alt="Parentive logo"
+              width={441}
+              height={439}
               className="ds-mark-image"
             />
-            <span className="ds-identity-caption">Mark</span>
+            <span className="ds-identity-caption">Logo</span>
           </div>
           <div className="ds-identity-item">
             <div className="ds-identity-panel">
               <Image
                 src="/brand/parentive-wordmark.png"
                 alt="Parentive wordmark"
-                width={1181}
-                height={268}
+                width={826}
+                height={187}
                 className="ds-wordmark-image"
               />
             </div>

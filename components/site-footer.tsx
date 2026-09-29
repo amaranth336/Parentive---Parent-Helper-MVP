@@ -4,9 +4,9 @@ import { SiteNavLink } from "@/components/site-nav-link";
 import { getVisibleNavItems } from "@/components/site-nav";
 import { LOCKED_DESCRIPTOR, homepage } from "@/lib/homepage/content";
 
-const MARK_SIZE = 1200;
-const WORDMARK_WIDTH = 1181;
-const WORDMARK_HEIGHT = 268;
+const LOGO_SIZE = 441;
+const WORDMARK_WIDTH = 826;
+const WORDMARK_HEIGHT = 187;
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -16,17 +16,17 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer-inner">
         <div className="site-footer-identity">
-          <Link href="/" className="site-footer-brand-link" aria-label="Parentive">
-            <Image
-              src="/brand/parentive-mark.png"
-              alt=""
-              width={MARK_SIZE}
-              height={MARK_SIZE}
-              className="site-footer-mark"
-              sizes="48px"
-            />
-          </Link>
-          <div className="site-footer-brand-text">
+          <div className="site-footer-brand-row">
+            <Link href="/" className="site-footer-brand-link" aria-label="Parentive">
+              <Image
+                src="/brand/parentive-logo.png"
+                alt=""
+                width={LOGO_SIZE}
+                height={LOGO_SIZE}
+                className="site-footer-mark"
+                sizes="48px"
+              />
+            </Link>
             <Link href="/" className="site-footer-wordmark-link">
               <Image
                 src="/brand/parentive-wordmark.png"
@@ -37,8 +37,8 @@ export function SiteFooter() {
                 sizes="140px"
               />
             </Link>
-            <p className="site-footer-tagline">{LOCKED_DESCRIPTOR}</p>
           </div>
+          <p className="site-footer-tagline">{LOCKED_DESCRIPTOR}</p>
         </div>
         <nav className="site-footer-nav" aria-label="Footer">
           <h2 className="site-footer-nav-heading">Explore</h2>

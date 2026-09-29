@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const MARK_SIZE = 1200;
-const WORDMARK_WIDTH = 1181;
-const WORDMARK_HEIGHT = 268;
+const LOGO_SIZE = 441;
+const WORDMARK_WIDTH = 826;
+const WORDMARK_HEIGHT = 187;
 
 interface BrandLockupProps {
   href?: string | null;
@@ -14,10 +14,10 @@ export function BrandLockup({ href = "/", priority = true }: BrandLockupProps) {
   const content = (
     <>
       <Image
-        src="/brand/parentive-mark.png"
+        src="/brand/parentive-logo.png"
         alt=""
-        width={MARK_SIZE}
-        height={MARK_SIZE}
+        width={LOGO_SIZE}
+        height={LOGO_SIZE}
         priority={priority}
         className="brand-lockup-mark"
         sizes="(max-width: 640px) 40px, 52px"
