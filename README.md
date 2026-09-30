@@ -18,13 +18,18 @@ npm run dev   # start the dev server on http://localhost:3000
 Then open http://localhost:3000. The dev server binds `0.0.0.0:3000` so Cloud
 Agent browser preview (and other port-forwards) can reach it, not only loopback.
 
-The early-access waitlist lives at `/early-access`. Persisting submissions
-requires these environment variable names (copy `.env.example`; do not commit
-secrets):
+The early-access waitlist lives at `/early-access`. Founding Helper applications
+live at `/helpers`. Persisting either flow requires these environment variable
+names (copy `.env.example`; do not commit secrets):
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
+
+Apply the Supabase migrations under `supabase/migrations/`, including the
+early-access table and the helper-applications table plus private
+`helper-application-documents` storage bucket. Helper uploads use the same
+service-role credentials; there is no public or anon write path.
 
 ## Scripts
 

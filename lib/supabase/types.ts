@@ -84,6 +84,174 @@ export type EarlyAccessRegistrationUpdate = {
   updated_at?: string;
 };
 
+export type HelperApplicationRow = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  telephone: string;
+  postal_code: string;
+  postal_fsa: string;
+  interest_keys: string[];
+  interested_in_child_support: boolean;
+  garden_capability: boolean;
+  experience_text: string;
+  motivation_text: string;
+  available_days: string[];
+  preferred_time_blocks: string[];
+  preferred_weekly_hours: string;
+  age_18_confirmed: boolean;
+  work_eligible_canada: boolean;
+  has_own_vehicle: boolean;
+  screening_acknowledgement: boolean;
+  document_original_filename: string;
+  document_content_type: string;
+  document_byte_size: number;
+  document_storage_path: string;
+  application_consent: boolean;
+  application_consented_at: string;
+  application_consent_purpose: string;
+  future_opportunities_consent: boolean;
+  future_opportunities_consented_at: string | null;
+  future_opportunities_consent_purpose: string | null;
+  privacy_policy_version: string;
+  status: string;
+  source_path: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type HelperApplicationInsert = {
+  id?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  telephone: string;
+  postal_code: string;
+  postal_fsa: string;
+  interest_keys: string[];
+  interested_in_child_support: boolean;
+  garden_capability: boolean;
+  experience_text: string;
+  motivation_text: string;
+  available_days: string[];
+  preferred_time_blocks: string[];
+  preferred_weekly_hours: string;
+  age_18_confirmed: boolean;
+  work_eligible_canada: boolean;
+  has_own_vehicle: boolean;
+  screening_acknowledgement: boolean;
+  document_original_filename: string;
+  document_content_type: string;
+  document_byte_size: number;
+  document_storage_path: string;
+  application_consent: boolean;
+  application_consented_at: string;
+  application_consent_purpose: string;
+  future_opportunities_consent?: boolean;
+  future_opportunities_consented_at?: string | null;
+  future_opportunities_consent_purpose?: string | null;
+  privacy_policy_version: string;
+  status?: string;
+  source_path?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type HelperApplicationUpdate = {
+  id?: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  telephone?: string;
+  postal_code?: string;
+  postal_fsa?: string;
+  interest_keys?: string[];
+  interested_in_child_support?: boolean;
+  garden_capability?: boolean;
+  experience_text?: string;
+  motivation_text?: string;
+  available_days?: string[];
+  preferred_time_blocks?: string[];
+  preferred_weekly_hours?: string;
+  age_18_confirmed?: boolean;
+  work_eligible_canada?: boolean;
+  has_own_vehicle?: boolean;
+  screening_acknowledgement?: boolean;
+  document_original_filename?: string;
+  document_content_type?: string;
+  document_byte_size?: number;
+  document_storage_path?: string;
+  application_consent?: boolean;
+  application_consented_at?: string;
+  application_consent_purpose?: string;
+  future_opportunities_consent?: boolean;
+  future_opportunities_consented_at?: string | null;
+  future_opportunities_consent_purpose?: string | null;
+  privacy_policy_version?: string;
+  status?: string;
+  source_path?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type HelperApplicationRateLimitRow = {
+  rate_key: string;
+  window_started_at: string;
+  hit_count: number;
+  updated_at: string;
+};
+
+export type HelperApplicationRateLimitInsert = {
+  rate_key: string;
+  window_started_at: string;
+  hit_count?: number;
+  updated_at?: string;
+};
+
+export type HelperApplicationRateLimitUpdate = {
+  rate_key?: string;
+  window_started_at?: string;
+  hit_count?: number;
+  updated_at?: string;
+};
+
+export type HelperApplicationStorageOrphanEventRow = {
+  id: string;
+  bucket: string;
+  storage_path: string;
+  reason: string;
+  attempt_count: number;
+  error_excerpt: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type HelperApplicationStorageOrphanEventInsert = {
+  id?: string;
+  bucket?: string;
+  storage_path: string;
+  reason: string;
+  attempt_count: number;
+  error_excerpt?: string | null;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type HelperApplicationStorageOrphanEventUpdate = {
+  id?: string;
+  bucket?: string;
+  storage_path?: string;
+  reason?: string;
+  attempt_count?: number;
+  error_excerpt?: string | null;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -93,12 +261,37 @@ export type Database = {
         Update: EarlyAccessRegistrationUpdate;
         Relationships: [];
       };
+      helper_applications: {
+        Row: HelperApplicationRow;
+        Insert: HelperApplicationInsert;
+        Update: HelperApplicationUpdate;
+        Relationships: [];
+      };
+      helper_application_rate_limits: {
+        Row: HelperApplicationRateLimitRow;
+        Insert: HelperApplicationRateLimitInsert;
+        Update: HelperApplicationRateLimitUpdate;
+        Relationships: [];
+      };
+      helper_application_storage_orphan_events: {
+        Row: HelperApplicationStorageOrphanEventRow;
+        Insert: HelperApplicationStorageOrphanEventInsert;
+        Update: HelperApplicationStorageOrphanEventUpdate;
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      check_helper_application_rate_limit: {
+        Args: {
+          p_rate_key: string;
+          p_max_requests?: number;
+          p_window_ms?: number;
+        };
+        Returns: boolean;
+      };
     };
     Enums: {
       [_ in never]: never;
