@@ -5,7 +5,7 @@ import { homepage, homepageCtas } from "@/lib/homepage/content";
 import { EARLY_ACCESS_COPY, PRIVACY_PAGE } from "./copy";
 
 const ALLOWED_HREF =
-  /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/helpers$|^\/privacy$|^\/design-system$/;
+  /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/helpers$|^\/privacy$|^\/privacy#founding-helper-applications$|^\/design-system$/;
 
 function collectPublicHrefs(...values: unknown[]): string[] {
   const hrefs = new Set<string>();
@@ -75,8 +75,12 @@ describe("public early-access links", () => {
       join(process.cwd(), "app", "early-access", "page.tsx"),
       "utf8",
     );
+    const pageContentSource = readFileSync(
+      join(process.cwd(), "components", "early-access-page-content.tsx"),
+      "utf8",
+    );
 
-    for (const source of [formSource, pageSource]) {
+    for (const source of [formSource, pageSource, pageContentSource]) {
       expect(source).not.toMatch(/lib\/supabase\/admin/);
       expect(source).not.toMatch(/createServiceRoleClient/);
       expect(source).not.toMatch(/SUPABASE_SERVICE_ROLE_KEY/);
