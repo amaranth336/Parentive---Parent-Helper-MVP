@@ -7,31 +7,39 @@ import { EARLY_ACCESS_COPY, PRIVACY_PAGE } from "./copy";
 const ALLOWED_HREF =
   /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/helpers$|^\/privacy$|^\/privacy#founding-helper-applications$|^\/design-system$/;
 
+function isPublicLinkKey(key: string): boolean {
+  return key === "href" || key.endsWith("Href") || key.endsWith("Path");
+}
+
 function collectPublicHrefs(...values: unknown[]): string[] {
   const hrefs = new Set<string>();
 
-  function walk(value: unknown) {
+  function walk(value: unknown, key?: string) {
     if (typeof value === "string") {
-      for (const match of value.matchAll(/\/(?:#[A-Za-z0-9/_-]+|[A-Za-z0-9/_-]+)/g)) {
-        const href = match[0].replace(/[.,;:!?)]+$/, "");
-        if (href.startsWith("/") && !href.startsWith("//")) {
-          hrefs.add(href);
-        }
+      if (
+        key &&
+        isPublicLinkKey(key) &&
+        value.startsWith("/") &&
+        !value.startsWith("//")
+      ) {
+        hrefs.add(value);
       }
       return;
     }
 
     if (Array.isArray(value)) {
-      value.forEach(walk);
+      value.forEach((item) => walk(item));
       return;
     }
 
     if (value && typeof value === "object") {
-      Object.values(value).forEach(walk);
+      for (const [childKey, childValue] of Object.entries(value)) {
+        walk(childValue, childKey);
+      }
     }
   }
 
-  values.forEach(walk);
+  values.forEach((value) => walk(value));
   return [...hrefs];
 }
 
@@ -45,12 +53,40 @@ describe("public early-access links", () => {
   );
 
   it("only exposes approved public paths", () => {
-    expect(hrefs.length).toBeGreaterThan(0);
+    expect(hrefs).toEqual(
+      expect.arrayContaining([
+        "/",
+        "/#support",
+        "/#how-it-works",
+        "/helpers",
+        "/early-access",
+        "/privacy",
+      ]),
+    );
 
     for (const href of hrefs) {
       expect(href).toMatch(ALLOWED_HREF);
       expect(href).not.toBe("/request");
     }
+  });
+
+  it("reads link fields and ignores slash-containing prose", () => {
+    const collected = collectPublicHrefs(
+      {
+        href: "/request",
+        label: "Bedroom reset - including washing/changing bedding",
+      },
+      { backHref: "/helpers" },
+      { privacyPath: "/privacy" },
+      { body: "See washing/changing and and/or notes" },
+    );
+
+    expect(collected).toEqual(
+      expect.arrayContaining(["/request", "/helpers", "/privacy"]),
+    );
+    expect(collected).not.toContain("/changing");
+    expect(collected).not.toContain("/or");
+    expect(hrefs).not.toContain("/changing");
   });
 
   it("uses /early-access for the Early Access nav item", () => {
