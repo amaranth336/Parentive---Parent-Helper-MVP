@@ -252,6 +252,44 @@ export type HelperApplicationStorageOrphanEventUpdate = {
   updated_at?: string;
 };
 
+export type ContactInquiryNotificationStatus = "pending" | "sent" | "failed";
+
+export type ContactInquiryRow = {
+  id: string;
+  created_at: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  message: string;
+  notification_status: ContactInquiryNotificationStatus;
+  notification_error: string | null;
+  notification_sent_at: string | null;
+};
+
+export type ContactInquiryInsert = {
+  id?: string;
+  created_at?: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  message: string;
+  notification_status?: ContactInquiryNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
+};
+
+export type ContactInquiryUpdate = {
+  id?: string;
+  created_at?: string;
+  name?: string;
+  email?: string;
+  phone?: string | null;
+  message?: string;
+  notification_status?: ContactInquiryNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -259,6 +297,12 @@ export type Database = {
         Row: EarlyAccessRegistrationRow;
         Insert: EarlyAccessRegistrationInsert;
         Update: EarlyAccessRegistrationUpdate;
+        Relationships: [];
+      };
+      contact_inquiries: {
+        Row: ContactInquiryRow;
+        Insert: ContactInquiryInsert;
+        Update: ContactInquiryUpdate;
         Relationships: [];
       };
       helper_applications: {
