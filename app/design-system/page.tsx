@@ -73,8 +73,8 @@ export default function DesignSystemPage() {
       <section className="ds-block" aria-labelledby="ds-identity">
         <h2 id="ds-identity">Identity</h2>
         <p className="ds-note">
-          Official lockup, mark, and wordmark files only. The lockup PNG keeps
-          its opaque light square behind the mark.
+          Official lockup, mark, and wordmark files only. The logo SVG keeps
+          its Cream badge behind the mark.
         </p>
         <div className="ds-identity-row">
           <div className="ds-identity-item">
@@ -83,10 +83,11 @@ export default function DesignSystemPage() {
           </div>
           <div className="ds-identity-item">
             <Image
-              src="/brand/parentive-logo.png"
+              src="/brand/parentive-logo.svg"
               alt="Parentive logo"
               width={441}
               height={439}
+              unoptimized
               className="ds-mark-image"
             />
             <span className="ds-identity-caption">Logo</span>
@@ -94,10 +95,11 @@ export default function DesignSystemPage() {
           <div className="ds-identity-item">
             <div className="ds-identity-panel">
               <Image
-                src="/brand/parentive-wordmark.png"
+                src="/brand/parentive-wordmark.svg"
                 alt="Parentive wordmark"
                 width={826}
                 height={187}
+                unoptimized
                 className="ds-wordmark-image"
               />
             </div>
