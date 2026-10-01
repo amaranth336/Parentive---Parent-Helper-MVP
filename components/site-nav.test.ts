@@ -64,14 +64,25 @@ describe("site navigation", () => {
     ]);
   });
 
-  it("adds FAQ only to the footer navigation", () => {
+  it("adds FAQ and Contact only to the footer navigation", () => {
     const headerItems = getVisibleNavItems();
     const footerItems = getFooterNavItems();
 
     expect(headerItems.map((item) => item.label)).not.toContain("FAQ");
+    expect(headerItems.map((item) => item.label)).not.toContain("Contact");
+    expect(footerItems.map((item) => item.label)).toEqual([
+      "Home",
+      "Our Support",
+      "How It Works",
+      "Join The Team",
+      "Early Access",
+      "FAQ",
+      "Contact",
+    ]);
     expect(footerItems).toEqual([
       ...headerItems,
       { label: "FAQ", href: "/faq" },
+      { label: "Contact", href: "/contact" },
     ]);
   });
 

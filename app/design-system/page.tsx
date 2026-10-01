@@ -373,9 +373,9 @@ export default function DesignSystemPage() {
         <h2 id="ds-footer">Footer</h2>
         <p className="ds-note">
           The live footer is at the bottom of the page. It uses the official
-          lockup, “Trusted, flexible help for real life.”, the same four
-          destinations as the header, the pilot service-area copy, and a
-          copyright line. No contact or legal pages are linked yet.
+          lockup, “Trusted, flexible help for real life.”, the header
+          destinations plus FAQ and Contact, the pilot service-area copy, and a
+          copyright line. No legal pages are linked yet.
         </p>
         <div className="ds-specimen">
           <SiteFooter />

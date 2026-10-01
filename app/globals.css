@@ -1766,3 +1766,76 @@ fieldset.radio-group legend,
 .helpers-success-heading {
   margin: 0 0 12px;
 }
+
+.contact {
+  position: relative;
+  overflow-x: clip;
+}
+
+.contact .card {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.contact-hero {
+  position: relative;
+  margin: 28px 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+
+.contact-hero-image {
+  object-fit: cover;
+  object-position: 60% center;
+}
+
+@media (min-width: 800px) {
+  .contact-hero {
+    aspect-ratio: 2.2 / 1;
+  }
+
+  .contact-hero-image {
+    object-position: center center;
+  }
+}
+
+.contact .contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact .contact-helpers-note {
+  margin-top: 20px;
+}
+
+.contact .contact-privacy {
+  margin: 0 0 16px;
+}
+
+.contact .contact-error-list {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+}
+
+.contact .contact-success-heading {
+  margin: 0 0 12px;
+}
+
+.contact .contact-error-summary:focus,
+.contact .contact-success-heading:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.contact .btn-primary {
+  min-height: 44px;
+}
