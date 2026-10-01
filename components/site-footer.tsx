@@ -19,20 +19,22 @@ export function SiteFooter() {
           <div className="site-footer-brand-row">
             <Link href="/" className="site-footer-brand-link" aria-label="Parentive">
               <Image
-                src="/brand/parentive-logo.png"
+                src="/brand/parentive-logo.svg"
                 alt=""
                 width={LOGO_SIZE}
                 height={LOGO_SIZE}
+                unoptimized
                 className="site-footer-mark"
                 sizes="48px"
               />
             </Link>
             <Link href="/" className="site-footer-wordmark-link">
               <Image
-                src="/brand/parentive-wordmark.png"
+                src="/brand/parentive-wordmark.svg"
                 alt="Parentive"
                 width={WORDMARK_WIDTH}
                 height={WORDMARK_HEIGHT}
+                unoptimized
                 className="site-footer-wordmark"
                 sizes="140px"
               />

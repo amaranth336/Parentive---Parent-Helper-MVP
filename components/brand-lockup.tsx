@@ -14,20 +14,22 @@ export function BrandLockup({ href = "/", priority = true }: BrandLockupProps) {
   const content = (
     <>
       <Image
-        src="/brand/parentive-logo.png"
+        src="/brand/parentive-logo.svg"
         alt=""
         width={LOGO_SIZE}
         height={LOGO_SIZE}
         priority={priority}
+        unoptimized
         className="brand-lockup-mark"
         sizes="(max-width: 640px) 40px, 52px"
       />
       <Image
-        src="/brand/parentive-wordmark.png"
+        src="/brand/parentive-wordmark.svg"
         alt="Parentive"
         width={WORDMARK_WIDTH}
         height={WORDMARK_HEIGHT}
         priority={priority}
+        unoptimized
         className="brand-lockup-wordmark"
         sizes="(max-width: 640px) 120px, 140px"
       />
