@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteNavLink } from "@/components/site-nav-link";
-import { getVisibleNavItems } from "@/components/site-nav";
+import { getFooterNavItems } from "@/components/site-nav";
 import { LOCKED_DESCRIPTOR, homepage } from "@/lib/homepage/content";
 
 const LOGO_SIZE = 441;
@@ -10,7 +10,7 @@ const WORDMARK_HEIGHT = 187;
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
-  const navItems = getVisibleNavItems();
+  const navItems = getFooterNavItems();
 
   return (
     <footer className="site-footer">

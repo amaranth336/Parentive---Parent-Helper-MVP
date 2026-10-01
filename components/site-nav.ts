@@ -34,6 +34,10 @@ export function getVisibleNavItems(): SiteNavItem[] {
   return siteNav;
 }
 
+export function getFooterNavItems(): SiteNavItem[] {
+  return [...getVisibleNavItems(), { label: "FAQ", href: "/faq" }];
+}
+
 export function isHomepageHashHref(href: string): boolean {
   return href.startsWith("/#") && href.length > 2;
 }

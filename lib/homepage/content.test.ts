@@ -11,34 +11,36 @@ import {
 } from "./content";
 
 const REQUIRED_OFFERING_NAMES = [
-  "Laundry Reset",
-  "Fold & Put Away",
-  "Bed Reset",
-  "Playroom Reset",
-  "Family Room Reset",
-  "Baby Gear Reset",
-  "Kitchen Reset",
-  "Dinner Prep",
-  "Tomorrow's Lunches",
-  "Meal Prep Reset",
-  "Produce & Snack Prep",
-  "Uninterrupted Hour",
-  "Parent's Helper Visit",
-  "Flexible Support Request",
+  "Laundry - wash, fold & put away",
+  "Bedroom reset - including washing/changing bedding",
+  "Playroom or family room reset",
+  "Baby gear reset - clean, tidy & put away",
+  "Light home organization",
+  "Light cleaning - dusting, vaccuuming, wiping down surfaces",
+  "Kitchen retouch - includes tidy and dishes",
+  "Kitchen reset - includes light pantry reorganization and fridge cleanout",
+  "Dinner prep",
+  "Tomorrow's lunches",
+  "Meal prep for the week",
+  "Produce & snack prep",
+  "Uninterrupted hour",
+  "Parent's Helper visit",
+  "Flexible support request",
 ] as const;
 
 describe("homepage content", () => {
   const allText = flattenHomepageText(homepage);
 
-  it("includes all 14 offering names exactly", () => {
+  it("includes the homepage offering lines exactly", () => {
     const groupedNames = homepage.support.groups.flatMap((group) => [
       ...group.names,
     ]);
 
+    expect(homepage.support.lead).toBe(
+      "These are our early offerings only. We'll share further service details as we expand and grow.",
+    );
     expect(OFFERING_NAMES).toEqual(REQUIRED_OFFERING_NAMES);
-    expect(groupedNames).toHaveLength(14);
-    expect(groupedNames).toEqual(expect.arrayContaining([...REQUIRED_OFFERING_NAMES]));
-    expect(new Set(groupedNames).size).toBe(14);
+    expect(groupedNames).toEqual([...REQUIRED_OFFERING_NAMES]);
 
     for (const name of REQUIRED_OFFERING_NAMES) {
       expect(allText).toContain(name);
@@ -93,12 +95,17 @@ describe("homepage content", () => {
     expect(homepageCtas.map((cta) => cta.href).join(" ")).not.toContain("/request");
   });
 
-  it("says early access is open and does not book a visit", () => {
-    expect(homepage.howItWorks.steps[1]?.body).toMatch(/list is open/i);
-    expect(homepage.howItWorks.steps[1]?.body).not.toMatch(/not open yet/i);
-    expect(homepage.earlyAccess.body).toMatch(/sign-up is open/i);
-    expect(homepage.earlyAccess.alert).toMatch(/sign-up is open/i);
-    expect(homepage.earlyAccess.body).toContain("Nothing on this page books a visit");
+  it("keeps early-access follow-up language current", () => {
+    expect(homepage.howItWorks.steps[1]?.body).toBe(
+      "Interested families can add themselves to the early-access list.",
+    );
+    expect(homepage.howItWorks.steps[1]?.body).not.toMatch(/list is open/i);
+    expect(homepage.howItWorks.steps[2]?.title).toBe(
+      "We'll be in touch when services become available in your area",
+    );
+    expect(homepage.howItWorks.steps[2]?.body).toBe(
+      "Parentive will follow up with families in the launch communities as services become available.",
+    );
     expect(homepage.hero.primaryCta.href).toBe("/early-access");
     expect(homepage.metadata.description).not.toMatch(/being prepared/i);
     expect(homepage.hero.launchLine).toMatch(/join the early-access list now/i);
@@ -111,5 +118,33 @@ describe("homepage content", () => {
     expect(homepage.why.belief).toBe(LOCKED_BELIEF);
     expect(homepage.makeRoom.heading).toBe(LOCKED_PAYOFF);
     expect(allText.split(LOCKED_BELIEF).length - 1).toBe(1);
+  });
+
+  it("numbers how-it-works steps for section treatment", () => {
+    expect(homepage.howItWorks.steps.map((step) => step.number)).toEqual([
+      "01",
+      "02",
+      "03",
+    ]);
+  });
+
+  it("keeps FAQ content available for the /faq route", () => {
+    expect(homepage.faq.heading).toBe("Frequently asked questions");
+    expect(homepage.faq.items).toHaveLength(4);
+    expect(homepage.faq.items[0]?.question).toBe("Where is Parentive available?");
+  });
+
+  it("states what households can expect from Parentive Helpers", () => {
+    expect(homepage.expect.heading).toBe("What you can expect:");
+    expect(homepage.expect.points).toEqual([
+      "Trusted people in your home. Every Parentive Helper is fully screened via references and Vulnerable Sector Check before working with families.",
+      "Capable, dependable support. Helpers are selected for reliability, judgement, attention to detail and the ability to follow through on the outcome agreed for the visit.",
+      'Clear expectations, not vague help. Each visit has defined boundaries and outcomes, so you know what Parentive is taking on and what "done" should look like.',
+      "Respect for your home and routines. Helpers work thoughtfully within your household, follow your preferences and communicate clearly if something needs clarification.",
+      "Positive engagement with children. For parent-present support involving children, Helpers are screened for their ability to engage warmly, appropriately and actively — not simply supervise.",
+    ]);
+    expect(homepage.expect.closing).toBe(
+      "You're not just getting another pair of hands. You're getting support you can feel comfortable bringing into your home.",
+    );
   });
 });

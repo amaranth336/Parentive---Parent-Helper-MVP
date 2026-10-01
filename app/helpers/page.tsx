@@ -86,13 +86,33 @@ export default function HelpersPage() {
             not guarantee an offer or a response by a specific date.
           </p>
           <ol className="helpers-lifecycle">
-            <li>Apply</li>
-            <li>Intro conversation</li>
-            <li>Possible job-related practical assessment and references</li>
-            <li>Conditional offer</li>
-            <li>Appropriate background check and pre-employment requirements</li>
-            <li>Parentive onboarding</li>
-            <li>Assignments as demand becomes available</li>
+            <li>
+              <span className="helpers-section-number">01</span> Apply
+            </li>
+            <li>
+              <span className="helpers-section-number">02</span> Intro
+              conversation
+            </li>
+            <li>
+              <span className="helpers-section-number">03</span> Possible
+              job-related practical assessment and references
+            </li>
+            <li>
+              <span className="helpers-section-number">04</span> Conditional
+              offer
+            </li>
+            <li>
+              <span className="helpers-section-number">05</span> Appropriate
+              background check and pre-employment requirements
+            </li>
+            <li>
+              <span className="helpers-section-number">06</span> Parentive
+              onboarding
+            </li>
+            <li>
+              <span className="helpers-section-number">07</span> Assignments as
+              demand becomes available
+            </li>
           </ol>
           <p>
             Onboarding covers service quality, household boundaries, privacy,

@@ -1,5 +1,6 @@
 import { homepage } from "@/lib/homepage/content";
 import {
+  getFooterNavItems,
   getVisibleNavItems,
   homepageHashId,
   homepageSectionHref,
@@ -60,6 +61,17 @@ describe("site navigation", () => {
       { label: "How It Works", href: "/#how-it-works" },
       { label: "Join The Team", href: "/helpers" },
       { label: "Early Access", href: "/early-access" },
+    ]);
+  });
+
+  it("adds FAQ only to the footer navigation", () => {
+    const headerItems = getVisibleNavItems();
+    const footerItems = getFooterNavItems();
+
+    expect(headerItems.map((item) => item.label)).not.toContain("FAQ");
+    expect(footerItems).toEqual([
+      ...headerItems,
+      { label: "FAQ", href: "/faq" },
     ]);
   });
 

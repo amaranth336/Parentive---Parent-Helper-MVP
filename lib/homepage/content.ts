@@ -1,4 +1,3 @@
-import { EARLY_ACCESS_PATH } from "@/lib/early-access/copy";
 import {
   formatPilotCommunityList,
   PILOT_COMMUNITIES,
@@ -11,23 +10,24 @@ export const LOCKED_BELIEF =
 export const LOCKED_PAYOFF = "Make room for life.";
 
 export const PARENT_HOME_REQUIRED =
-  "For these visits, a parent or responsible adult remains home. This is not babysitting, date-night care, or independent childcare, and Parentive does not transport children.";
+  "For these visits, a parent or responsible adult remains home. This service is intended to offer flexible in home child care while the Parent is onsite but free for self-care, work or other personal time/tasks.";
 
 export const OFFERING_NAMES = [
-  "Laundry Reset",
-  "Fold & Put Away",
-  "Bed Reset",
-  "Playroom Reset",
-  "Family Room Reset",
-  "Baby Gear Reset",
-  "Kitchen Reset",
-  "Dinner Prep",
-  "Tomorrow's Lunches",
-  "Meal Prep Reset",
-  "Produce & Snack Prep",
-  "Uninterrupted Hour",
-  "Parent's Helper Visit",
-  "Flexible Support Request",
+  "Laundry - wash, fold & put away",
+  "Bedroom reset - including washing/changing bedding",
+  "Playroom or family room reset",
+  "Baby gear reset - clean, tidy & put away",
+  "Light home organization",
+  "Light cleaning - dusting, vaccuuming, wiping down surfaces",
+  "Kitchen retouch - includes tidy and dishes",
+  "Kitchen reset - includes light pantry reorganization and fridge cleanout",
+  "Dinner prep",
+  "Tomorrow's lunches",
+  "Meal prep for the week",
+  "Produce & snack prep",
+  "Uninterrupted hour",
+  "Parent's Helper visit",
+  "Flexible support request",
 ] as const;
 
 export type OfferingName = (typeof OFFERING_NAMES)[number];
@@ -72,8 +72,7 @@ export const homepage = {
     launchLine:
       "We're preparing a pilot in select communities across the GTA. You can join the early-access list now.",
     photo: {
-      alt: "Temporary placeholder for a household-help photograph",
-      caption: "Photography placeholder — household help, composition only.",
+      alt: "Mother reading a picture book with two young children and a dog on a living room rug",
     },
     primaryCta: homepageCtas[0],
     secondaryCta: homepageCtas[1],
@@ -86,91 +85,96 @@ export const homepage = {
   },
   support: {
     id: "support",
-    heading: "What Parentive can take on",
-    lead: "These are the pilot offerings. We'll share fuller service detail as the site grows.",
+    heading: "What Parentive can take on:",
+    lead: "These are our early offerings only. We'll share further service details as we expand and grow.",
+    photo: {
+      alt: "Father helping children with homework at the table while someone prepares food in the kitchen",
+    },
     groups: [
       {
         id: "home-and-laundry",
         title: "Home and laundry",
         names: [
-          "Laundry Reset",
-          "Fold & Put Away",
-          "Bed Reset",
-          "Playroom Reset",
-          "Family Room Reset",
-          "Baby Gear Reset",
+          "Laundry - wash, fold & put away",
+          "Bedroom reset - including washing/changing bedding",
+          "Playroom or family room reset",
+          "Baby gear reset - clean, tidy & put away",
+          "Light home organization",
+          "Light cleaning - dusting, vaccuuming, wiping down surfaces",
         ],
       },
       {
         id: "kitchen-and-food",
         title: "Kitchen and food",
         names: [
-          "Kitchen Reset",
-          "Dinner Prep",
-          "Tomorrow's Lunches",
-          "Meal Prep Reset",
-          "Produce & Snack Prep",
+          "Kitchen retouch - includes tidy and dishes",
+          "Kitchen reset - includes light pantry reorganization and fridge cleanout",
+          "Dinner prep",
+          "Tomorrow's lunches",
+          "Meal prep for the week",
+          "Produce & snack prep",
         ],
       },
       {
         id: "family-support",
         title: "Family support",
-        names: ["Uninterrupted Hour", "Parent's Helper Visit"],
+        names: ["Uninterrupted hour", "Parent's Helper visit"],
         note: PARENT_HOME_REQUIRED,
       },
       {
         id: "flexible-support",
         title: "Flexible support",
-        names: ["Flexible Support Request"],
-        note: "For useful household help that doesn't match a listed offering. Parentive reviews each request and may accept, decline, or suggest a different shape. It is not a promise to do anything asked.",
+        names: ["Flexible support request"],
+        note: "For useful household support that doesn't match a listed offering. Parentive reviews each request and may accept, decline, or suggest a slightly modified scope. Tasks to be outlined prior to scheduled visit.",
       },
     ] satisfies readonly OfferingGroup[],
   },
   howItWorks: {
     id: "how-it-works",
-    heading: "How Parentive works right now",
+    heading: "How Parentive works right now:",
     steps: [
       {
+        number: "01",
         title: "Learn what we can take on",
-        body: "Read the kinds of support above and see whether Parentive fits your household.",
+        body: "Read the available types of support above and see whether Parentive fits your household.",
       },
       {
+        number: "02",
         title: "Join the early-access list",
-        body: "Interested families can add themselves to the early-access list. The list is open.",
+        body: "Interested families can add themselves to the early-access list.",
       },
       {
-        title: "We'll be in touch as the pilot begins",
-        body: "Parentive will follow up with families in the launch communities as the pilot is ready. Visits are not booked from this page.",
+        number: "03",
+        title: "We'll be in touch when services become available in your area",
+        body: "Parentive will follow up with families in the launch communities as services become available.",
       },
     ],
   },
   supportModel: {
     id: "support-model",
-    heading: "How support is structured",
+    heading: "How support is structured:",
     paragraphs: [
-      "Most offerings are outcome-based household tasks (a reset, a prep, a finished load).",
-      "Uninterrupted Hour, Parent's Helper Visit, and time-based Flexible Support Request are time blocks, reviewed as needed.",
-      "Households may use Parentive once, occasionally, or on a weekly, biweekly, or monthly rhythm. Recurring help is a normal option, not a sign something is wrong.",
+      "Most offerings are outcome-based household tasks (a reset, a prep, laundry done).",
       "The household provides the usual supplies (laundry products, ingredients, cookware, storage, everyday task supplies).",
-      "Customer pricing is not published yet.",
+      "Uninterrupted Hour, Parent's Helper Visit, and time-based Flexible Support Request are time blocks, reviewed as requested.",
+      "Households may use Parentive once, occasionally, or on a weekly, biweekly, or monthly rhythm. Recurring help is a normal option, incorporating Parentive into your Village.",
     ],
     cadence: "Support can be part of the routine.",
   },
   difference: {
     id: "difference",
-    heading: "A different kind of household support",
+    heading: "A different kind of household support.",
     paragraphs: [
-      "Parentive sits in the everyday mix — household resets, food prep, and parent-present help — rather than asking you to hire a cleaner for one kind of task, a sitter for another, or to coordinate a marketplace yourself.",
-      "Parentive is not a cleaning company, a babysitting service, a nanny agency, or software for tracking family life.",
+      "Parentive sits in the everyday mix — household resets, food prep, and parent-present child care support — rather than you having to source providers for each various task.",
+      "Let Parentive lighten your load.",
     ],
   },
   makeRoom: {
     id: "make-room",
     heading: LOCKED_PAYOFF,
-    body: "Sometimes the useful part isn't only the finished laundry or the prepped dinner. It's the room that help creates — work, time together, rest, something of your own, or simply not doing that task yourself.",
+    body: "Sometimes the useful part isn't only the finished laundry or the prepped dinner. It's the room that help creates — time together, rest, work, something of your own, or simply not doing that task yourself.",
     photo: {
-      alt: "Temporary placeholder for a wide brand photograph",
-      caption: "Photography placeholder — household help, composition only.",
+      alt: "After-school moment at home: groceries on the counter, a cat nearby, while a caregiver helps children with shoes and a backpack",
     },
   },
   area: {
@@ -180,20 +184,16 @@ export const homepage = {
   },
   expect: {
     id: "expect",
-    heading: "What you can expect",
+    heading: "What you can expect:",
     points: [
-      "Parentive Helpers are the people who come to your home.",
-      "Clear offering boundaries; parent or responsible adult remains home for child-related support.",
-      "Parentive coordinates and reviews flexible or parent-present requests.",
-      "Respectful in-home support and straightforward communication.",
+      "Trusted people in your home. Every Parentive Helper is fully screened via references and Vulnerable Sector Check before working with families.",
+      "Capable, dependable support. Helpers are selected for reliability, judgement, attention to detail and the ability to follow through on the outcome agreed for the visit.",
+      'Clear expectations, not vague help. Each visit has defined boundaries and outcomes, so you know what Parentive is taking on and what "done" should look like.',
+      "Respect for your home and routines. Helpers work thoughtfully within your household, follow your preferences and communicate clearly if something needs clarification.",
+      "Positive engagement with children. For parent-present support involving children, Helpers are screened for their ability to engage warmly, appropriately and actively — not simply supervise.",
     ],
-  },
-  earlyAccess: {
-    id: "early-access",
-    heading: "Early access is the next step",
-    body: "Parentive is preparing a pilot. Early-access sign-up is open. We'll use that list to follow up as the launch communities are ready. Nothing on this page books a visit.",
-    alert:
-      "Early access sign-up is open. Join from the button below — nothing on this page books a visit.",
+    closing:
+      "You're not just getting another pair of hands. You're getting support you can feel comfortable bringing into your home.",
   },
   faq: {
     id: "faq",
