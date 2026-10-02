@@ -130,8 +130,27 @@ describe("homepage content", () => {
 
   it("keeps FAQ content available for the /faq route", () => {
     expect(homepage.faq.heading).toBe("Frequently asked questions");
-    expect(homepage.faq.items).toHaveLength(4);
-    expect(homepage.faq.items[0]?.question).toBe("Where is Parentive available?");
+    expect(homepage.faq.items.map((item) => item.question)).toEqual([
+      "Where is Parentive available?",
+      "Who are Parentive Helpers, and how are they screened?",
+      "What can a Parentive Helper actually help with?",
+      "Is Parentive a cleaning service or childcare service?",
+      "What do I need to provide for a visit?",
+      "What happens if I need something that isn't listed?",
+      "How does pricing work?",
+    ]);
+    expect(homepage.faq.items.map((item) => item.question).join("\n")).not.toMatch(
+      /regularly|more than once/i,
+    );
+    expect(homepage.faq.contactLead).toBe(
+      "Have a question that's not covered here?",
+    );
+    expect(homepage.faq.contactLinkLabel).toBe("Contact Parentive");
+    expect(homepage.faq.contactHref).toBe("/contact");
+    expect(
+      homepage.faq.items.find((item) => item.question === "How does pricing work?")
+        ?.answer,
+    ).not.toMatch(/\$|£|€|\b\d+\b/);
   });
 
   it("states what households can expect from Parentive Helpers", () => {

@@ -78,7 +78,7 @@ describe("contact page contract", () => {
   it("keeps the helper note and privacy link outside new legal promises", () => {
     expect(CONTACT_HELPERS_LINK_LABEL).toBe("Join The Team");
     expect(HELPERS_PATH).toBe("/helpers");
-    expect(PRIVACY_PATH).toBe("/privacy");
+    expect(PRIVACY_PATH).toBe("/privacy/notice");
     expect(CONTACT_PRIVACY_NOTE).toBe(
       "We use your name, email, phone if you share one, and message so we can reply.",
     );

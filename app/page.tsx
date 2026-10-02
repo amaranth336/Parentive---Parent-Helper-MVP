@@ -81,9 +81,8 @@ export default function Home() {
       </section>
 
       <section
-        id={homepage.support.id}
         className={bandClass(homepage.support.id)}
-        aria-labelledby="home-support-heading"
+        aria-labelledby="support"
       >
         <div className="container home-support-inner">
           <figure className="home-photo-figure home-support-photo">
@@ -99,7 +98,7 @@ export default function Home() {
             </div>
           </figure>
           <div className="home-support-copy">
-            <h2 id="home-support-heading">{homepage.support.heading}</h2>
+            <h2 id="support">{homepage.support.heading}</h2>
             <p className="home-lead">{homepage.support.lead}</p>
             <div className="home-offering-groups">
               {homepage.support.groups.map((group) => (

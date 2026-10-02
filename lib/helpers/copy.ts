@@ -1,4 +1,4 @@
-export const HELPERS_PRIVACY_POLICY_VERSION = "2026-09-22-helpers";
+export const HELPERS_PRIVACY_POLICY_VERSION = "2026-10-02-helpers";
 
 export const HELPERS_PATH = "/helpers";
 export const PRIVACY_PATH = "/privacy";

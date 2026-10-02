@@ -1,7 +1,7 @@
-export const PRIVACY_POLICY_VERSION = "2026-09-22";
+export const PRIVACY_POLICY_VERSION = "2026-10-02";
 
 export const EARLY_ACCESS_PATH = "/early-access";
-export const PRIVACY_PATH = "/privacy";
+export const PRIVACY_PATH = "/privacy/notice";
 
 export const EARLY_ACCESS_HEADING = "Make a little more room for life.";
 export const EARLY_ACCESS_SUPPORTING =
@@ -30,10 +30,10 @@ export const SERVICE_INTEREST_OTHER_LABEL =
 export const FREQUENCY_OTHER_LABEL = "If Other, tell us how often.";
 
 export const PILOT_CONTACT_CONSENT_LABEL =
-  "I agree to be contacted by Parentive about pilot-launch opportunities and service availability in my area.";
+  "I agree to receive emails from Parentive about pilot invitations and service availability in my area. I can withdraw my consent at any time.";
 
 export const MARKETING_CONSENT_LABEL =
-  "I'd also like occasional Parentive news, updates and offers.";
+  "I would also like to receive occasional Parentive news, updates and offers by email. This is optional, and I can unsubscribe at any time.";
 
 export const PILOT_CONTACT_PURPOSE =
   "Contact about pilot-launch opportunities and service availability in the applicant's area.";
@@ -85,23 +85,14 @@ export const FIELD_LABELS = {
 export const SUBMIT_IDLE_LABEL = "Join early access";
 export const SUBMIT_PENDING_LABEL = "Submitting…";
 
-export const PRIVACY_NOTICE =
-  "We store privacy notice version 2026-09-22 with this early-access submission. Pilot contact is separate from optional news and offers.";
+export const PRIVACY_NOTICE = `We store privacy notice version ${PRIVACY_POLICY_VERSION} with this early-access submission. Pilot contact is separate from optional news and offers.`;
 
 export const PRIVACY_NOTICE_LINK_LABEL = "Read the privacy notice";
 
 export const PRIVACY_PAGE = {
-  heading: "Privacy notice",
-  versionLabel: `Version ${PRIVACY_POLICY_VERSION}`,
+  heading: "Early-access privacy notice",
   backHref: EARLY_ACCESS_PATH,
   backLabel: "Back to early access",
-  paragraphs: [
-    "This notice is the version stored with early-access waitlist consent. It describes this form, not a full legal policy for every Parentive activity.",
-    "When you join early access we collect your first name, email address, and postal code. You may also share optional service interests, optional frequency, and a short note when you choose Other.",
-    "We use that information to contact you about pilot-launch opportunities and service availability in your area, and to understand demand by region. A formatted Canadian postal code does not prove your address exists, and living outside the pilot communities does not block sign-up.",
-    "Required pilot-contact consent is separate from optional marketing consent. We do not treat launch-contact permission as permission for news, updates, or offers.",
-    "If you choose optional marketing, we may send occasional Parentive news, updates and offers.",
-  ],
 } as const;
 
 export const EARLY_ACCESS_ERRORS = {

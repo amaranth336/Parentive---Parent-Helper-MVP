@@ -23,10 +23,10 @@ describe("early-access copy", () => {
 
   it("keeps the exact consent labels", () => {
     expect(PILOT_CONTACT_CONSENT_LABEL).toBe(
-      "I agree to be contacted by Parentive about pilot-launch opportunities and service availability in my area.",
+      "I agree to receive emails from Parentive about pilot invitations and service availability in my area. I can withdraw my consent at any time.",
     );
     expect(MARKETING_CONSENT_LABEL).toBe(
-      "I'd also like occasional Parentive news, updates and offers.",
+      "I would also like to receive occasional Parentive news, updates and offers by email. This is optional, and I can unsubscribe at any time.",
     );
   });
 
@@ -49,6 +49,6 @@ describe("early-access copy", () => {
 
   it("uses A1A 1A1 as the postal placeholder and the stored privacy version", () => {
     expect(POSTAL_PLACEHOLDER).toBe("A1A 1A1");
-    expect(PRIVACY_POLICY_VERSION).toBe("2026-09-22");
+    expect(PRIVACY_POLICY_VERSION).toBe("2026-10-02");
   });
 });
