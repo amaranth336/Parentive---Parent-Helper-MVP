@@ -402,7 +402,7 @@ export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
           <Checkbox
             id="early-access-pilot-consent"
             name="pilotContactConsent"
-            label={`${PILOT_CONTACT_CONSENT_LABEL} (required)`}
+            label={PILOT_CONTACT_CONSENT_LABEL}
             checked={values.pilotContactConsent}
             required
             aria-required="true"

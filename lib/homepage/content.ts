@@ -198,25 +198,43 @@ export const homepage = {
   faq: {
     id: "faq",
     heading: "Frequently asked questions",
+    contactLead: "Have a question that's not covered here?",
+    contactLinkLabel: "Contact Parentive",
+    contactHref: "/contact",
     items: [
       {
         question: "Where is Parentive available?",
         answer: `Select communities across the GTA: ${formatPilotCommunityList(PILOT_COMMUNITIES)}.`,
       },
       {
-        question: "Can I use Parentive more than once?",
+        question: "Who are Parentive Helpers, and how are they screened?",
         answer:
-          "Yes — once, occasionally, or as a regular rhythm. Recurring help is a normal way to use the service.",
+          "Parentive Helpers are employees selected for reliability, judgement, attention to detail and respectful in-home support. Every Helper completes a Vulnerable Sector Check before working with families. Helpers supporting parent-present child activities are also screened for their ability to engage positively and appropriately with children.",
       },
       {
-        question: "What if what I need isn't listed?",
+        question: "What can a Parentive Helper actually help with?",
         answer:
-          "Flexible Support Request is reviewed. Parentive may accept, decline, or suggest a different shape.",
+          "Parentive focuses on practical household and parent support — things like laundry, room resets, food prep, lunch prep, household organization and parent-present support. Each offering has clear boundaries and expected outcomes so you know what the visit is intended to accomplish.",
       },
       {
-        question: "Do I need to be home?",
+        question: "Is Parentive a cleaning service or childcare service?",
         answer:
-          "For Uninterrupted Hour and Parent's Helper Visit, a parent or responsible adult remains home. Parentive does not offer independent or date-night childcare, and does not transport children.",
+          "No. Parentive sits between traditional household services. We are not a cleaning company, babysitting service or nanny agency. Helpers can take on practical household work and parent-present family support within defined service boundaries.",
+      },
+      {
+        question: "What do I need to provide for a visit?",
+        answer:
+          "Households provide the usual items needed for the work — such as laundry products, ingredients, cookware, storage containers and everyday household supplies. Parentive will make the expected requirements clear before a visit.",
+      },
+      {
+        question: "What happens if I need something that isn't listed?",
+        answer:
+          "You can submit a Flexible Support Request for household help that does not fit one of the listed offerings. Parentive reviews each request and may accept it, decline it, or suggest a different approach depending on scope and fit.",
+      },
+      {
+        question: "How does pricing work?",
+        answer:
+          "Customer pricing is not published yet. Parentive's catalogue pricing and visit structure will be made available before official launch.",
       },
     ],
   },

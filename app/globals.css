@@ -76,7 +76,8 @@ h6 {
   color: var(--text);
 }
 
-h1 {
+h1,
+.privacy-notice-title {
   font-size: 1.75rem;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -151,7 +152,8 @@ h3 {
   width: 100%;
 }
 
-.page h1 {
+.page h1,
+.page .privacy-notice-title {
   font-size: 1.75rem;
   margin: 28px 0 8px;
   letter-spacing: -0.02em;
@@ -425,46 +427,60 @@ h3 {
   min-width: 0;
 }
 
-/* Brand: icon + wordmark on one horizontal row; tagline under wordmark */
+/*
+ * Mobile: wordmark and tagline share a column. The logo’s vertical centre
+ * sits on the midpoint of the space between those two lines.
+ */
 .site-footer-identity {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  --footer-mobile-mark: 60px;
+  --footer-mobile-wordmark: 24px;
+  --footer-mobile-gap: 12px;
+  --footer-mobile-row-gap: 4px;
+  display: grid;
+  grid-template-columns: var(--footer-mobile-mark) minmax(0, 1fr);
+  column-gap: var(--footer-mobile-gap);
+  row-gap: var(--footer-mobile-row-gap);
+  align-items: start;
+  align-content: start;
 }
 
 .site-footer-brand-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
+  display: contents;
 }
 
 .site-footer-brand-link {
   display: block;
-  flex: 0 0 auto;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  margin-top: calc(
+    var(--footer-mobile-wordmark) + var(--footer-mobile-row-gap) / 2 -
+      var(--footer-mobile-mark) / 2
+  );
   line-height: 0;
   text-decoration: none;
 }
 
-.site-footer-mark {
-  display: block;
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-}
-
 .site-footer-wordmark-link {
   display: block;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
   line-height: 0;
   text-decoration: none;
   min-width: 0;
 }
 
+.site-footer-mark {
+  display: block;
+  width: var(--footer-mobile-mark);
+  height: var(--footer-mobile-mark);
+  object-fit: contain;
+}
+
 .site-footer-wordmark {
   display: block;
-  height: 24px;
+  height: var(--footer-mobile-wordmark);
   width: auto;
   max-width: 120px;
   min-width: 0;
@@ -474,8 +490,9 @@ h3 {
 }
 
 .site-footer-tagline {
+  grid-column: 2;
+  grid-row: 2;
   margin: 0;
-  margin-left: calc(60px + 12px);
   color: var(--text-muted);
   font-size: 14px;
   line-height: 1.5;
@@ -569,11 +586,14 @@ h3 {
 
   .site-footer-identity {
     justify-self: start;
+    grid-template-columns: none;
+    column-gap: 0;
     gap: 0;
     margin-left: 0;
   }
 
   .site-footer-brand-row {
+    --footer-desktop-wordmark: 30px;
     position: relative;
     display: flex;
     align-items: center;
@@ -581,17 +601,36 @@ h3 {
     min-height: var(--footer-logo-size);
   }
 
+  .site-footer-wordmark-link,
+  .site-footer-tagline {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .site-footer-wordmark-link {
+    align-self: start;
+  }
+
   /*
    * Centre logo between the left page edge and the wordmark.
    * Wordmark stays on the content-column left edge.
+   * Vertical centre of the logo sits on the midpoint between the
+   * wordmark and the tagline.
    */
   .site-footer-brand-link {
     position: absolute;
-    top: 50%;
+    top: calc(
+      var(--footer-desktop-wordmark) + (100% - var(--footer-desktop-wordmark)) / 2 -
+        var(--footer-logo-size) / 2
+    );
     left: calc(-1 * var(--brand-content-left) / 2 - var(--footer-logo-size) / 2);
+    grid-column: auto;
+    grid-row: auto;
+    align-self: auto;
     width: var(--footer-logo-size);
     height: var(--footer-logo-size);
-    transform: translateY(-50%);
+    margin-top: 0;
+    transform: none;
   }
 
   .site-footer-mark {
@@ -600,7 +639,7 @@ h3 {
   }
 
   .site-footer-wordmark {
-    height: 30px;
+    height: var(--footer-desktop-wordmark);
     max-width: 140px;
   }
 
@@ -1069,6 +1108,10 @@ input:focus-visible,
   scroll-margin-top: 88px;
 }
 
+#support {
+  scroll-margin-top: 20px;
+}
+
 .home-band {
   padding: 56px 0;
   background: var(--bg);
@@ -1189,14 +1232,27 @@ input:focus-visible,
   margin: 28px 0 0;
 }
 
+.home-accent-left,
+.home-accent-right {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: 0;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size: 4px 100%;
+  background-origin: border-box;
+}
+
 .home-accent-left {
-  padding: 2px 0 2px 16px;
-  border-left: 4px solid var(--accent);
+  padding-left: calc(20px + 4px + 16px);
+  padding-right: 20px;
+  background-position: 20px 0;
 }
 
 .home-accent-right {
-  padding: 2px 16px 2px 0;
-  border-right: 4px solid var(--accent);
+  padding-left: 20px;
+  padding-right: calc(20px + 4px + 16px);
+  background-position: right 20px top;
 }
 
 .home-belief,
@@ -1266,7 +1322,7 @@ input:focus-visible,
 }
 
 .home-section-number::after {
-  content: " •";
+  content: " • ";
   color: #d5a552 !important;
   font-weight: 400;
 }
@@ -1306,6 +1362,10 @@ input:focus-visible,
   color: var(--text-muted);
   font-size: 16px;
   line-height: 1.55;
+}
+
+.faq-contact {
+  margin-top: 24px;
 }
 
 @media (min-width: 640px) {

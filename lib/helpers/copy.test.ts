@@ -56,7 +56,7 @@ describe("helpers copy", () => {
 
   it("uses A1A 1A1 as the postal placeholder and a helpers privacy version", () => {
     expect(POSTAL_PLACEHOLDER).toBe("A1A 1A1");
-    expect(HELPERS_PRIVACY_POLICY_VERSION).toBe("2026-09-22-helpers");
+    expect(HELPERS_PRIVACY_POLICY_VERSION).toBe("2026-10-02-helpers");
   });
 
   it("uses the owner-approved vehicle and screening helper wording", () => {

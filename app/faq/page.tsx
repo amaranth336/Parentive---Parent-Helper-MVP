@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { homepage } from "@/lib/homepage/content";
 
 export const metadata: Metadata = {
   title: "FAQ — Parentive",
   description:
-    "Answers to common questions about Parentive availability, recurring support, and parent-present help.",
+    "Answers to common questions about where Parentive is available, Helpers, and what a visit includes.",
 };
 
 export default function FaqPage() {
@@ -19,6 +20,12 @@ export default function FaqPage() {
           </div>
         ))}
       </dl>
+      <p className="faq-contact">
+        {homepage.faq.contactLead}{" "}
+        <Link href={homepage.faq.contactHref} className="text-link">
+          {homepage.faq.contactLinkLabel}
+        </Link>
+      </p>
     </main>
   );
 }

@@ -1,6 +1,6 @@
 export const CONTACT_PATH = "/contact";
 export const HELPERS_PATH = "/helpers";
-export const PRIVACY_PATH = "/privacy";
+export const PRIVACY_PATH = "/privacy/notice";
 
 export const CONTACT_HEADING = "Get in touch";
 export const CONTACT_SUPPORTING =
