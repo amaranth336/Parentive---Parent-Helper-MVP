@@ -3,6 +3,7 @@ import Image from "next/image";
 import { homepage } from "@/lib/homepage/content";
 import heroPhoto from "@/public/images/home/home-hero-mother-reading-with-children.png";
 import supportPhoto from "@/public/images/home/home-2nd-father-homework-with-children.png";
+import greetingPhoto from "@/public/images/home/home-wide-greeting-helper.png";
 import makeRoomPhoto from "@/public/images/home/home-3rd-wide-after-school.png";
 
 export const metadata: Metadata = {
@@ -23,6 +24,23 @@ const oatBandIds = new Set<string>([
 
 function bandClass(id: string): string {
   return oatBandIds.has(id) ? "home-band home-band-oat" : "home-band";
+}
+
+function splitColumns<T>(items: readonly T[]): readonly [readonly T[], readonly T[]] {
+  const midpoint = Math.ceil(items.length / 2);
+  return [items.slice(0, midpoint), items.slice(midpoint)];
+}
+
+function ClosingLines({ text }: { text: string }) {
+  const lines = text.split(/(?<=\.)\s+(?=[A-Z])/).filter((line) => line.length > 0);
+
+  return (
+    <p className="home-column-close">
+      {lines.map((line) => (
+        <span key={line}>{line}</span>
+      ))}
+    </p>
+  );
 }
 
 export default function Home() {
@@ -73,7 +91,7 @@ export default function Home() {
         className={bandClass(homepage.why.id)}
         aria-labelledby="home-why-heading"
       >
-        <div className="container home-accent-left">
+        <div className="container home-reading home-accent-left">
           <h2 id="home-why-heading">{homepage.why.heading}</h2>
           <p>{homepage.why.body}</p>
           <p className="home-belief">{homepage.why.belief}</p>
@@ -84,14 +102,14 @@ export default function Home() {
         className={bandClass(homepage.support.id)}
         aria-labelledby="support"
       >
-        <div className="container home-support-inner">
+        <div className="container home-support">
           <figure className="home-photo-figure home-support-photo">
-            <div className="home-photo home-photo-portrait">
+            <div className="home-photo home-photo-wide">
               <Image
                 src={supportPhoto}
                 alt={homepage.support.photo.alt}
                 fill
-                sizes="(max-width: 799px) calc(100vw - 40px), 720px"
+                sizes="(max-width: 799px) calc(100vw - 40px), 920px"
                 className="home-photo-image"
                 style={{ objectFit: "cover", objectPosition: "center center" }}
               />
@@ -100,11 +118,11 @@ export default function Home() {
           <div className="home-support-copy">
             <h2 id="support">{homepage.support.heading}</h2>
             <p className="home-lead">{homepage.support.lead}</p>
-            <div className="home-offering-groups">
+            <div className="home-category-grid">
               {homepage.support.groups.map((group) => (
-                <div key={group.id} className="home-offering-group">
+                <article key={group.id} className="home-category-card">
                   <h3>{group.title}</h3>
-                  <ul className="home-offering-list">
+                  <ul className="home-honey-list">
                     {group.names.map((name) => (
                       <li key={name}>{name}</li>
                     ))}
@@ -112,10 +130,37 @@ export default function Home() {
                   {group.note ? (
                     <p className="home-offering-note">{group.note}</p>
                   ) : null}
-                </div>
+                </article>
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        id={homepage.ready.id}
+        className={`${bandClass(homepage.ready.id)} home-ready`}
+        aria-labelledby="home-ready-heading"
+      >
+        <div className="container home-ready-inner">
+          <div className="home-ready-copy">
+            <h2 id="home-ready-heading">{homepage.ready.heading}</h2>
+            {homepage.ready.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <figure className="home-photo-figure home-ready-photo">
+            <div className="home-photo">
+              <Image
+                src={greetingPhoto}
+                alt={homepage.ready.photo.alt}
+                fill
+                sizes="(max-width: 799px) calc(100vw - 40px), 440px"
+                className="home-photo-image"
+                style={{ objectFit: "cover", objectPosition: "center center" }}
+              />
+            </div>
+          </figure>
         </div>
       </section>
 
@@ -124,7 +169,7 @@ export default function Home() {
         className={bandClass(homepage.howItWorks.id)}
         aria-labelledby="home-how-heading"
       >
-        <div className="container home-accent-right">
+        <div className="container home-reading home-accent-left">
           <h2 id="home-how-heading">{homepage.howItWorks.heading}</h2>
           <ol className="home-steps">
             {homepage.howItWorks.steps.map((step) => (
@@ -147,10 +192,16 @@ export default function Home() {
       >
         <div className="container">
           <h2 id="home-model-heading">{homepage.supportModel.heading}</h2>
-          {homepage.supportModel.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-          <p className="home-cadence">{homepage.supportModel.cadence}</p>
+          <div className="home-columns">
+            {splitColumns(homepage.supportModel.paragraphs).map((column) => (
+              <ul key={column[0]} className="home-honey-list">
+                {column.map((paragraph) => (
+                  <li key={paragraph}>{paragraph}</li>
+                ))}
+              </ul>
+            ))}
+          </div>
+          <ClosingLines text={homepage.supportModel.cadence} />
         </div>
       </section>
 
@@ -182,7 +233,7 @@ export default function Home() {
         className={bandClass(homepage.difference.id)}
         aria-labelledby="home-difference-heading"
       >
-        <div className="container home-accent-left">
+        <div className="container home-reading home-accent-left">
           <h2 id="home-difference-heading">{homepage.difference.heading}</h2>
           {homepage.difference.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
@@ -197,12 +248,16 @@ export default function Home() {
       >
         <div className="container">
           <h2 id="home-expect-heading">{homepage.expect.heading}</h2>
-          <ul className="home-expect">
-            {homepage.expect.points.map((point) => (
-              <li key={point}>{point}</li>
+          <div className="home-columns">
+            {splitColumns(homepage.expect.points).map((column) => (
+              <ul key={column[0]} className="home-honey-list">
+                {column.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             ))}
-          </ul>
-          <p className="home-expect-close">{homepage.expect.closing}</p>
+          </div>
+          <ClosingLines text={homepage.expect.closing} />
         </div>
       </section>
     </main>

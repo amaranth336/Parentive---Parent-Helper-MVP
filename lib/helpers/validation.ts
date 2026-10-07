@@ -13,21 +13,21 @@ export const CANADIAN_POSTAL_REGEX =
   /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] \d[ABCEGHJ-NPRSTV-Z]\d$/;
 
 export const FIELD_ERROR_MESSAGES = {
-  firstNameRequired: "Enter your first name.",
+  firstNameRequired: "Could you add your first name?",
   firstNameLength: "First name must be 1 to 80 characters.",
-  lastNameRequired: "Enter your last name.",
+  lastNameRequired: "Could you add your last name?",
   lastNameLength: "Last name must be 1 to 80 characters.",
-  emailRequired: "Enter your email address.",
+  emailRequired: "Could you add your email?",
   emailInvalid: "Enter a valid email address.",
-  telephoneRequired: "Enter your telephone number.",
+  telephoneRequired: "Could you add your telephone?",
   telephoneLength: "Telephone must be 7 to 30 characters.",
-  postalRequired: "Enter your postal code.",
+  postalRequired: "Could you add your postal code?",
   postalInvalid: "Enter a Canadian postal code like A1A 1A1.",
-  interestsRequired: "Select at least one type of support.",
+  interestsRequired: "Pick at least one kind of support that interests you.",
   interestsInvalid: "Choose only the listed kinds of support.",
-  experienceRequired: "Tell us about your relevant experience.",
+  experienceRequired: "We'd love to hear about your experience.",
   experienceLength: "Keep this under 5000 characters.",
-  motivationRequired: "Tell us why you are interested.",
+  motivationRequired: "We'd love to know why you're interested.",
   motivationLength: "Keep this under 5000 characters.",
   daysRequired: "Select at least one day.",
   daysInvalid: "Choose only the listed days.",
@@ -35,15 +35,15 @@ export const FIELD_ERROR_MESSAGES = {
   timesInvalid: "Choose only the listed preferred times.",
   hoursRequired: "Choose a preferred weekly hours range.",
   hoursInvalid: "Choose one of the listed weekly hours ranges.",
-  age18Required: "Confirm that you are at least 18 years old.",
-  workEligibleRequired: "Confirm that you are legally eligible to work in Canada.",
+  age18Required: "We'll just need you to confirm that you are at least 18 years old.",
+  workEligibleRequired:
+    "We'll just need you to confirm that you are legally eligible to work in Canada.",
   vehicleRequired:
-    "Confirm that you have your own vehicle with adequate insurance for travel.",
+    "We'll just need you to confirm that you have your own vehicle with adequate insurance for travel.",
   screeningRequired:
-    "Confirm that you consent to participating in reference and criminal background checks if selected for further screening.",
-  documentRequired: "Attach a PDF or DOCX experience document.",
-  applicationConsentRequired:
-    "Agree to the application information consent to continue.",
+    "We'll just need you to confirm that you consent to participating in reference and criminal background checks if selected for further screening.",
+  documentRequired: "Please attach your experience document (PDF or DOCX).",
+  applicationConsentRequired: "Please check the consent box to continue.",
 } as const;
 
 export type HelpersFormInput = {

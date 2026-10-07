@@ -684,7 +684,7 @@ export function HelpersApplicationForm() {
           </fieldset>
 
           <fieldset className="helpers-fieldset">
-            <legend>Please confirm</legend>
+            <legend>A few practical things to confirm</legend>
             <p className="field-hint">{VEHICLE_REQUIREMENT_TEXT}</p>
             <p className="field-hint">{SCREENING_ACK_HELPER_TEXT}</p>
             <div className="helpers-checkbox-column helpers-confirmations">

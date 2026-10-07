@@ -119,6 +119,10 @@ export function EarlyAccessPrivacyNotice() {
       <h1>{PRIVACY_PAGE.heading}</h1>
       <p>{EFFECTIVE_DATE}</p>
       <p>
+        Your privacy matters to us. Here&apos;s a plain-language look at how we
+        handle your information when you join our early-access list.
+      </p>
+      <p>
         This notice explains how Parentive handles personal information when
         you join our early-access list. It covers early-access registration and
         related communications. It does not cover future service bookings,

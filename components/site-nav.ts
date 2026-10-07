@@ -21,7 +21,7 @@ export const siteNav: SiteNavItem[] = [
     href: homepageSectionHref(homepage.howItWorks.id),
   },
   {
-    label: "Join The Team",
+    label: "Join Our Team",
     href: "/helpers",
   },
   {
@@ -44,6 +44,11 @@ export function getFooterNavItems(): SiteNavItem[] {
 
 export function isHomepageHashHref(href: string): boolean {
   return href.startsWith("/#") && href.length > 2;
+}
+
+/** Home and in-page section links that jump within the homepage. */
+export function isHomepageJumpHref(href: string): boolean {
+  return href === "/" || isHomepageHashHref(href);
 }
 
 export function homepageHashId(href: string): string | null {

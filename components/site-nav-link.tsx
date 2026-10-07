@@ -9,22 +9,40 @@ interface SiteNavLinkProps {
   href: string;
   children: ReactNode;
   className?: string;
+  pressed?: boolean;
   onNavigate?: () => void;
+  onPress?: () => void;
 }
 
 export function SiteNavLink({
   href,
   children,
   className,
+  pressed = false,
   onNavigate,
+  onPress,
 }: SiteNavLinkProps) {
   const pathname = usePathname();
   const hashId = homepageHashId(href);
   const ariaCurrent = !hashId && href === pathname ? "page" : undefined;
+  const linkClassName = [className, pressed ? "is-pressed" : ""]
+    .filter(Boolean)
+    .join(" ");
 
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
+    onPress?.();
+
     if (href === "/" && pathname === "/") {
+      event.preventDefault();
       onNavigate?.();
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+      window.history.pushState(null, "", "/");
       return;
     }
 
@@ -52,7 +70,7 @@ export function SiteNavLink({
     return (
       <a
         href={href}
-        className={className}
+        className={linkClassName}
         aria-current={ariaCurrent}
         onClick={handleClick}
       >
@@ -64,7 +82,7 @@ export function SiteNavLink({
   return (
     <Link
       href={href}
-      className={className}
+      className={linkClassName}
       aria-current={ariaCurrent}
       onClick={handleClick}
     >

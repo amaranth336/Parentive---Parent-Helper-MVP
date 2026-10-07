@@ -3,14 +3,14 @@ import {
   PILOT_COMMUNITIES,
 } from "@/lib/service-area/communities";
 
-export const LOCKED_H1 = "Take something off your plate.";
+export const LOCKED_H1 = "Let us take something off your plate.";
 export const LOCKED_DESCRIPTOR = "Trusted, flexible help for real life.";
 export const LOCKED_BELIEF =
-  "Support isn't a last resort. It's part of how modern life gets done.";
+  "Reaching out for help isn't a last resort. It's how families make it through the week; and we're glad to be part of yours.";
 export const LOCKED_PAYOFF = "Make room for life.";
 
 export const PARENT_HOME_REQUIRED =
-  "For these visits, a parent or responsible adult remains home. This service is intended to offer flexible in home child care while the Parent is onsite but free for self-care, work or other personal time/tasks.";
+  "For these visits, you or another responsible adult stays home, close by but free. Your Helper keeps your little ones engaged while you rest, work, or take care of something just for you.";
 
 export const OFFERING_NAMES = [
   "Laundry - wash, fold & put away",
@@ -18,7 +18,7 @@ export const OFFERING_NAMES = [
   "Playroom or family room reset",
   "Baby gear reset - clean, tidy & put away",
   "Light home organization",
-  "Light cleaning - dusting, vaccuuming, wiping down surfaces",
+  "Light cleaning - dusting, vacuuming, wiping down surfaces",
   "Kitchen retouch - includes tidy and dishes",
   "Kitchen reset - includes light pantry reorganization and fridge cleanout",
   "Dinner prep",
@@ -48,12 +48,12 @@ export type OfferingGroup = {
 export const homepageCtas: readonly HomepageCta[] = [
   {
     href: "/early-access",
-    label: "How to join early access",
+    label: "Join the early-access list",
     variant: "primary",
   },
   {
     href: "#support",
-    label: "See kinds of support",
+    label: "See how we can help",
     variant: "secondary",
   },
 ];
@@ -62,15 +62,15 @@ export const homepage = {
   metadata: {
     title: "Parentive — Trusted, flexible help for real life",
     description:
-      "A household and parents' helper for select communities across the GTA. Take something off your plate. Join early access.",
+      "A household and parents' helper for select communities across the GTA. Let us take something off your plate. Join early access.",
   },
   hero: {
     kicker: LOCKED_DESCRIPTOR,
     heading: LOCKED_H1,
     support:
-      "Parentive is a local household and parents' helper. A Parentive Helper comes to your home for everyday work — laundry, room resets, food prep, and parent-present support — so you can choose what comes off your plate.",
+      "Parentive is a local team of Helpers who come to your home and lend a hand with the everyday things: laundry, room resets, food prep, and a caring presence with the kids while you're nearby. They arrive ready to help, so bringing in support never becomes one more thing on your list.",
     launchLine:
-      "We're preparing a pilot in select communities across the GTA. You can join the early-access list now.",
+      "We're preparing a pilot in select communities across the GTA. You're welcome to join the early-access list now, and we'll let you know as soon as we're ready to help near you.",
     photo: {
       alt: "Mother reading a picture book with two young children and a dog on a living room rug",
     },
@@ -80,13 +80,25 @@ export const homepage = {
   why: {
     id: "why",
     heading: "Everyday life takes more hands than one household always has.",
-    body: "Meals, laundry, and the reset after a full day still need doing. Parentive is practical help you can plan around — not a last resort, and not a judgement on how you run your home.",
+    body: "Meals, laundry, and the reset after a long day still need doing, and you've been carrying a lot. Parentive is dependable help you can plan around. There's no judgement here, and nothing you need to have figured out first.",
     belief: LOCKED_BELIEF,
+  },
+  ready: {
+    id: "ready",
+    heading: "Skip the searching. Skip the training.",
+    paragraphs: [
+      "Finding someone, showing them where everything lives and explaining what and how you like things done can feel like more work than doing it yourself.",
+      "Parentive Helpers arrive trained and clear on what the visit involves, so it feels like support from the very first knock on the door.",
+      "Like laundry folded a certain way? No problem. Just point us in the direction of where it goes and our team will figure out the rest.",
+    ],
+    photo: {
+      alt: "Parent and child greeting a Helper at the front door",
+    },
   },
   support: {
     id: "support",
-    heading: "What Parentive can take on:",
-    lead: "These are our early offerings only. We'll share further service details as we expand and grow.",
+    heading: "Here's how we can lighten your load:",
+    lead: "These are our first offerings. As we grow, we'll keep adding ways to help, and we'll share more as we do.",
     photo: {
       alt: "Father helping children with homework at the table while someone prepares food in the kitchen",
     },
@@ -100,7 +112,7 @@ export const homepage = {
           "Playroom or family room reset",
           "Baby gear reset - clean, tidy & put away",
           "Light home organization",
-          "Light cleaning - dusting, vaccuuming, wiping down surfaces",
+          "Light cleaning - dusting, vacuuming, wiping down surfaces",
         ],
       },
       {
@@ -125,48 +137,47 @@ export const homepage = {
         id: "flexible-support",
         title: "Flexible support",
         names: ["Flexible support request"],
-        note: "For useful household support that doesn't match a listed offering. Parentive reviews each request and may accept, decline, or suggest a slightly modified scope. Tasks to be outlined prior to scheduled visit.",
+        note: "Need something that isn't on the list? Tell us what would help. We'll take a look and let you know if it's a good fit, or suggest a small adjustment so we can support you well. We'll agree on the tasks before your visit, so everyone knows what to expect.",
       },
     ] satisfies readonly OfferingGroup[],
   },
   howItWorks: {
     id: "how-it-works",
-    heading: "How Parentive works right now:",
+    heading: "How it works, for now:",
     steps: [
       {
         number: "01",
-        title: "Learn what we can take on",
-        body: "Read the available types of support above and see whether Parentive fits your household.",
+        title: "See how we can help",
+        body: "Have a look at what we can take on and see if it feels like a fit for your family.",
       },
       {
         number: "02",
         title: "Join the early-access list",
-        body: "Interested families can add themselves to the early-access list.",
+        body: "Add your name whenever you're ready. It only takes a minute.",
       },
       {
         number: "03",
-        title: "We'll be in touch when services become available in your area",
-        body: "Parentive will follow up with families in the launch communities as services become available.",
+        title: "We'll reach out when we're ready to help near you",
+        body: "As services open up in the launch communities, we'll let you know. No chasing needed.",
       },
     ],
   },
   supportModel: {
     id: "support-model",
-    heading: "How support is structured:",
+    heading: "How it all fits together:",
     paragraphs: [
-      "Most offerings are outcome-based household tasks (a reset, a prep, laundry done).",
-      "The household provides the usual supplies (laundry products, ingredients, cookware, storage, everyday task supplies).",
-      "Uninterrupted Hour, Parent's Helper Visit, and time-based Flexible Support Request are time blocks, reviewed as requested.",
-      "Households may use Parentive once, occasionally, or on a weekly, biweekly, or monthly rhythm. Recurring help is a normal option, incorporating Parentive into your Village.",
+      "Most of our support is a clear job done well: a reset, a prep, laundry folded and put away.",
+      "You provide the everyday supplies, like laundry and cleaning products, ingredients, cookware and storage, and we'll handle the rest.",
+      "Uninterrupted Hour, Parent's Helper Visit and Flexible Support Requests are set up as blocks of time, and we'll go over each one with you.",
+      "Use Parentive once, now and then, or recurring weekly, biweekly or monthly; whatever fits your life. Regular help is a perfectly normal choice, and it can become part of your Village.",
     ],
-    cadence: "Support can be part of the routine.",
+    cadence: "Support can become part of your rhythm.",
   },
   difference: {
     id: "difference",
     heading: "A different kind of household support.",
     paragraphs: [
-      "Parentive sits in the everyday mix — household resets, food prep, and parent-present child care support — rather than you having to source providers for each various task.",
-      "Let Parentive lighten your load.",
+      "Parentive covers the everyday mix: household resets, food prep, and a caring presence with the kids while you're home. You don't have to find a different person for every task.",
     ],
   },
   makeRoom: {
@@ -184,57 +195,57 @@ export const homepage = {
   },
   expect: {
     id: "expect",
-    heading: "What you can expect:",
+    heading: "Let us lighten your load. Here's what you can expect from every Helper:",
     points: [
-      "Trusted people in your home. Every Parentive Helper is fully screened via references and Vulnerable Sector Check before working with families.",
-      "Capable, dependable support. Helpers are selected for reliability, judgement, attention to detail and the ability to follow through on the outcome agreed for the visit.",
-      'Clear expectations, not vague help. Each visit has defined boundaries and outcomes, so you know what Parentive is taking on and what "done" should look like.',
-      "Respect for your home and routines. Helpers work thoughtfully within your household, follow your preferences and communicate clearly if something needs clarification.",
-      "Positive engagement with children. For parent-present support involving children, Helpers are screened for their ability to engage warmly, appropriately and actively — not simply supervise.",
+      "People you can trust in your home. Every Helper is carefully screened, with references and a Vulnerable Sector Check, before they ever step into a family's home.",
+      "Capable and dependable. Helpers are chosen for their reliability, good judgement and eye for detail. They're meticulous, they follow through on what was agreed, and they don't need to be managed by you.",
+      "Your home, your way. Helpers work thoughtfully around your routines, follow your preferences, and simply check in if they're unsure about something.",
+      "Warm with little ones. For visits that include children, Helpers are screened for their ability to connect warmly and appropriately, being genuinely present rather than just keeping watch.",
+      "Trained, and clear on the plan. Every Helper goes through Parentive onboarding, covering service quality, household boundaries, privacy, communication and more, before their first visit. You'll always know what to expect, and so will they. You're never starting from scratch.",
     ],
     closing:
-      "You're not just getting another pair of hands. You're getting support you can feel comfortable bringing into your home.",
+      "You're not just getting another pair of hands. You're getting support you'll feel comfortable to welcome into your home.",
   },
   faq: {
     id: "faq",
     heading: "Frequently asked questions",
-    contactLead: "Have a question that's not covered here?",
-    contactLinkLabel: "Contact Parentive",
+    contactLead: "Still wondering about something?",
+    contactLinkLabel: "We'd love to hear from you.",
     contactHref: "/contact",
     items: [
       {
         question: "Where is Parentive available?",
-        answer: `Select communities across the GTA: ${formatPilotCommunityList(PILOT_COMMUNITIES)}.`,
+        answer: `We're preparing a pilot in ${formatPilotCommunityList(PILOT_COMMUNITIES)}. If you're just outside those areas, you're still welcome to join the early-access list.`,
       },
       {
         question: "Who are Parentive Helpers, and how are they screened?",
         answer:
-          "Parentive Helpers are employees selected for reliability, judgement, attention to detail and respectful in-home support. Every Helper completes a Vulnerable Sector Check before working with families. Helpers supporting parent-present child activities are also screened for their ability to engage positively and appropriately with children.",
+          "Parentive Helpers are members of our team, chosen for their reliability, judgement, attention to detail and respectful in-home support. Every Helper completes a Vulnerable Sector Check and Parentive onboarding before working with families. Helpers who spend time with children are also screened for their ability to connect with kids warmly and appropriately.",
       },
       {
         question: "What can a Parentive Helper actually help with?",
         answer:
-          "Parentive focuses on practical household and parent support — things like laundry, room resets, food prep, lunch prep, household organization and parent-present support. Each offering has clear boundaries and expected outcomes so you know what the visit is intended to accomplish.",
+          "Everyday, practical support: laundry, room resets, meal and lunch prep, light organizing, and a caring presence with your kids while you're home. Every visit has a clear plan, so you always know what your Helper is there to do, and so do they.",
       },
       {
         question: "Is Parentive a cleaning service or childcare service?",
         answer:
-          "No. Parentive sits between traditional household services. We are not a cleaning company, babysitting service or nanny agency. Helpers can take on practical household work and parent-present family support within defined service boundaries.",
+          "Not quite. We sit somewhere in between. We're not a cleaning company, babysitting service or nanny agency. Our Helpers take care of practical household work and support your family while you're home, within clear boundaries and expectations that keep every visit comfortable for everyone.",
       },
       {
         question: "What do I need to provide for a visit?",
         answer:
-          "Households provide the usual items needed for the work — such as laundry products, ingredients, cookware, storage containers and everyday household supplies. Parentive will make the expected requirements clear before a visit.",
+          "Just the everyday basics, like laundry products, ingredients, cookware, storage containers and household supplies. We'll let you know what's needed before each visit, so nothing is a surprise.",
       },
       {
         question: "What happens if I need something that isn't listed?",
         answer:
-          "You can submit a Flexible Support Request for household help that does not fit one of the listed offerings. Parentive reviews each request and may accept it, decline it, or suggest a different approach depending on scope and fit.",
+          "Send us a Flexible Support Request and tell us what would help lighten your load. We'll take a look and let you know if it's a good fit, or suggest another approach that might work better for you.",
       },
       {
         question: "How does pricing work?",
         answer:
-          "Customer pricing is not published yet. Parentive's catalogue pricing and visit structure will be made available before official launch.",
+          "We're still finalizing our pricing, and we'll share it before we launch so there are no surprises.",
       },
     ],
   },

@@ -16,7 +16,7 @@ const REQUIRED_OFFERING_NAMES = [
   "Playroom or family room reset",
   "Baby gear reset - clean, tidy & put away",
   "Light home organization",
-  "Light cleaning - dusting, vaccuuming, wiping down surfaces",
+  "Light cleaning - dusting, vacuuming, wiping down surfaces",
   "Kitchen retouch - includes tidy and dishes",
   "Kitchen reset - includes light pantry reorganization and fridge cleanout",
   "Dinner prep",
@@ -37,7 +37,7 @@ describe("homepage content", () => {
     ]);
 
     expect(homepage.support.lead).toBe(
-      "These are our early offerings only. We'll share further service details as we expand and grow.",
+      "These are our first offerings. As we grow, we'll keep adding ways to help, and we'll share more as we do.",
     );
     expect(OFFERING_NAMES).toEqual(REQUIRED_OFFERING_NAMES);
     expect(groupedNames).toEqual([...REQUIRED_OFFERING_NAMES]);
@@ -47,11 +47,11 @@ describe("homepage content", () => {
     }
   });
 
-  it("states that a parent or responsible adult remains home", () => {
+  it("states that a parent or responsible adult stays home", () => {
     expect(PARENT_HOME_REQUIRED).toContain(
-      "a parent or responsible adult remains home",
+      "you or another responsible adult stays home",
     );
-    expect(allText).toContain("a parent or responsible adult remains home");
+    expect(allText).toContain("you or another responsible adult stays home");
     expect(homepage.support.groups.find((group) => group.id === "family-support")?.note).toBe(
       PARENT_HOME_REQUIRED,
     );
@@ -76,7 +76,7 @@ describe("homepage content", () => {
     }
 
     expect(homepage.hero.primaryCta.href).toBe("/early-access");
-    expect(homepage.hero.primaryCta.label).toBe("How to join early access");
+    expect(homepage.hero.primaryCta.label).toBe("Join the early-access list");
     expect(homepage.hero.secondaryCta.href).toBe("#support");
     expect(homepage.hero.secondaryCta.href.startsWith("#")).toBe(true);
   });
@@ -97,14 +97,14 @@ describe("homepage content", () => {
 
   it("keeps early-access follow-up language current", () => {
     expect(homepage.howItWorks.steps[1]?.body).toBe(
-      "Interested families can add themselves to the early-access list.",
+      "Add your name whenever you're ready. It only takes a minute.",
     );
     expect(homepage.howItWorks.steps[1]?.body).not.toMatch(/list is open/i);
     expect(homepage.howItWorks.steps[2]?.title).toBe(
-      "We'll be in touch when services become available in your area",
+      "We'll reach out when we're ready to help near you",
     );
     expect(homepage.howItWorks.steps[2]?.body).toBe(
-      "Parentive will follow up with families in the launch communities as services become available.",
+      "As services open up in the launch communities, we'll let you know. No chasing needed.",
     );
     expect(homepage.hero.primaryCta.href).toBe("/early-access");
     expect(homepage.metadata.description).not.toMatch(/being prepared/i);
@@ -142,10 +142,8 @@ describe("homepage content", () => {
     expect(homepage.faq.items.map((item) => item.question).join("\n")).not.toMatch(
       /regularly|more than once/i,
     );
-    expect(homepage.faq.contactLead).toBe(
-      "Have a question that's not covered here?",
-    );
-    expect(homepage.faq.contactLinkLabel).toBe("Contact Parentive");
+    expect(homepage.faq.contactLead).toBe("Still wondering about something?");
+    expect(homepage.faq.contactLinkLabel).toBe("We'd love to hear from you.");
     expect(homepage.faq.contactHref).toBe("/contact");
     expect(
       homepage.faq.items.find((item) => item.question === "How does pricing work?")
@@ -154,16 +152,18 @@ describe("homepage content", () => {
   });
 
   it("states what households can expect from Parentive Helpers", () => {
-    expect(homepage.expect.heading).toBe("What you can expect:");
+    expect(homepage.expect.heading).toBe(
+      "Let us lighten your load. Here's what you can expect from every Helper:",
+    );
     expect(homepage.expect.points).toEqual([
-      "Trusted people in your home. Every Parentive Helper is fully screened via references and Vulnerable Sector Check before working with families.",
-      "Capable, dependable support. Helpers are selected for reliability, judgement, attention to detail and the ability to follow through on the outcome agreed for the visit.",
-      'Clear expectations, not vague help. Each visit has defined boundaries and outcomes, so you know what Parentive is taking on and what "done" should look like.',
-      "Respect for your home and routines. Helpers work thoughtfully within your household, follow your preferences and communicate clearly if something needs clarification.",
-      "Positive engagement with children. For parent-present support involving children, Helpers are screened for their ability to engage warmly, appropriately and actively — not simply supervise.",
+      "People you can trust in your home. Every Helper is carefully screened, with references and a Vulnerable Sector Check, before they ever step into a family's home.",
+      "Capable and dependable. Helpers are chosen for their reliability, good judgement and eye for detail. They're meticulous, they follow through on what was agreed, and they don't need to be managed by you.",
+      "Your home, your way. Helpers work thoughtfully around your routines, follow your preferences, and simply check in if they're unsure about something.",
+      "Warm with little ones. For visits that include children, Helpers are screened for their ability to connect warmly and appropriately, being genuinely present rather than just keeping watch.",
+      "Trained, and clear on the plan. Every Helper goes through Parentive onboarding, covering service quality, household boundaries, privacy, communication and more, before their first visit. You'll always know what to expect, and so will they. You're never starting from scratch.",
     ]);
     expect(homepage.expect.closing).toBe(
-      "You're not just getting another pair of hands. You're getting support you can feel comfortable bringing into your home.",
+      "You're not just getting another pair of hands. You're getting support you'll feel comfortable to welcome into your home.",
     );
   });
 });

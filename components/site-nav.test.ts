@@ -5,6 +5,7 @@ import {
   homepageHashId,
   homepageSectionHref,
   isHomepageHashHref,
+  isHomepageJumpHref,
   siteNav,
 } from "./site-nav";
 
@@ -21,7 +22,7 @@ describe("site navigation", () => {
       "Home",
       "Our Support",
       "How It Works",
-      "Join The Team",
+      "Join Our Team",
       "Early Access",
     ]);
   });
@@ -51,7 +52,7 @@ describe("site navigation", () => {
     }
   });
 
-  it("includes Home, sections, Join The Team, and Early Access in the live header", () => {
+  it("includes Home, sections, Join Our Team, and Early Access in the live header", () => {
     const items = getVisibleNavItems();
 
     expect(items).toEqual(siteNav);
@@ -59,7 +60,7 @@ describe("site navigation", () => {
       { label: "Home", href: "/" },
       { label: "Our Support", href: "/#support" },
       { label: "How It Works", href: "/#how-it-works" },
-      { label: "Join The Team", href: "/helpers" },
+      { label: "Join Our Team", href: "/helpers" },
       { label: "Early Access", href: "/early-access" },
     ]);
   });
@@ -74,7 +75,7 @@ describe("site navigation", () => {
       "Home",
       "Our Support",
       "How It Works",
-      "Join The Team",
+      "Join Our Team",
       "Early Access",
       "FAQ",
       "Contact",
@@ -91,5 +92,13 @@ describe("site navigation", () => {
     expect(homepageHashId("/#how-it-works")).toBe("how-it-works");
     expect(isHomepageHashHref("/")).toBe(false);
     expect(homepageHashId("/")).toBeNull();
+  });
+
+  it("treats Home and homepage section links as in-page jumps", () => {
+    expect(isHomepageJumpHref("/")).toBe(true);
+    expect(isHomepageJumpHref("/#support")).toBe(true);
+    expect(isHomepageJumpHref("/#how-it-works")).toBe(true);
+    expect(isHomepageJumpHref("/helpers")).toBe(false);
+    expect(isHomepageJumpHref("/early-access")).toBe(false);
   });
 });

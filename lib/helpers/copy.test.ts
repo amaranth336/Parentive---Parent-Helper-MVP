@@ -19,20 +19,18 @@ describe("helpers copy", () => {
     expect(HELPERS_EYEBROW).toBe("JOIN OUR FOUNDING TEAM");
     expect(HELPERS_HEADING).toBe("Help shape Parentive from the beginning.");
     expect(HELPERS_INTRO).toBe(
-      "We're looking for compassionate, dependable and detail-oriented people who enjoy working with families to make everyday life just a little bit easier. As a Founding Helper, you'll be an integral member of the team establishing how Parentive works; from the quality of our services to the experience we create for households we support - one task at a time.",
+      "We're looking for compassionate, dependable, detail-oriented people who enjoy working with families and want to make everyday life a little easier. As a Founding Helper, you'll be an integral part of the team shaping how Parentive works, from the quality of our services to the experience we create for the households we support, one task at a time.",
     );
   });
 
   it("keeps the exact compensation and document sentences", () => {
-    expect(COMPENSATION_LINE).toBe(
-      "Flexible Hours - $20–$23/hr Compensation",
-    );
+    expect(COMPENSATION_LINE).toBe("Flexible hours, $20–$23 per hour.");
     expect(COMPENSATION_LINE).toContain("$20–$23");
     expect(DOCUMENT_ATTACH_COPY).toBe(
-      "Attach a résumé if you have one. Alternatively, upload a document outlining relevant experience to the services Parentive provides.",
+      "Please upload one document: your résumé, or anything that outlines your experience relevant to the services Parentive provides.",
     );
     expect(EXPERIENCE_SUPPORTING).toBe(
-      "Formal professional experience is not required for every task. We value experience acquired from everyday life and lived experiences where relevant to the services we provide.",
+      "Formal work experience isn't needed for every task. We value what you've learned from everyday life and lived experience too, wherever it's relevant to the work.",
     );
     expect(SUCCESS_HEADING).toBe("Application received.");
   });
@@ -64,7 +62,7 @@ describe("helpers copy", () => {
       "I have my own vehicle with adequate insurance and can travel to customer homes.",
     );
     expect(SCREENING_ACK_HELPER_TEXT).toBe(
-      "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer.",
+      "We'll ask for references later in the process, and a criminal-record check is arranged afterward, usually after a conditional offer.",
     );
     expect(SCREENING_ACK_HELPER_TEXT).not.toContain(
       "This acknowledgement is not a substitute for later specific informed authorization.",
