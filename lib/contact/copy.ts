@@ -2,12 +2,13 @@ export const CONTACT_PATH = "/contact";
 export const HELPERS_PATH = "/helpers";
 export const PRIVACY_PATH = "/privacy/notice";
 
-export const CONTACT_HEADING = "Get in touch";
+export const CONTACT_HEADING = "We'd love to hear from you.";
 export const CONTACT_SUPPORTING =
-  "Have a question about Parentive? Send us a note and we'll be in touch.";
+  "Questions, ideas, or just curious? Send us a note and we'll get back to you.";
 
-export const CONTACT_HELPERS_NOTE_LEAD = "Interested in joining Parentive? Visit";
-export const CONTACT_HELPERS_LINK_LABEL = "Join The Team";
+export const CONTACT_HELPERS_NOTE_LEAD =
+  "Interested in joining our team? We'd love to hear from you. Visit";
+export const CONTACT_HELPERS_LINK_LABEL = "Join Our Team";
 
 export const CONTACT_PRIVACY_NOTE =
   "We use your name, email, phone if you share one, and message so we can reply.";
@@ -23,7 +24,7 @@ export const SUCCESS_MESSAGE =
 export const MAX_CONTACT_REQUEST_BYTES = 32768;
 
 export const CONTACT_ERRORS = {
-  validation: "Please correct the highlighted fields.",
+  validation: "Almost there. Just a few things to take another look at.",
   rateLimit: "Too many attempts. Please try again in a few minutes.",
   unavailable:
     "The contact form is temporarily unavailable. Please try again later.",
@@ -33,9 +34,9 @@ export const CONTACT_ERRORS = {
 } as const;
 
 export const FIELD_ERROR_MESSAGES = {
-  nameRequired: "Enter your name.",
+  nameRequired: "Could you add your name?",
   nameLength: "Name must be 1 to 80 characters.",
-  emailRequired: "Enter your email address.",
+  emailRequired: "Could you add your email?",
   emailInvalid: "Enter a valid email address.",
   phoneInvalid: "Phone must be 1 to 30 characters.",
   messageRequired: "Enter a message.",

@@ -7,19 +7,18 @@ export const HELPERS_PRIVACY_ANCHOR = "/privacy#founding-helper-applications";
 export const HELPERS_EYEBROW = "JOIN OUR FOUNDING TEAM";
 export const HELPERS_HEADING = "Help shape Parentive from the beginning.";
 export const HELPERS_INTRO =
-  "We're looking for compassionate, dependable and detail-oriented people who enjoy working with families to make everyday life just a little bit easier. As a Founding Helper, you'll be an integral member of the team establishing how Parentive works; from the quality of our services to the experience we create for households we support - one task at a time.";
+  "We're looking for compassionate, dependable, detail-oriented people who enjoy working with families and want to make everyday life a little easier. As a Founding Helper, you'll be an integral part of the team shaping how Parentive works, from the quality of our services to the experience we create for the households we support, one task at a time.";
 
-export const COMPENSATION_LINE =
-  "Flexible Hours - $20–$23/hr Compensation";
+export const COMPENSATION_LINE = "Flexible hours, $20–$23 per hour.";
 
 export const COMPENSATION_SUPPORT_PRIMARY =
-  "Pilot-phase compensation, subject to review after the pilot · Employee positions · No guaranteed pilot hours · Preference for 6+ hours of weekly availability · Flexible hours";
+  "Pay is for the pilot phase and will be reviewed after the pilot. These are employee positions. Hours aren't guaranteed during the pilot, and we're hoping to hear from people with 6 or more hours of weekly availability.";
 
 export const DOCUMENT_ATTACH_COPY =
-  "Attach a résumé if you have one. Alternatively, upload a document outlining relevant experience to the services Parentive provides.";
+  "Please upload one document: your résumé, or anything that outlines your experience relevant to the services Parentive provides.";
 
 export const EXPERIENCE_SUPPORTING =
-  "Formal professional experience is not required for every task. We value experience acquired from everyday life and lived experiences where relevant to the services we provide.";
+  "Formal work experience isn't needed for every task. We value what you've learned from everyday life and lived experience too, wherever it's relevant to the work.";
 
 export const INTEREST_QUESTION =
   "Which types of support best match your skills and experience?";
@@ -28,13 +27,13 @@ export const INTEREST_HELPER_TEXT =
   "These selections indicate interests and skills for screening. They do not guarantee task-specific employment.";
 
 export const WEEKLY_HOURS_HELPER_TEXT =
-  "Note: hours and schedules are not guaranteed during the pilot.";
+  "A quick note: hours and schedules aren't guaranteed during the pilot.";
 
 export const SCREENING_ACK_HELPER_TEXT =
-  "References are requested during subsequent screening. A criminal-record check is arranged later, ordinarily after a conditional offer.";
+  "We'll ask for references later in the process, and a criminal-record check is arranged afterward, usually after a conditional offer.";
 
 export const VEHICLE_REQUIREMENT_TEXT =
-  "This role requires a valid driver's licence and appropriate vehicle insurance for lawful travel between assignments.";
+  "This role requires a valid driver's licence and appropriate vehicle insurance so you can travel lawfully between assignments.";
 
 export const APPLICATION_CONSENT_LABEL =
   "I consent to Parentive collecting and using the information in this application, including my uploaded experience document, to assess my qualifications for a Founding Helper role and to contact me about this application.";
@@ -142,7 +141,7 @@ export const FIELD_LABELS = {
   postalCode: "Postal code",
   interestKeys: INTEREST_QUESTION,
   experienceText: "Tell us about your relevant experience.",
-  motivationText: "Why are you interested in becoming a Parentive Helper?",
+  motivationText: "What draws you to becoming a Parentive Helper?",
   availableDays: "What days are you generally available?",
   preferredTimeBlocks: "Preferred times",
   preferredWeeklyHours: "Preferred weekly hours",
@@ -165,14 +164,14 @@ export const SUCCESS_MESSAGE =
   "Parentive has received your application and will review it while assembling the initial Founding Helper team.";
 
 export const HELPERS_ERRORS = {
-  validation: "Please correct the highlighted fields.",
+  validation: "Almost there. Just a few things to take another look at.",
   rateLimit: "Too many attempts. Please try again in a few minutes.",
   unavailable:
     "Helper applications are temporarily unavailable. Please try again later.",
   unexpected: "Something went wrong. Please try again.",
   payloadTooLarge:
     "The application upload is too large. Use a PDF or DOCX of 5 MB or smaller.",
-  documentRequired: "Attach a PDF or DOCX experience document to continue.",
+  documentRequired: "Please attach your experience document (PDF or DOCX).",
   documentReselect:
     "Your experience document must be selected again before submitting.",
 } as const;

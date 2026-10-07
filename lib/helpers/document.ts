@@ -47,7 +47,7 @@ const EXECUTABLE_EXTENSIONS = new Set([
 ]);
 
 export const DOCUMENT_ERROR_MESSAGES = {
-  required: "Attach a PDF or DOCX experience document.",
+  required: "Please attach your experience document (PDF or DOCX).",
   empty: "The uploaded document is empty.",
   tooLarge: "Documents must be 5 MB or smaller.",
   type: "Upload a PDF or DOCX document only.",

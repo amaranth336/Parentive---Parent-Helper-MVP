@@ -5,7 +5,7 @@ export const PRIVACY_PATH = "/privacy/notice";
 
 export const EARLY_ACCESS_HEADING = "Make a little more room for life.";
 export const EARLY_ACCESS_SUPPORTING =
-  "Join our early-access list and hear when Parentive is coming to your community.";
+  "Join our early-access list and we'll let you know when Parentive is coming to your community.";
 
 export const EARLY_ACCESS_SUCCESS_MESSAGE =
   "Thank you for your interest in Parentive! We will contact you once details of our services launching in your area become available.";
@@ -16,13 +16,12 @@ export const POST_SUBMIT_SUPPORTING =
 export const POST_SUBMIT_CTA_LABEL = "Return to home";
 export const POST_SUBMIT_CTA_HREF = "/";
 
-export const SERVICE_INTEREST_QUESTION =
-  "What can Parentive take off your plate?";
+export const SERVICE_INTEREST_QUESTION = "What would you love to hand off?";
 
-export const FREQUENCY_QUESTION = "How often might you use Parentive?";
+export const FREQUENCY_QUESTION = "How often might some help be useful?";
 
 export const FREQUENCY_PLANNING_NOTE =
-  "This helps us plan supply and availability by region. It does not reserve hours.";
+  "This helps us plan for the families in your area. It doesn't reserve any hours.";
 
 export const SERVICE_INTEREST_OTHER_LABEL =
   "If Other, tell us what would help to lighten your load.";
@@ -46,8 +45,8 @@ export const POSTAL_PLACEHOLDER = "A1A 1A1";
 export const EARLY_ACCESS_SOURCE_PATH = "/early-access";
 
 export const SERVICE_INTEREST_OPTIONS = [
-  { key: "home_laundry", label: "Home & laundry support" },
-  { key: "kitchen_meal", label: "Kitchen & meal support" },
+  { key: "home_laundry", label: "Home and laundry" },
+  { key: "kitchen_meal", label: "Kitchen and food" },
   { key: "family", label: "Family support" },
   { key: "flexible", label: "Flexible support" },
   { key: "other_support", label: "Other support" },
@@ -96,7 +95,7 @@ export const PRIVACY_PAGE = {
 } as const;
 
 export const EARLY_ACCESS_ERRORS = {
-  validation: "Please correct the highlighted fields.",
+  validation: "Almost there. Just a few things to take another look at.",
   rateLimit: "Too many attempts. Please try again in a few minutes.",
   unavailable:
     "Early access sign-up is temporarily unavailable. Please try again later.",

@@ -14,7 +14,7 @@ describe("early-access copy", () => {
   it("keeps the exact heading, supporting copy, and success message", () => {
     expect(EARLY_ACCESS_HEADING).toBe("Make a little more room for life.");
     expect(EARLY_ACCESS_SUPPORTING).toBe(
-      "Join our early-access list and hear when Parentive is coming to your community.",
+      "Join our early-access list and we'll let you know when Parentive is coming to your community.",
     );
     expect(EARLY_ACCESS_SUCCESS_MESSAGE).toBe(
       "Thank you for your interest in Parentive! We will contact you once details of our services launching in your area become available.",
@@ -32,8 +32,8 @@ describe("early-access copy", () => {
 
   it("keeps the exact service-interest and frequency labels", () => {
     expect(SERVICE_INTEREST_OPTIONS.map((option) => option.label)).toEqual([
-      "Home & laundry support",
-      "Kitchen & meal support",
+      "Home and laundry",
+      "Kitchen and food",
       "Family support",
       "Flexible support",
       "Other support",

@@ -25,8 +25,13 @@ export default function HelpersPage() {
   return (
     <main id="main-content" className="page helpers">
       <div className="helpers-content">
-        <p className="helpers-eyebrow">{HELPERS_EYEBROW}</p>
-        <h1>{HELPERS_HEADING}</h1>
+        <div className="helpers-lead">
+          <a className="btn btn-primary helpers-apply-cta" href="#helpers-apply">
+            Apply now
+          </a>
+          <h1>{HELPERS_HEADING}</h1>
+          <p className="helpers-eyebrow">{HELPERS_EYEBROW}</p>
+        </div>
         <p className="helpers-intro">{HELPERS_INTRO}</p>
 
         <div className="helpers-hero-photo">
@@ -50,28 +55,28 @@ export default function HelpersPage() {
         <section className="helpers-section" aria-labelledby="helpers-role-heading">
           <h2 id="helpers-role-heading">The Founding Helper role</h2>
           <p>
-            Founding Helpers provide practical household support grounded in
-            Parentive&apos;s pilot service catalogue — laundry and household
-            resets, folding and putting away clothing, kitchen tasks and meal
-            preparation, organizing family spaces, additional in-scope household
-            support, and, for appropriately assessed Helpers, parent-present child
-            engagement while a parent or responsible adult remains home.
+            As a Founding Helper, you&apos;ll bring practical, caring support
+            into family homes: laundry and household resets, folding and
+            putting away clothes, kitchen tasks and meal prep, organizing
+            family spaces, and other household support within our pilot
+            services. Helpers who are assessed as a good fit may also spend
+            time engaging with children while a parent or responsible adult is
+            home.
           </p>
           <p>
-            Assignments take place in customers&apos; homes and locations vary
-            across our pilot communities:{" "}
+            You&apos;ll work in family homes across our pilot communities:{" "}
             {formatPilotCommunityList(PILOT_COMMUNITIES)}.
           </p>
           <p>
-            Founding Helpers can provide input on developing service standards,
-            team culture, organizational processes and the employee experience.
-            That input informs how Parentive takes shape; it does not promise
-            control over corporate decisions.
+            You can share your ideas on our service standards, team culture,
+            processes and the employee experience, and your input will help
+            shape how Parentive takes form. Final decisions about running the
+            company remain with Parentive.
           </p>
           <p>
-            CPR and First Aid certification is preferred beyond our pilot phase
-            for Helpers considered for child-support eligibility. It is not
-            mandatory for every Helper role at the time of application.
+            Beyond the pilot, CPR and First Aid certification is preferred for
+            Helpers who will spend time with children. It isn&apos;t required
+            for every Helper role when you apply.
           </p>
         </section>
 
@@ -81,43 +86,45 @@ export default function HelpersPage() {
         >
           <h2 id="helpers-hiring-heading">Hiring for the pilot</h2>
           <p>
-            Parentive is actively accepting Founding Helper applications for a
-            small first cohort. Hiring may expand as demand grows. Applying does
-            not guarantee an offer or a response by a specific date.
+            We&apos;re welcoming applications for a small first group of
+            Founding Helpers, and hiring may grow as demand does. We can&apos;t
+            promise an offer or a response by a specific date, but we&apos;re
+            so glad you&apos;re considering it.
           </p>
           <ol className="helpers-lifecycle">
             <li>
               <span className="helpers-section-number">01</span> Apply
             </li>
             <li>
-              <span className="helpers-section-number">02</span> Intro
-              conversation
+              <span className="helpers-section-number">02</span> Have an intro
+              conversation with us
             </li>
             <li>
-              <span className="helpers-section-number">03</span> Possible
-              job-related practical assessment and references
+              <span className="helpers-section-number">03</span> Share
+              references and, if needed, complete a job-related practical
+              assessment
             </li>
             <li>
-              <span className="helpers-section-number">04</span> Conditional
-              offer
+              <span className="helpers-section-number">04</span> Receive a
+              conditional offer
             </li>
             <li>
-              <span className="helpers-section-number">05</span> Appropriate
+              <span className="helpers-section-number">05</span> Complete a
               background check and pre-employment requirements
             </li>
             <li>
-              <span className="helpers-section-number">06</span> Parentive
+              <span className="helpers-section-number">06</span> Join Parentive
               onboarding
             </li>
             <li>
-              <span className="helpers-section-number">07</span> Assignments as
-              demand becomes available
+              <span className="helpers-section-number">07</span> Start
+              assignments as demand becomes available
             </li>
           </ol>
           <p>
             Onboarding covers service quality, household boundaries, privacy,
-            customer communication, food and allergy expectations, and where
-            relevant, active child-engagement standards.
+            communicating with families, food and allergy expectations, and,
+            where relevant, standards for actively engaging with children.
           </p>
           <p>
             Parentive welcomes qualified applicants from all backgrounds. Hiring
@@ -137,7 +144,9 @@ export default function HelpersPage() {
           />
         </div>
 
-        <HelpersApplicationForm />
+        <div id="helpers-apply">
+          <HelpersApplicationForm />
+        </div>
       </div>
     </main>
   );

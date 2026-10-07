@@ -59,7 +59,7 @@ export function EarlyAccessPageContent() {
           <h1>{EARLY_ACCESS_HEADING}</h1>
           <p>{EARLY_ACCESS_SUPPORTING}</p>
           <p className="early-access-communities">
-            We are preparing a pilot in {formatPilotCommunityList(PILOT_COMMUNITIES)}.
+            We&apos;re preparing a pilot in {formatPilotCommunityList(PILOT_COMMUNITIES)}.
           </p>
         </div>
         <div className="early-access-hero-photo" style={heroFrameStyle}>

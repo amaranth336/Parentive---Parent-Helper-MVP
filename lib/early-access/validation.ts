@@ -9,11 +9,11 @@ export const CANADIAN_POSTAL_REGEX =
   /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] \d[ABCEGHJ-NPRSTV-Z]\d$/;
 
 export const FIELD_ERROR_MESSAGES = {
-  firstNameRequired: "Enter your first name.",
+  firstNameRequired: "Could you add your first name?",
   firstNameLength: "First name must be 1 to 80 characters.",
-  emailRequired: "Enter your email address.",
+  emailRequired: "Could you add your email?",
   emailInvalid: "Enter a valid email address.",
-  postalRequired: "Enter your postal code.",
+  postalRequired: "Could you add your postal code?",
   postalInvalid: "Enter a Canadian postal code like A1A 1A1.",
   interestInvalid: "Choose only the listed kinds of support.",
   interestOtherLength: "Keep this under 500 characters.",

@@ -32,9 +32,9 @@ describe("contact page contract", () => {
     expect(pageSource).toContain('title: "Contact — Parentive"');
     expect(pageSource).toContain("CONTACT_SUPPORTING");
     expect(pageSource).not.toMatch(/["']use client["']/);
-    expect(CONTACT_HEADING).toBe("Get in touch");
+    expect(CONTACT_HEADING).toBe("We'd love to hear from you.");
     expect(CONTACT_SUPPORTING).toBe(
-      "Have a question about Parentive? Send us a note and we'll be in touch.",
+      "Questions, ideas, or just curious? Send us a note and we'll get back to you.",
     );
     expect(SUCCESS_HEADING).toBe("Message received");
     expect(SUCCESS_MESSAGE).toBe(
@@ -76,7 +76,7 @@ describe("contact page contract", () => {
   });
 
   it("keeps the helper note and privacy link outside new legal promises", () => {
-    expect(CONTACT_HELPERS_LINK_LABEL).toBe("Join The Team");
+    expect(CONTACT_HELPERS_LINK_LABEL).toBe("Join Our Team");
     expect(HELPERS_PATH).toBe("/helpers");
     expect(PRIVACY_PATH).toBe("/privacy/notice");
     expect(CONTACT_PRIVACY_NOTE).toBe(
