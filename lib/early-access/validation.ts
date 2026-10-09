@@ -1,6 +1,7 @@
 import {
   FREQUENCY_KEYS,
   SERVICE_INTEREST_KEYS,
+  SERVICE_INTEREST_OTHER_KEY,
   type FrequencyKey,
   type ServiceInterestKey,
 } from "./copy";
@@ -167,7 +168,7 @@ export function validateEarlyAccessInput(
     ];
   }
 
-  const otherSelected = serviceInterests.includes("other_support");
+  const otherSelected = serviceInterests.includes(SERVICE_INTEREST_OTHER_KEY);
   const serviceInterestOtherRaw = readString(input?.serviceInterestOther).trim();
   if (otherSelected && serviceInterestOtherRaw.length > 500) {
     fieldErrors.serviceInterestOther = FIELD_ERROR_MESSAGES.interestOtherLength;

@@ -8,7 +8,7 @@ const validBody = {
   firstName: "Alex",
   email: "alex@example.com",
   postalCode: "L4G 1A1",
-  serviceInterests: ["home_laundry"],
+  serviceInterests: ["home_tidying"],
   pilotContactConsent: true,
   marketingConsent: false,
 };

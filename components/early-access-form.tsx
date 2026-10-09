@@ -26,6 +26,7 @@ import {
   PRIVACY_NOTICE_LINK_LABEL,
   PRIVACY_PATH,
   SERVICE_INTEREST_OPTIONS,
+  SERVICE_INTEREST_OTHER_KEY,
   SERVICE_INTEREST_OTHER_LABEL,
   SERVICE_INTEREST_QUESTION,
   SUBMIT_IDLE_LABEL,
@@ -52,7 +53,7 @@ const FIELD_CONTROL_IDS: Record<(typeof FIELD_FOCUS_ORDER)[number], string> = {
   firstName: "early-access-first-name",
   email: "early-access-email",
   postalCode: "early-access-postal-code",
-  serviceInterests: "early-access-interest-home_laundry",
+  serviceInterests: "early-access-interest-home_tidying",
   serviceInterestOther: "early-access-service-interest-other",
   frequency: "early-access-frequency-one_time",
   frequencyOther: "early-access-frequency-other",
@@ -133,7 +134,9 @@ export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
     }
   }, [focusTarget, fieldErrors]);
 
-  const otherInterestSelected = values.serviceInterests.includes("other_support");
+  const otherInterestSelected = values.serviceInterests.includes(
+    SERVICE_INTEREST_OTHER_KEY,
+  );
   const otherFrequencySelected = values.frequency === "other";
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -346,6 +349,7 @@ export function EarlyAccessForm({ onSuccess }: EarlyAccessFormProps = {}) {
               id="early-access-service-interest-other"
               name="serviceInterestOther"
               maxLength={500}
+              rows={3}
               value={values.serviceInterestOther}
               onChange={(event) =>
                 setValues((current) => ({

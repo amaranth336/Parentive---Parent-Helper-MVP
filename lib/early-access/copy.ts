@@ -44,12 +44,16 @@ export const POSTAL_PLACEHOLDER = "A1A 1A1";
 
 export const EARLY_ACCESS_SOURCE_PATH = "/early-access";
 
+export const SERVICE_INTEREST_OTHER_KEY = "other" as const;
+
 export const SERVICE_INTEREST_OPTIONS = [
-  { key: "home_laundry", label: "Home and laundry" },
-  { key: "kitchen_meal", label: "Kitchen and food" },
-  { key: "family", label: "Family support" },
-  { key: "flexible", label: "Flexible support" },
-  { key: "other_support", label: "Other support" },
+  { key: "home_tidying", label: "Home tidying" },
+  { key: "laundry", label: "Laundry" },
+  { key: "meal_prep", label: "Meal prep" },
+  { key: "light_organization", label: "Light organization" },
+  { key: "light_cleaning", label: "Light cleaning" },
+  { key: "occasional_child_engagement", label: "Occasional child engagement" },
+  { key: SERVICE_INTEREST_OTHER_KEY, label: "Other" },
 ] as const;
 
 export const FREQUENCY_OPTIONS = [
