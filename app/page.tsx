@@ -50,9 +50,24 @@ export default function Home() {
     <main id="main-content" className="home">
       <section className="home-band home-hero" aria-labelledby="home-hero-heading">
         <div className="container home-hero-inner">
-          <div className="home-hero-copy">
+          <div className="home-hero-intro">
             <p className="home-kicker">{hero.kicker}</p>
             <h1 id="home-hero-heading">{hero.heading}</h1>
+          </div>
+          <figure className="home-photo-figure">
+            <div className="home-photo home-photo-portrait">
+              <Image
+                src={heroPhoto}
+                alt={hero.photo.alt}
+                fill
+                priority
+                sizes="(max-width: 799px) calc(100vw - 40px), 440px"
+                className="home-photo-image"
+                style={{ objectFit: "cover", objectPosition: "45% 40%" }}
+              />
+            </div>
+          </figure>
+          <div className="home-hero-body">
             <p>{hero.support}</p>
             <p>{hero.launchLine}</p>
             <div className="home-cta">
@@ -70,19 +85,6 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <figure className="home-photo-figure">
-            <div className="home-photo home-photo-portrait">
-              <Image
-                src={heroPhoto}
-                alt={hero.photo.alt}
-                fill
-                priority
-                sizes="(max-width: 799px) calc(100vw - 40px), 440px"
-                className="home-photo-image"
-                style={{ objectFit: "cover", objectPosition: "45% 40%" }}
-              />
-            </div>
-          </figure>
         </div>
       </section>
 
