@@ -101,29 +101,34 @@ describe("early-access validation", () => {
   it("allows multiple service-interest selections", () => {
     const result = validateEarlyAccessInput({
       ...validInput,
-      serviceInterests: ["home_laundry", "kitchen_meal", "family"],
+      serviceInterests: ["home_tidying", "laundry", "meal_prep"],
     });
 
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.value.serviceInterests).toEqual([
-        "home_laundry",
-        "kitchen_meal",
-        "family",
+        "home_tidying",
+        "laundry",
+        "meal_prep",
       ]);
     }
   });
 
-  it("drops other-interest text unless other_support is selected", () => {
+  it("drops other-interest text unless other is selected and allows a blank note", () => {
     const dropped = validateEarlyAccessInput({
       ...validInput,
-      serviceInterests: ["home_laundry"],
+      serviceInterests: ["home_tidying"],
       serviceInterestOther: "Help with garden beds",
     });
     const kept = validateEarlyAccessInput({
       ...validInput,
-      serviceInterests: ["other_support"],
+      serviceInterests: ["other"],
       serviceInterestOther: "Help with garden beds",
+    });
+    const blank = validateEarlyAccessInput({
+      ...validInput,
+      serviceInterests: ["other"],
+      serviceInterestOther: "   ",
     });
 
     expect(dropped.ok).toBe(true);
@@ -134,6 +139,11 @@ describe("early-access validation", () => {
     expect(kept.ok).toBe(true);
     if (kept.ok) {
       expect(kept.value.serviceInterestOther).toBe("Help with garden beds");
+    }
+
+    expect(blank.ok).toBe(true);
+    if (blank.ok) {
+      expect(blank.value.serviceInterestOther).toBeNull();
     }
   });
 

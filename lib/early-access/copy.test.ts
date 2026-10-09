@@ -32,11 +32,13 @@ describe("early-access copy", () => {
 
   it("keeps the exact service-interest and frequency labels", () => {
     expect(SERVICE_INTEREST_OPTIONS.map((option) => option.label)).toEqual([
-      "Home and laundry",
-      "Kitchen and food",
-      "Family support",
-      "Flexible support",
-      "Other support",
+      "Home tidying",
+      "Laundry",
+      "Meal prep",
+      "Light organization",
+      "Light cleaning",
+      "Occasional child engagement",
+      "Other",
     ]);
     expect(FREQUENCY_OPTIONS.map((option) => option.label)).toEqual([
       "One time",
