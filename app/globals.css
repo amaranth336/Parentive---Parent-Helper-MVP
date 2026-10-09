@@ -1154,6 +1154,12 @@ input:focus-visible,
   background: var(--bg);
 }
 
+/* Same-background neighbours would otherwise stack two 56px paddings into one tall gap. */
+.home-band:not(.home-band-oat) + .home-band:not(.home-band-oat),
+.home-band-oat + .home-band-oat {
+  padding-top: 0;
+}
+
 .home-band-oat {
   background: var(--bg-soft);
 }
@@ -1220,6 +1226,10 @@ input:focus-visible,
 
 .home-ready .container {
   max-width: 1120px;
+}
+
+.home-hero-intro h1 {
+  margin-bottom: 0;
 }
 
 .home-kicker {
@@ -1463,15 +1473,32 @@ input:focus-visible,
   .home-hero-inner {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
-    gap: 40px;
+    column-gap: 40px;
+    row-gap: 16px;
     align-items: center;
+  }
+
+  .home-hero-intro {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .home-hero-body {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .home-hero-inner > .home-photo-figure {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
   }
 
   .home-ready-inner {
     display: grid;
     grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.1fr);
     gap: 40px;
-    align-items: center;
+    align-items: start;
   }
 
   .home-ready-photo {
@@ -1741,10 +1768,25 @@ fieldset.radio-group legend,
 
 @media (max-width: 560px) {
   .helpers-lead {
+    grid-template-rows: 1fr auto auto 1fr;
+    align-items: center;
     column-gap: 16px;
+    row-gap: 0;
+  }
+
+  .helpers-apply-cta {
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .helpers .helpers-lead h1 {
+    grid-row: 1 / -1;
+    align-self: center;
   }
 
   .helpers .helpers-eyebrow {
+    grid-row: 3;
+    align-self: start;
     max-width: 9.25rem;
   }
 }
