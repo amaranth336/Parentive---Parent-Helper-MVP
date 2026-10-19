@@ -18,6 +18,10 @@ describe("helpers client boundary", () => {
       expect(source).not.toMatch(/SUPABASE_SERVICE_ROLE_KEY/);
       expect(source).not.toMatch(/lib\/helpers\/handler/);
       expect(source).not.toMatch(/lib\/helpers\/submit/);
+      expect(source).not.toMatch(/lib\/helpers\/notify/);
+      expect(source).not.toMatch(/lib\/email\/admin-notification/);
+      expect(source).not.toMatch(/RESEND_API_KEY/);
+      expect(source).not.toMatch(/CONTACT_NOTIFICATION_/);
     }
   });
 });

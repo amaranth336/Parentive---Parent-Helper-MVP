@@ -1,3 +1,5 @@
+import { notificationStatusPatch } from "@/lib/email/admin-notification";
+import type { HelperNotificationResult } from "@/lib/helpers/notify";
 import { randomUUID } from "node:crypto";
 import {
   APPLICATION_CONSENT_PURPOSE,
@@ -16,8 +18,10 @@ export type ServiceRoleClient = NonNullable<
 >;
 
 export type SubmitHelpersResult =
-  | { ok: true }
+  | { ok: true; id: string; createdAt: string }
   | { ok: false; error: string };
+
+export type RecordHelperNotificationResult = { ok: true } | { ok: false };
 
 export type HelpersDocumentBytes = {
   bytes: Uint8Array;
@@ -192,11 +196,12 @@ export async function submitHelperApplication(
   const inserted = await client
     .from("helper_applications")
     .insert(row)
-    .select("id")
+    .select("id, created_at")
     .single();
 
-  if (!inserted.error && inserted.data?.id) {
-    return { ok: true };
+  const created = inserted.data as { id?: string; created_at?: string } | null;
+  if (!inserted.error && created?.id && created.created_at) {
+    return { ok: true, id: created.id, createdAt: created.created_at };
   }
 
   const cleanup = await deleteStorageObject(client, documentStoragePath);
@@ -210,4 +215,21 @@ export async function submitHelperApplication(
 
   // Never treat a failed insert as success, even if cleanup/orphan logging fails.
   return { ok: false, error: HELPERS_ERRORS.unexpected };
+}
+
+export async function recordHelperNotification(
+  client: ServiceRoleClient,
+  id: string,
+  notification: HelperNotificationResult,
+): Promise<RecordHelperNotificationResult> {
+  const updated = await client
+    .from("helper_applications")
+    .update(notificationStatusPatch(notification))
+    .eq("id", id);
+
+  if (updated.error) {
+    return { ok: false };
+  }
+
+  return { ok: true };
 }

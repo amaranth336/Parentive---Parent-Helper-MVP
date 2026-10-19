@@ -1,5 +1,9 @@
-const RESEND_EMAILS_URL = "https://api.resend.com/emails";
-const DEFAULT_NOTIFICATION_TO = "admin@parentive.ca";
+import {
+  adminNotificationRecipient,
+  sendAdminNotification,
+  type AdminNotificationResult,
+} from "@/lib/email/admin-notification";
+
 const SUBJECT = "New Parentive contact form submission";
 
 export type ContactNotificationInquiry = {
@@ -11,15 +15,10 @@ export type ContactNotificationInquiry = {
   message: string;
 };
 
-export type ContactNotificationResult = {
-  notification_status: "sent" | "failed";
-  notification_error: string | null;
-  notification_sent_at: string | null;
-};
+export type ContactNotificationResult = AdminNotificationResult;
 
 export function contactNotificationRecipient(): string {
-  const configured = process.env.CONTACT_NOTIFICATION_TO?.trim();
-  return configured || DEFAULT_NOTIFICATION_TO;
+  return adminNotificationRecipient();
 }
 
 export function buildContactNotificationText(
@@ -53,14 +52,6 @@ export function buildContactNotificationText(
   ].join("\n");
 }
 
-function failed(error: string): ContactNotificationResult {
-  return {
-    notification_status: "failed",
-    notification_error: error.slice(0, 500),
-    notification_sent_at: null,
-  };
-}
-
 export async function notifyContactInquiry(
   inquiry: ContactNotificationInquiry,
   options: {
@@ -68,43 +59,14 @@ export async function notifyContactInquiry(
     now?: Date;
   } = {},
 ): Promise<ContactNotificationResult> {
-  const fetchImpl = options.fetchImpl ?? fetch;
-  const apiKey = process.env.RESEND_API_KEY?.trim();
-  const from = process.env.CONTACT_NOTIFICATION_FROM?.trim();
-
-  if (!apiKey || !from) {
-    console.error("contact notification failed", inquiry.id);
-    return failed("missing_email_config");
-  }
-
-  try {
-    const response = await fetchImpl(RESEND_EMAILS_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [contactNotificationRecipient()],
-        reply_to: inquiry.email,
-        subject: SUBJECT,
-        text: buildContactNotificationText(inquiry),
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("contact notification failed", inquiry.id, response.status);
-      return failed(`resend_http_${response.status}`);
-    }
-  } catch {
-    console.error("contact notification failed", inquiry.id);
-    return failed("resend_request_failed");
-  }
-
-  return {
-    notification_status: "sent",
-    notification_error: null,
-    notification_sent_at: (options.now ?? new Date()).toISOString(),
-  };
+  return sendAdminNotification(
+    {
+      subject: SUBJECT,
+      text: buildContactNotificationText(inquiry),
+      replyTo: inquiry.email,
+      referenceId: inquiry.id,
+      logLabel: "contact notification",
+    },
+    options,
+  );
 }

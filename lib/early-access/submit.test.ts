@@ -26,7 +26,7 @@ const validated: ValidatedEarlyAccess = {
 };
 
 type QueryResult = {
-  data: { id: string } | null;
+  data: { id: string; created_at?: string } | null;
   error: { code?: string; message?: string } | null;
 };
 
@@ -60,7 +60,10 @@ function createMockClient(options: {
               return {
                 single: async () =>
                   options.insertResult ?? {
-                    data: { id: "new-id" },
+                    data: {
+                      id: "new-id",
+                      created_at: "2026-09-22T16:00:00.000Z",
+                    },
                     error: null,
                   },
               };
@@ -85,7 +88,10 @@ describe("early-access submit", () => {
     let persisted: unknown;
     const client = createMockClient({
       selectResults: [{ data: null, error: null }],
-      insertResult: { data: { id: "created-1" }, error: null },
+      insertResult: {
+        data: { id: "created-1", created_at: "2026-09-22T16:00:00.000Z" },
+        error: null,
+      },
       onInsert: (row) => {
         persisted = row;
       },
@@ -93,7 +99,12 @@ describe("early-access submit", () => {
 
     const result = await submitEarlyAccessRegistration(validated, { client, now });
 
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({
+      ok: true,
+      duplicate: false,
+      id: "created-1",
+      createdAt: "2026-09-22T16:00:00.000Z",
+    });
     expect(persisted).toEqual(buildEarlyAccessRow(validated, now));
     expect(persisted).toMatchObject({
       email: "alex@example.com",
@@ -122,7 +133,7 @@ describe("early-access submit", () => {
 
     const result = await submitEarlyAccessRegistration(validated, { client, now });
 
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ ok: true, duplicate: true });
     expect(onInsert).not.toHaveBeenCalled();
     expect(onUpdate).not.toHaveBeenCalled();
   });
@@ -141,7 +152,7 @@ describe("early-access submit", () => {
 
     await expect(
       submitEarlyAccessRegistration(validated, { client, now }),
-    ).resolves.toEqual({ ok: true });
+    ).resolves.toEqual({ ok: true, duplicate: true });
   });
 
   it("returns an error when unique-violation re-select fails", async () => {
