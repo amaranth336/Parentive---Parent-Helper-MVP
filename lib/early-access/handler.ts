@@ -1,11 +1,19 @@
+import { classifyPostalFsa } from "@/lib/early-access/classification";
 import { EARLY_ACCESS_ERRORS } from "@/lib/early-access/copy";
+import {
+  notifyEarlyAccessRegistration,
+  type EarlyAccessNotificationRegistration,
+  type EarlyAccessNotificationResult,
+} from "@/lib/early-access/notify";
 import {
   createSlidingWindowLimiter,
   earlyAccessRateLimiter,
   type SlidingWindowRateLimiter,
 } from "@/lib/early-access/rate-limit";
 import {
+  recordEarlyAccessNotification,
   submitEarlyAccessRegistration,
+  type RecordEarlyAccessNotificationResult,
   type ServiceRoleClient,
   type SubmitEarlyAccessResult,
 } from "@/lib/early-access/submit";
@@ -32,6 +40,14 @@ export type EarlyAccessHandlerDeps = {
     value: Parameters<typeof submitEarlyAccessRegistration>[0],
     options?: Parameters<typeof submitEarlyAccessRegistration>[1],
   ) => Promise<SubmitEarlyAccessResult>;
+  notify?: (
+    registration: EarlyAccessNotificationRegistration,
+  ) => Promise<EarlyAccessNotificationResult>;
+  recordNotification?: (
+    client: ServiceRoleClient,
+    id: string,
+    notification: EarlyAccessNotificationResult,
+  ) => Promise<RecordEarlyAccessNotificationResult>;
 };
 
 export function createEarlyAccessHandler(
@@ -43,6 +59,9 @@ export function createEarlyAccessHandler(
   const limiter = deps.limiter ?? earlyAccessRateLimiter;
   const getAdminClient = deps.getAdminClient ?? createServiceRoleClient;
   const submit = deps.submit ?? submitEarlyAccessRegistration;
+  const notify = deps.notify ?? notifyEarlyAccessRegistration;
+  const recordNotification =
+    deps.recordNotification ?? recordEarlyAccessNotification;
 
   return async function handleEarlyAccessSubmission(
     rawBody: unknown,
@@ -81,6 +100,54 @@ export function createEarlyAccessHandler(
         status: 500,
         body: { ok: false, error: EARLY_ACCESS_ERRORS.unexpected },
       };
+    }
+
+    if (!submitted.duplicate) {
+      const area = classifyPostalFsa(validated.value.postalFsa);
+      let notification: EarlyAccessNotificationResult;
+      try {
+        notification = await notify({
+          id: submitted.id,
+          createdAt: submitted.createdAt,
+          firstName: validated.value.firstName,
+          email: validated.value.email,
+          postalCode: validated.value.postalCode,
+          serviceAreaStatus: area.status,
+          serviceAreaCommunity: area.community,
+          serviceInterests: validated.value.serviceInterests,
+          serviceInterestOther: validated.value.serviceInterestOther,
+          frequency: validated.value.frequency,
+          frequencyOther: validated.value.frequencyOther,
+          marketingConsent: validated.value.marketingConsent,
+        });
+      } catch {
+        notification = {
+          notification_status: "failed",
+          notification_error: "resend_request_failed",
+          notification_sent_at: null,
+        };
+      }
+
+      try {
+        const recorded = await recordNotification(
+          client,
+          submitted.id,
+          notification,
+        );
+        if (!recorded.ok) {
+          console.error(
+            "early-access notification update failed",
+            submitted.id,
+            notification.notification_status,
+          );
+        }
+      } catch {
+        console.error(
+          "early-access notification update failed",
+          submitted.id,
+          notification.notification_status,
+        );
+      }
     }
 
     return { status: 200, body: { ok: true } };

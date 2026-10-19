@@ -122,6 +122,10 @@ describe("public early-access links", () => {
       expect(source).not.toMatch(/SUPABASE_SERVICE_ROLE_KEY/);
       expect(source).not.toMatch(/lib\/early-access\/handler/);
       expect(source).not.toMatch(/lib\/early-access\/submit/);
+      expect(source).not.toMatch(/lib\/early-access\/notify/);
+      expect(source).not.toMatch(/lib\/email\/admin-notification/);
+      expect(source).not.toMatch(/RESEND_API_KEY/);
+      expect(source).not.toMatch(/CONTACT_NOTIFICATION_/);
     }
   });
 });

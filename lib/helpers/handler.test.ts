@@ -33,11 +33,27 @@ function buildValidFormData(): FormData {
 
 const fakeClient = {} as ServiceRoleClient;
 
+const storedApplication = {
+  ok: true as const,
+  id: "11111111-1111-4111-8111-111111111111",
+  createdAt: "2026-10-19T15:00:00.000Z",
+};
+
+const quietNotification = {
+  notify: async () => ({
+    notification_status: "sent" as const,
+    notification_error: null,
+    notification_sent_at: "2026-10-19T15:00:01.000Z",
+  }),
+  recordNotification: async () => ({ ok: true as const }),
+};
+
 describe("helpers handler", () => {
   it("returns 400 validation fieldErrors", async () => {
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => fakeClient,
-      submit: async () => ({ ok: true }),
+      submit: async () => storedApplication,
+      ...quietNotification,
     });
 
     const result = await handle(new FormData(), { ip: "1.1.1.1" });
@@ -59,7 +75,8 @@ describe("helpers handler", () => {
   it("returns 429 on the 4th request from the same IP via isolated limiter", async () => {
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => fakeClient,
-      submit: async () => ({ ok: true }),
+      submit: async () => storedApplication,
+      ...quietNotification,
     });
 
     for (let index = 0; index < 3; index += 1) {
@@ -79,7 +96,8 @@ describe("helpers handler", () => {
     const { createHelpersHandler } = await import("./handler");
     const handle = createHelpersHandler({
       getAdminClient: () => fakeClient,
-      submit: async () => ({ ok: true }),
+      submit: async () => storedApplication,
+      ...quietNotification,
     });
 
     for (let index = 0; index < 5; index += 1) {
@@ -91,7 +109,8 @@ describe("helpers handler", () => {
   it("rejects oversized files before reading bytes into memory", async () => {
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => fakeClient,
-      submit: async () => ({ ok: true }),
+      submit: async () => storedApplication,
+      ...quietNotification,
       validateDocument: () => {
         throw new Error("validateDocument should not run for oversized files");
       },
@@ -119,7 +138,8 @@ describe("helpers handler", () => {
   it("returns 503 when config is missing", async () => {
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => null,
-      submit: async () => ({ ok: true }),
+      submit: async () => storedApplication,
+      ...quietNotification,
     });
 
     const result = await handle(buildValidFormData(), { ip: "2.2.2.2" });
@@ -130,16 +150,45 @@ describe("helpers handler", () => {
     });
   });
 
-  it("returns 200 only on verified submit", async () => {
-    const submit = jest.fn(async () => ({ ok: true as const }));
+  it("returns 200 only on verified submit and emails the admin", async () => {
+    const submit = jest.fn(async () => storedApplication);
+    const notify = jest.fn(async () => quietNotification.notify());
+    const recordNotification = jest.fn(async () => ({ ok: true as const }));
     const handle = createIsolatedHelpersHandler({
       getAdminClient: () => fakeClient,
       submit,
+      notify,
+      recordNotification,
     });
 
     const result = await handle(buildValidFormData(), { ip: "3.3.3.3" });
     expect(result).toEqual({ status: 200, body: { ok: true } });
     expect(submit).toHaveBeenCalledTimes(1);
+    expect(notify).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: storedApplication.id,
+        email: "alex@example.com",
+        documentOriginalFilename: "experience.pdf",
+      }),
+    );
+    expect(JSON.stringify(notify.mock.calls)).not.toMatch(
+      /document_storage_path|helper-documents/,
+    );
+    expect(recordNotification).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns 200 when the admin email fails", async () => {
+    const handle = createIsolatedHelpersHandler({
+      getAdminClient: () => fakeClient,
+      submit: async () => storedApplication,
+      notify: async () => {
+        throw new Error("resend down");
+      },
+      recordNotification: async () => ({ ok: true }),
+    });
+
+    const result = await handle(buildValidFormData(), { ip: "6.6.6.6" });
+    expect(result).toEqual({ status: 200, body: { ok: true } });
   });
 
   it("returns 500 on a failed write", async () => {

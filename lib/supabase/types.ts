@@ -34,6 +34,9 @@ export type EarlyAccessRegistrationRow = {
   source_path: string;
   created_at: string;
   updated_at: string;
+  notification_status: SubmissionNotificationStatus;
+  notification_error: string | null;
+  notification_sent_at: string | null;
 };
 
 export type EarlyAccessRegistrationInsert = {
@@ -58,6 +61,9 @@ export type EarlyAccessRegistrationInsert = {
   source_path?: string;
   created_at?: string;
   updated_at?: string;
+  notification_status?: SubmissionNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
 };
 
 export type EarlyAccessRegistrationUpdate = {
@@ -82,6 +88,9 @@ export type EarlyAccessRegistrationUpdate = {
   source_path?: string;
   created_at?: string;
   updated_at?: string;
+  notification_status?: SubmissionNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
 };
 
 export type HelperApplicationRow = {
@@ -119,6 +128,9 @@ export type HelperApplicationRow = {
   source_path: string;
   created_at: string;
   updated_at: string;
+  notification_status: SubmissionNotificationStatus;
+  notification_error: string | null;
+  notification_sent_at: string | null;
 };
 
 export type HelperApplicationInsert = {
@@ -156,6 +168,9 @@ export type HelperApplicationInsert = {
   source_path?: string;
   created_at?: string;
   updated_at?: string;
+  notification_status?: SubmissionNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
 };
 
 export type HelperApplicationUpdate = {
@@ -193,6 +208,9 @@ export type HelperApplicationUpdate = {
   source_path?: string;
   created_at?: string;
   updated_at?: string;
+  notification_status?: SubmissionNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
 };
 
 export type HelperApplicationRateLimitRow = {
@@ -252,7 +270,9 @@ export type HelperApplicationStorageOrphanEventUpdate = {
   updated_at?: string;
 };
 
-export type ContactInquiryNotificationStatus = "pending" | "sent" | "failed";
+export type SubmissionNotificationStatus = "pending" | "sent" | "failed";
+
+export type ContactInquiryNotificationStatus = SubmissionNotificationStatus;
 
 export type ContactInquiryRow = {
   id: string;

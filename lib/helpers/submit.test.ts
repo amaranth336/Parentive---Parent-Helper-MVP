@@ -49,7 +49,7 @@ const document: HelpersDocumentBytes = {
 };
 
 type QueryResult = {
-  data: { id: string } | null;
+  data: { id: string; created_at?: string } | null;
   error: { code?: string; message?: string } | null;
 };
 
@@ -106,7 +106,10 @@ function createMockClient(options: {
               return {
                 single: async () =>
                   options.insertResult ?? {
-                    data: { id: "created-1" },
+                    data: {
+                      id: "created-1",
+                      created_at: "2026-09-22T18:00:00.000Z",
+                    },
                     error: null,
                   },
               };
@@ -129,7 +132,10 @@ describe("helpers submit", () => {
     let persisted: unknown;
     const onRemove = jest.fn();
     const client = createMockClient({
-      insertResult: { data: { id: fixedId }, error: null },
+      insertResult: {
+        data: { id: fixedId, created_at: "2026-09-22T18:00:00.000Z" },
+        error: null,
+      },
       onUpload: (path) => {
         uploadedPath = path;
       },
@@ -147,7 +153,11 @@ describe("helpers submit", () => {
       id: fixedId,
     });
 
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({
+      ok: true,
+      id: fixedId,
+      createdAt: "2026-09-22T18:00:00.000Z",
+    });
     expect(uploadedPath).toBe(`${fixedId}/experience.pdf`);
     expect(persisted).toEqual(
       buildHelperApplicationRow(validated, {
@@ -310,7 +320,10 @@ describe("helpers submit", () => {
   it("allows multiple applications for the same email (no unique short-circuit)", async () => {
     const onInsert = jest.fn();
     const client = createMockClient({
-      insertResult: { data: { id: "second" }, error: null },
+      insertResult: {
+        data: { id: "second", created_at: "2026-09-22T18:00:00.000Z" },
+        error: null,
+      },
       onInsert,
     });
 
@@ -325,8 +338,16 @@ describe("helpers submit", () => {
       id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
     });
 
-    expect(first).toEqual({ ok: true });
-    expect(second).toEqual({ ok: true });
+    expect(first).toEqual({
+      ok: true,
+      id: "second",
+      createdAt: "2026-09-22T18:00:00.000Z",
+    });
+    expect(second).toEqual({
+      ok: true,
+      id: "second",
+      createdAt: "2026-09-22T18:00:00.000Z",
+    });
     expect(onInsert).toHaveBeenCalledTimes(2);
   });
 

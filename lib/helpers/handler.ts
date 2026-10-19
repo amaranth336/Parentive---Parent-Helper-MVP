@@ -1,5 +1,10 @@
 import { HELPERS_ERRORS, MAX_DOCUMENT_BYTES } from "@/lib/helpers/copy";
 import {
+  notifyHelperApplication,
+  type HelperNotificationApplication,
+  type HelperNotificationResult,
+} from "@/lib/helpers/notify";
+import {
   validateHelperDocument,
   type DocumentValidationResult,
 } from "@/lib/helpers/document";
@@ -9,8 +14,10 @@ import {
 } from "@/lib/helpers/rate-limit";
 import type { HelpersApiResponse } from "@/lib/helpers/response";
 import {
+  recordHelperNotification,
   submitHelperApplication,
   type HelpersDocumentBytes,
+  type RecordHelperNotificationResult,
   type ServiceRoleClient,
   type SubmitHelpersResult,
 } from "@/lib/helpers/submit";
@@ -55,6 +62,14 @@ export type HelpersHandlerDeps = {
     byteSize?: number | null;
     bytes?: Uint8Array | null;
   }) => DocumentValidationResult;
+  notify?: (
+    application: HelperNotificationApplication,
+  ) => Promise<HelperNotificationResult>;
+  recordNotification?: (
+    client: ServiceRoleClient,
+    id: string,
+    notification: HelperNotificationResult,
+  ) => Promise<RecordHelperNotificationResult>;
 };
 
 function readFormString(formData: FormData, key: string): string {
@@ -142,6 +157,8 @@ export function createHelpersHandler(
   const limiter = deps.limiter;
   const submit = deps.submit ?? submitHelperApplication;
   const validateDocument = deps.validateDocument ?? validateHelperDocument;
+  const notify = deps.notify ?? notifyHelperApplication;
+  const recordNotification = deps.recordNotification ?? recordHelperNotification;
 
   return async function handleHelpersSubmission(
     formData: FormData,
@@ -211,13 +228,14 @@ export function createHelpersHandler(
       };
     }
 
+    const application = {
+      ...validated.value,
+      documentOriginalFilename: documentResult.filename,
+      documentContentType: documentResult.contentType,
+      documentByteSize: documentResult.byteSize,
+    };
     const submitted = await submit(
-      {
-        ...validated.value,
-        documentOriginalFilename: documentResult.filename,
-        documentContentType: documentResult.contentType,
-        documentByteSize: documentResult.byteSize,
-      },
+      application,
       {
         bytes,
         contentType: documentResult.contentType,
@@ -233,6 +251,56 @@ export function createHelpersHandler(
         status: 500,
         body: { ok: false, error: HELPERS_ERRORS.unexpected },
       };
+    }
+
+    let notification: HelperNotificationResult;
+    try {
+      notification = await notify({
+        id: submitted.id,
+        createdAt: submitted.createdAt,
+        firstName: application.firstName,
+        lastName: application.lastName,
+        email: application.email,
+        telephone: application.telephone,
+        postalCode: application.postalCode,
+        interestKeys: application.interestKeys,
+        interestedInChildSupport: application.interestedInChildSupport,
+        gardenCapability: application.gardenCapability,
+        experienceText: application.experienceText,
+        motivationText: application.motivationText,
+        availableDays: application.availableDays,
+        preferredTimeBlocks: application.preferredTimeBlocks,
+        preferredWeeklyHours: application.preferredWeeklyHours,
+        documentOriginalFilename: application.documentOriginalFilename,
+        futureOpportunitiesConsent: application.futureOpportunitiesConsent,
+      });
+    } catch {
+      notification = {
+        notification_status: "failed",
+        notification_error: "resend_request_failed",
+        notification_sent_at: null,
+      };
+    }
+
+    try {
+      const recorded = await recordNotification(
+        client,
+        submitted.id,
+        notification,
+      );
+      if (!recorded.ok) {
+        console.error(
+          "helper notification update failed",
+          submitted.id,
+          notification.notification_status,
+        );
+      }
+    } catch {
+      console.error(
+        "helper notification update failed",
+        submitted.id,
+        notification.notification_status,
+      );
     }
 
     return { status: 200, body: { ok: true } };

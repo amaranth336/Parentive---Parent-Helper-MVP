@@ -1,3 +1,4 @@
+import { notificationStatusPatch } from "@/lib/email/admin-notification";
 import type { ContactNotificationResult } from "@/lib/contact/notify";
 import type { ValidatedContact } from "@/lib/contact/validation";
 import { createServiceRoleClient } from "@/lib/supabase/admin";
@@ -55,21 +56,7 @@ export async function recordContactNotification(
   id: string,
   notification: ContactNotificationResult,
 ): Promise<RecordContactNotificationResult> {
-  const patch =
-    notification.notification_status === "sent"
-      ? {
-          notification_status: "sent" as const,
-          notification_error: null,
-          notification_sent_at:
-            notification.notification_sent_at ?? new Date().toISOString(),
-        }
-      : {
-          notification_status: "failed" as const,
-          notification_error: (
-            notification.notification_error ?? "resend_request_failed"
-          ).slice(0, 500),
-          notification_sent_at: null,
-        };
+  const patch = notificationStatusPatch(notification);
 
   const updated = await client
     .from("contact_inquiries")

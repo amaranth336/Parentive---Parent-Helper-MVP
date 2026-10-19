@@ -1,3 +1,5 @@
+import { notificationStatusPatch } from "@/lib/email/admin-notification";
+import type { EarlyAccessNotificationResult } from "@/lib/early-access/notify";
 import { classifyPostalFsa } from "@/lib/early-access/classification";
 import {
   EARLY_ACCESS_ERRORS,
@@ -15,11 +17,14 @@ export type ServiceRoleClient = NonNullable<
 >;
 
 export type SubmitEarlyAccessResult =
-  | { ok: true }
+  | { ok: true; duplicate: true }
+  | { ok: true; duplicate: false; id: string; createdAt: string }
   | { ok: false; error: string };
 
+export type RecordEarlyAccessNotificationResult = { ok: true } | { ok: false };
+
 type EmailLookup = {
-  data: { id: string } | null;
+  data: { id: string; created_at?: string } | null;
   error: { code?: string; message?: string } | null;
 };
 
@@ -93,28 +98,51 @@ export async function submitEarlyAccessRegistration(
   }
 
   if (existing.data?.id) {
-    return { ok: true };
+    return { ok: true, duplicate: true };
   }
 
   const row = buildEarlyAccessRow(value, options.now ?? new Date());
   const inserted = await client
     .from("early_access_registrations")
     .insert(row)
-    .select("id")
+    .select("id, created_at")
     .single();
 
-  if (!inserted.error && inserted.data?.id) {
-    return { ok: true };
+  const created = inserted.data as { id?: string; created_at?: string } | null;
+  if (!inserted.error && created?.id && created.created_at) {
+    return {
+      ok: true,
+      duplicate: false,
+      id: created.id,
+      createdAt: created.created_at,
+    };
   }
 
   if (isUniqueViolation(inserted.error)) {
     const retry = await selectExistingId(client, value.email);
     if (retry.data?.id) {
-      return { ok: true };
+      return { ok: true, duplicate: true };
     }
 
     return { ok: false, error: EARLY_ACCESS_ERRORS.unexpected };
   }
 
   return { ok: false, error: EARLY_ACCESS_ERRORS.unexpected };
+}
+
+export async function recordEarlyAccessNotification(
+  client: ServiceRoleClient,
+  id: string,
+  notification: EarlyAccessNotificationResult,
+): Promise<RecordEarlyAccessNotificationResult> {
+  const updated = await client
+    .from("early_access_registrations")
+    .update(notificationStatusPatch(notification))
+    .eq("id", id);
+
+  if (updated.error) {
+    return { ok: false };
+  }
+
+  return { ok: true };
 }

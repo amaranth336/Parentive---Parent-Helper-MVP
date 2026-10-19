@@ -15,11 +15,26 @@ const validBody = {
 
 const fakeClient = {} as ServiceRoleClient;
 
+const duplicateResult = { ok: true as const, duplicate: true as const };
+
+const createdResult = {
+  ok: true as const,
+  duplicate: false as const,
+  id: "created-1",
+  createdAt: "2026-10-19T15:00:00.000Z",
+};
+
+const sentNotification = {
+  notification_status: "sent" as const,
+  notification_error: null,
+  notification_sent_at: "2026-10-19T15:00:01.000Z",
+};
+
 describe("early-access handler", () => {
   it("returns 400 validation fieldErrors", async () => {
     const handle = createIsolatedEarlyAccessHandler({
       getAdminClient: () => fakeClient,
-      submit: async () => ({ ok: true }),
+      submit: async () => duplicateResult,
     });
 
     const result = await handle({}, { ip: "1.1.1.1" });
@@ -41,7 +56,7 @@ describe("early-access handler", () => {
   it("returns 429 on the 6th request from the same IP", async () => {
     const handle = createIsolatedEarlyAccessHandler({
       getAdminClient: () => fakeClient,
-      submit: async () => ({ ok: true }),
+      submit: async () => duplicateResult,
     });
 
     for (let index = 0; index < 5; index += 1) {
@@ -60,7 +75,7 @@ describe("early-access handler", () => {
   it("returns 503 when config is missing", async () => {
     const handle = createIsolatedEarlyAccessHandler({
       getAdminClient: () => null,
-      submit: async () => ({ ok: true }),
+      submit: async () => duplicateResult,
     });
 
     const result = await handle(validBody, { ip: "2.2.2.2" });
@@ -71,30 +86,74 @@ describe("early-access handler", () => {
     });
   });
 
-  it("returns 200 on a verified insert", async () => {
-    const submit = jest.fn(async () => ({ ok: true as const }));
+  it("returns 200 on a verified insert and emails the admin once", async () => {
+    const submit = jest.fn(async () => createdResult);
+    const notify = jest.fn(async () => sentNotification);
+    const recordNotification = jest.fn(async () => ({ ok: true as const }));
     const handle = createIsolatedEarlyAccessHandler({
       getAdminClient: () => fakeClient,
       submit,
+      notify,
+      recordNotification,
     });
 
     const result = await handle(validBody, { ip: "3.3.3.3" });
     expect(result).toEqual({ status: 200, body: { ok: true } });
     expect(submit).toHaveBeenCalledTimes(1);
+    expect(notify).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: "created-1",
+        email: "alex@example.com",
+        serviceAreaStatus: "in_pilot",
+        serviceAreaCommunity: "Aurora",
+        serviceInterests: ["home_tidying"],
+      }),
+    );
+    expect(recordNotification).toHaveBeenCalledWith(
+      fakeClient,
+      "created-1",
+      sentNotification,
+    );
   });
 
-  it("returns 200 on a verified duplicate without leaking existence", async () => {
+  it("returns 200 on a verified duplicate without a second email", async () => {
+    const notify = jest.fn();
     const submit = jest.fn(
-      async (_value: ValidatedEarlyAccess) => ({ ok: true as const }),
+      async (_value: ValidatedEarlyAccess) => duplicateResult,
     );
     const handle = createIsolatedEarlyAccessHandler({
       getAdminClient: () => fakeClient,
       submit,
+      notify,
     });
 
     const result = await handle(validBody, { ip: "4.4.4.4" });
     expect(result).toEqual({ status: 200, body: { ok: true } });
     expect(JSON.stringify(result.body)).not.toMatch(/already|registered|exists/i);
+    expect(notify).not.toHaveBeenCalled();
+  });
+
+  it("returns 200 when the admin email fails", async () => {
+    const recordNotification = jest.fn(async () => ({ ok: true as const }));
+    const handle = createIsolatedEarlyAccessHandler({
+      getAdminClient: () => fakeClient,
+      submit: async () => createdResult,
+      notify: async () => {
+        throw new Error("resend down");
+      },
+      recordNotification,
+    });
+
+    const result = await handle(validBody, { ip: "6.6.6.6" });
+    expect(result).toEqual({ status: 200, body: { ok: true } });
+    expect(recordNotification).toHaveBeenCalledWith(
+      fakeClient,
+      "created-1",
+      expect.objectContaining({
+        notification_status: "failed",
+        notification_error: "resend_request_failed",
+      }),
+    );
   });
 
   it("returns 500 on a failed write", async () => {
