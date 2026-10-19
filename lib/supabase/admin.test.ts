@@ -1,4 +1,7 @@
-import { createServiceRoleClient } from "@/lib/supabase/admin";
+import {
+  createServiceRoleClient,
+  getServiceRoleClientFailure,
+} from "@/lib/supabase/admin";
 
 describe("createServiceRoleClient", () => {
   const originalUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -30,6 +33,14 @@ describe("createServiceRoleClient", () => {
     delete process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     expect(createServiceRoleClient()).toBeNull();
+  });
+
+  it("accepts a bare project ref as the Supabase URL", () => {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "abcdefghijabcdefghij";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "test-service-role-key";
+
+    expect(createServiceRoleClient()).not.toBeNull();
+    expect(getServiceRoleClientFailure()).toBeNull();
   });
 
   it("constructs a REST client when the runtime has no WebSocket", () => {

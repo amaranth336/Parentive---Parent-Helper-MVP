@@ -57,7 +57,19 @@ function readEnv(name: string): string {
   ) {
     value = value.slice(1, -1).trim();
   }
-  return value;
+  return value.replace(/[\u200B-\u200D\uFEFF]/g, "");
+}
+
+function normalizeSupabaseUrl(raw: string): string {
+  if (/^[a-z0-9]{20}$/i.test(raw)) {
+    return `https://${raw}.supabase.co`;
+  }
+
+  if (/^[a-z0-9-]+\.supabase\.co\/?$/i.test(raw)) {
+    return `https://${raw.replace(/\/$/, "")}`;
+  }
+
+  return raw;
 }
 
 function safeClientError(error: unknown, url: string): string {
@@ -88,7 +100,7 @@ function ensureServerWebSocket(): void {
 }
 
 export function createServiceRoleClient() {
-  const url = readEnv("NEXT_PUBLIC_SUPABASE_URL");
+  const url = normalizeSupabaseUrl(readEnv("NEXT_PUBLIC_SUPABASE_URL"));
   const serviceRoleKey = readEnv("SUPABASE_SERVICE_ROLE_KEY");
 
   if (!url || !serviceRoleKey) {
