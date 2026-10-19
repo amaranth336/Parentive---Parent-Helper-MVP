@@ -5,6 +5,7 @@ import { CONTACT_ERRORS, MAX_CONTACT_REQUEST_BYTES } from "./copy";
 
 jest.mock("@/lib/supabase/admin", () => ({
   createServiceRoleClient: jest.fn(() => null),
+  getServiceRoleClientFailure: jest.fn(() => null),
 }));
 
 import { createServiceRoleClient } from "@/lib/supabase/admin";

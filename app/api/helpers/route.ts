@@ -6,6 +6,7 @@ import {
 import { resolveClientIp } from "@/lib/helpers/client-ip";
 import { handleHelpersSubmission } from "@/lib/helpers/handler";
 import { checkHelpersApplicationRateLimit } from "@/lib/helpers/rate-limit";
+import { getServiceRoleClientFailure } from "@/lib/supabase/admin";
 import {
   HelpersBodyTooLargeError,
   readHelpersBodyWithLimit,
@@ -17,10 +18,15 @@ export async function POST(request: Request) {
 
   const rate = await checkHelpersApplicationRateLimit(ip);
   if ("unavailable" in rate && rate.unavailable) {
-    return NextResponse.json(
+    const response = NextResponse.json(
       { ok: false, error: HELPERS_ERRORS.unavailable },
       { status: 503 },
     );
+    const failure = getServiceRoleClientFailure();
+    if (failure) {
+      response.headers.set("x-parentive-client-error", failure);
+    }
+    return response;
   }
   if (rate.limited) {
     return NextResponse.json(

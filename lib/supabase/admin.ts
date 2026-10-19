@@ -43,15 +43,56 @@ class RestOnlyWebSocket {
   removeEventListener() {}
 }
 
+let serviceRoleClientFailure: string | null = null;
+
+export function getServiceRoleClientFailure(): string | null {
+  return serviceRoleClientFailure;
+}
+
+function readEnv(name: string): string {
+  let value = process.env[name]?.trim() ?? "";
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    value = value.slice(1, -1).trim();
+  }
+  return value;
+}
+
+function safeClientError(error: unknown): string {
+  const message = error instanceof Error ? error.message : "unknown";
+  return message
+    .replace(/[\r\n]+/g, " ")
+    .replace(/eyJ[A-Za-z0-9_-]{10,}/g, "[redacted]")
+    .replace(/sb_[A-Za-z0-9_-]+/g, "[redacted]")
+    .slice(0, 180);
+}
+
+function ensureServerWebSocket(): void {
+  if (typeof globalThis.WebSocket !== "undefined") {
+    return;
+  }
+
+  Object.defineProperty(globalThis, "WebSocket", {
+    configurable: true,
+    writable: true,
+    value: RestOnlyWebSocket,
+  });
+}
+
 export function createServiceRoleClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = readEnv("NEXT_PUBLIC_SUPABASE_URL");
+  const serviceRoleKey = readEnv("SUPABASE_SERVICE_ROLE_KEY");
 
   if (!url || !serviceRoleKey) {
+    serviceRoleClientFailure = "missing-env";
     return null;
   }
 
   try {
+    ensureServerWebSocket();
+    serviceRoleClientFailure = null;
     return createClient<Database>(url, serviceRoleKey, {
       auth: {
         persistSession: false,
@@ -62,10 +103,8 @@ export function createServiceRoleClient() {
       },
     });
   } catch (error) {
-    console.error(
-      "service role client failed",
-      error instanceof Error ? error.message : "unknown",
-    );
+    serviceRoleClientFailure = safeClientError(error);
+    console.error("service role client failed", serviceRoleClientFailure);
     return null;
   }
 }
