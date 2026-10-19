@@ -60,9 +60,15 @@ function readEnv(name: string): string {
   return value;
 }
 
-function safeClientError(error: unknown): string {
+function safeClientError(error: unknown, url: string): string {
   const message = error instanceof Error ? error.message : "unknown";
-  return message
+  const shape = [
+    `len=${url.length}`,
+    `scheme=${/^https?:\/\//i.test(url)}`,
+    `host=${url.toLowerCase().includes("supabase.co")}`,
+    `space=${/\s/.test(url)}`,
+  ].join(",");
+  return `${message} (${shape})`
     .replace(/[\r\n]+/g, " ")
     .replace(/eyJ[A-Za-z0-9_-]{10,}/g, "[redacted]")
     .replace(/sb_[A-Za-z0-9_-]+/g, "[redacted]")
@@ -103,7 +109,7 @@ export function createServiceRoleClient() {
       },
     });
   } catch (error) {
-    serviceRoleClientFailure = safeClientError(error);
+    serviceRoleClientFailure = safeClientError(error, url);
     console.error("service role client failed", serviceRoleClientFailure);
     return null;
   }
