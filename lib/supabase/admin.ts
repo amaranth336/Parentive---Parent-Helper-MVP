@@ -43,12 +43,6 @@ class RestOnlyWebSocket {
   removeEventListener() {}
 }
 
-let serviceRoleClientFailure: string | null = null;
-
-export function getServiceRoleClientFailure(): string | null {
-  return serviceRoleClientFailure;
-}
-
 function readEnv(name: string): string {
   let value = process.env[name]?.trim() ?? "";
   if (
@@ -104,13 +98,11 @@ export function createServiceRoleClient() {
   const serviceRoleKey = readEnv("SUPABASE_SERVICE_ROLE_KEY");
 
   if (!url || !serviceRoleKey) {
-    serviceRoleClientFailure = "missing-env";
     return null;
   }
 
   try {
     ensureServerWebSocket();
-    serviceRoleClientFailure = null;
     return createClient<Database>(url, serviceRoleKey, {
       auth: {
         persistSession: false,
@@ -121,8 +113,7 @@ export function createServiceRoleClient() {
       },
     });
   } catch (error) {
-    serviceRoleClientFailure = safeClientError(error, url);
-    console.error("service role client failed", serviceRoleClientFailure);
+    console.error("service role client failed", safeClientError(error, url));
     return null;
   }
 }

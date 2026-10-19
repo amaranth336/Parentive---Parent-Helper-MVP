@@ -4,7 +4,6 @@ import {
   MAX_CONTACT_REQUEST_BYTES,
 } from "@/lib/contact/copy";
 import { contactRateLimiter, handleContactSubmission } from "@/lib/contact/handler";
-import { getServiceRoleClientFailure } from "@/lib/supabase/admin";
 import { resolveClientIp } from "@/lib/helpers/client-ip";
 import {
   HelpersBodyTooLargeError,
@@ -84,10 +83,5 @@ export async function POST(request: Request) {
   }
 
   const result = await handleContactSubmission(parsed.value, { ip });
-  const response = NextResponse.json(result.body, { status: result.status });
-  const failure = getServiceRoleClientFailure();
-  if (result.status === 503 && failure) {
-    response.headers.set("x-parentive-client-error", failure);
-  }
-  return response;
+  return NextResponse.json(result.body, { status: result.status });
 }
