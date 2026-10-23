@@ -358,8 +358,9 @@ export default function DesignSystemPage() {
         <h2 id="ds-header">Header</h2>
         <p className="ds-note">
           The live header is at the top of the page. It uses the official lockup
-          plus Home, Our Support, How It Works, and Early Access. Hash links
-          open the matching homepage section from any route. Narrow the viewport
+          plus Home, Our Support, How It Works, and Early Access. Our Support
+          opens the catalogue page. How It Works opens the matching homepage
+          section from any route. Narrow the viewport
           below 800px on the specimen below, then use Menu to open the push-down
           list. The button name becomes Close menu while open. Escape closes it
           and returns focus to the button.

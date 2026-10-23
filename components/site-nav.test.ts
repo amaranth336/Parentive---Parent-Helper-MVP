@@ -30,14 +30,14 @@ describe("site navigation", () => {
   it("derives hash destinations from homepage section IDs", () => {
     expect(siteNav.map((item) => item.href)).toEqual([
       "/",
-      homepageSectionHref(homepage.support.id),
+      "/our-support",
       homepageSectionHref(homepage.howItWorks.id),
       "/helpers",
       "/early-access",
     ]);
     expect(siteNav.map((item) => item.href)).toEqual([
       "/",
-      "/#support",
+      "/our-support",
       "/#how-it-works",
       "/helpers",
       "/early-access",
@@ -58,7 +58,7 @@ describe("site navigation", () => {
     expect(items).toEqual(siteNav);
     expect(items).toEqual([
       { label: "Home", href: "/" },
-      { label: "Our Support", href: "/#support" },
+      { label: "Our Support", href: "/our-support" },
       { label: "How It Works", href: "/#how-it-works" },
       { label: "Join Our Team", href: "/helpers" },
       { label: "Early Access", href: "/early-access" },

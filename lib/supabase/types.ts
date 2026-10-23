@@ -310,6 +310,94 @@ export type ContactInquiryUpdate = {
   notification_sent_at?: string | null;
 };
 
+/**
+ * Pilot visit requests from /our-support.
+ * This is not the retired support_requests model.
+ */
+export type PilotVisitRequestRow = {
+  id: string;
+  created_at: string;
+  name: string;
+  email: string;
+  postal_code: string;
+  postal_fsa: string;
+  preferred_times: string;
+  helper_notes: string | null;
+  visit_type: "one-time" | "recurring";
+  recurring_preferences: string | null;
+  service_ids: string[];
+  service_lines: Json;
+  subtotal_cents: number;
+  quote_required: boolean;
+  flexible_description: string | null;
+  minimum_cents: number;
+  fixed_below_minimum: boolean;
+  currency: "CAD";
+  marketing_consent: boolean;
+  request_contact_purpose: string;
+  privacy_policy_version: string;
+  source_path: string;
+  notification_status: SubmissionNotificationStatus;
+  notification_error: string | null;
+  notification_sent_at: string | null;
+};
+
+export type PilotVisitRequestInsert = {
+  id?: string;
+  created_at?: string;
+  name: string;
+  email: string;
+  postal_code: string;
+  postal_fsa: string;
+  preferred_times: string;
+  helper_notes?: string | null;
+  visit_type: "one-time" | "recurring";
+  recurring_preferences?: string | null;
+  service_ids: string[];
+  service_lines: Json;
+  subtotal_cents: number;
+  quote_required: boolean;
+  flexible_description?: string | null;
+  minimum_cents: number;
+  fixed_below_minimum: boolean;
+  currency?: "CAD";
+  marketing_consent?: boolean;
+  request_contact_purpose: string;
+  privacy_policy_version: string;
+  source_path?: string;
+  notification_status?: SubmissionNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
+};
+
+export type PilotVisitRequestUpdate = {
+  id?: string;
+  created_at?: string;
+  name?: string;
+  email?: string;
+  postal_code?: string;
+  postal_fsa?: string;
+  preferred_times?: string;
+  helper_notes?: string | null;
+  visit_type?: "one-time" | "recurring";
+  recurring_preferences?: string | null;
+  service_ids?: string[];
+  service_lines?: Json;
+  subtotal_cents?: number;
+  quote_required?: boolean;
+  flexible_description?: string | null;
+  minimum_cents?: number;
+  fixed_below_minimum?: boolean;
+  currency?: "CAD";
+  marketing_consent?: boolean;
+  request_contact_purpose?: string;
+  privacy_policy_version?: string;
+  source_path?: string;
+  notification_status?: SubmissionNotificationStatus;
+  notification_error?: string | null;
+  notification_sent_at?: string | null;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -323,6 +411,12 @@ export type Database = {
         Row: ContactInquiryRow;
         Insert: ContactInquiryInsert;
         Update: ContactInquiryUpdate;
+        Relationships: [];
+      };
+      pilot_visit_requests: {
+        Row: PilotVisitRequestRow;
+        Insert: PilotVisitRequestInsert;
+        Update: PilotVisitRequestUpdate;
         Relationships: [];
       };
       helper_applications: {

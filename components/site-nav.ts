@@ -14,7 +14,7 @@ export const siteNav: SiteNavItem[] = [
   { label: "Home", href: "/" },
   {
     label: "Our Support",
-    href: homepageSectionHref(homepage.support.id),
+    href: "/our-support",
   },
   {
     label: "How It Works",
