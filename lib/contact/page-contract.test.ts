@@ -105,7 +105,7 @@ describe("contact page contract", () => {
     expect(siteNav.map((item) => item.label)).not.toContain("Contact");
     expect(getFooterNavItems().map((item) => item.href)).toEqual([
       "/",
-      "/#support",
+      "/our-support",
       "/#how-it-works",
       "/helpers",
       "/early-access",

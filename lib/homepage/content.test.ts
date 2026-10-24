@@ -3,57 +3,40 @@ import {
   LOCKED_DESCRIPTOR,
   LOCKED_H1,
   LOCKED_PAYOFF,
-  OFFERING_NAMES,
-  PARENT_HOME_REQUIRED,
   flattenHomepageText,
   homepage,
   homepageCtas,
 } from "./content";
 
-const REQUIRED_OFFERING_NAMES = [
-  "Laundry - wash, fold & put away",
-  "Bedroom reset - including washing/changing bedding",
-  "Playroom or family room reset",
-  "Baby gear reset - clean, tidy & put away",
-  "Light home organization",
-  "Light cleaning - dusting, vacuuming, wiping down surfaces",
-  "Kitchen retouch - includes tidy and dishes",
-  "Kitchen reset - includes light pantry reorganization and fridge cleanout",
-  "Dinner prep",
-  "Tomorrow's lunches",
-  "Meal prep for the week",
-  "Produce & snack prep",
-  "Uninterrupted hour",
-  "Parent's Helper visit",
-  "Flexible support request",
-] as const;
-
 describe("homepage content", () => {
   const allText = flattenHomepageText(homepage);
 
-  it("includes the homepage offering lines exactly", () => {
-    const groupedNames = homepage.support.groups.flatMap((group) => [
-      ...group.names,
-    ]);
-
+  it("summarizes three support categories without catalogue prices", () => {
     expect(homepage.support.lead).toBe(
       "These are our first offerings. As we grow, we'll keep adding ways to help, and we'll share more as we do.",
     );
-    expect(OFFERING_NAMES).toEqual(REQUIRED_OFFERING_NAMES);
-    expect(groupedNames).toEqual([...REQUIRED_OFFERING_NAMES]);
-
-    for (const name of REQUIRED_OFFERING_NAMES) {
-      expect(allText).toContain(name);
-    }
+    expect(homepage.support.groups.map((group) => group.title)).toEqual([
+      "Home and laundry",
+      "Kitchen and Food",
+      "Family support",
+    ]);
+    expect(homepage.support.groups.map((group) => group.href)).toEqual([
+      "/our-support#home-laundry",
+      "/our-support#kitchen-food",
+      "/our-support#family-support",
+    ]);
+    expect(homepage.support.explore).toEqual({
+      href: "/our-support",
+      label: "Explore our support",
+    });
+    expect(homepage.support.groups[0]?.summary).toContain("Laundry put away");
+    expect(homepage.support.groups[2]?.summary).toContain("with you at home");
+    expect(JSON.stringify(homepage.support)).not.toMatch(/\$|Garden Reset|Quoted individually/);
   });
 
-  it("states that a parent or responsible adult stays home", () => {
-    expect(PARENT_HOME_REQUIRED).toContain(
-      "you or another responsible adult stays home",
-    );
-    expect(allText).toContain("you or another responsible adult stays home");
-    expect(homepage.support.groups.find((group) => group.id === "family-support")?.note).toBe(
-      PARENT_HOME_REQUIRED,
+  it("keeps family support parent-present on the homepage summary", () => {
+    expect(homepage.support.groups.find((group) => group.id === "family-support")?.summary).toContain(
+      "with you at home",
     );
   });
 

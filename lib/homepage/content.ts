@@ -9,40 +9,20 @@ export const LOCKED_BELIEF =
   "Reaching out for help isn't a last resort. It's how families make it through the week; and we're glad to be part of yours.";
 export const LOCKED_PAYOFF = "Make room for life.";
 
-export const PARENT_HOME_REQUIRED =
-  "For these visits, you or another responsible adult stays home, close by but free. Your Helper keeps your little ones engaged while you rest, work, or take care of something just for you.";
-
-export const OFFERING_NAMES = [
-  "Laundry - wash, fold & put away",
-  "Bedroom reset - including washing/changing bedding",
-  "Playroom or family room reset",
-  "Baby gear reset - clean, tidy & put away",
-  "Light home organization",
-  "Light cleaning - dusting, vacuuming, wiping down surfaces",
-  "Kitchen retouch - includes tidy and dishes",
-  "Kitchen reset - includes light pantry reorganization and fridge cleanout",
-  "Dinner prep",
-  "Tomorrow's lunches",
-  "Meal prep for the week",
-  "Produce & snack prep",
-  "Uninterrupted hour",
-  "Parent's Helper visit",
-  "Flexible support request",
-] as const;
-
-export type OfferingName = (typeof OFFERING_NAMES)[number];
-
 export type HomepageCta = {
   href: `#${string}` | "/early-access";
   label: string;
   variant: "primary" | "secondary";
 };
 
-export type OfferingGroup = {
-  id: string;
+export type SupportSummary = {
+  id: "home-laundry" | "kitchen-food" | "family-support";
   title: string;
-  names: readonly OfferingName[];
-  note?: string;
+  summary: string;
+  href:
+    | "/our-support#home-laundry"
+    | "/our-support#kitchen-food"
+    | "/our-support#family-support";
 };
 
 export const homepageCtas: readonly HomepageCta[] = [
@@ -102,44 +82,33 @@ export const homepage = {
     photo: {
       alt: "Father helping children with homework at the table while someone prepares food in the kitchen",
     },
+    explore: {
+      href: "/our-support",
+      label: "Explore our support",
+    },
     groups: [
       {
-        id: "home-and-laundry",
+        id: "home-laundry",
         title: "Home and laundry",
-        names: [
-          "Laundry - wash, fold & put away",
-          "Bedroom reset - including washing/changing bedding",
-          "Playroom or family room reset",
-          "Baby gear reset - clean, tidy & put away",
-          "Light home organization",
-          "Light cleaning - dusting, vacuuming, wiping down surfaces",
-        ],
+        summary:
+          "Laundry put away, rooms refreshed and everyday spaces brought back into order. A little less catching up, and a home that’s easier to enjoy.",
+        href: "/our-support#home-laundry",
       },
       {
-        id: "kitchen-and-food",
-        title: "Kitchen and food",
-        names: [
-          "Kitchen retouch - includes tidy and dishes",
-          "Kitchen reset - includes light pantry reorganization and fridge cleanout",
-          "Dinner prep",
-          "Tomorrow's lunches",
-          "Meal prep for the week",
-          "Produce & snack prep",
-        ],
+        id: "kitchen-food",
+        title: "Kitchen and Food",
+        summary:
+          "A kitchen ready to use and a head start on meals. Spend less time catching up and more time around the table.",
+        href: "/our-support#kitchen-food",
       },
       {
         id: "family-support",
         title: "Family support",
-        names: ["Uninterrupted hour", "Parent's Helper visit"],
-        note: PARENT_HOME_REQUIRED,
+        summary:
+          "A little space for you while your children are happily engaged nearby, with you at home. And a helping hand for the other tasks on your list.",
+        href: "/our-support#family-support",
       },
-      {
-        id: "flexible-support",
-        title: "Flexible support",
-        names: ["Flexible support request"],
-        note: "Need something that isn't on the list? Tell us what would help. We'll take a look and let you know if it's a good fit, or suggest a small adjustment so we can support you well. We'll agree on the tasks before your visit, so everyone knows what to expect.",
-      },
-    ] satisfies readonly OfferingGroup[],
+    ] satisfies readonly SupportSummary[],
   },
   howItWorks: {
     id: "how-it-works",

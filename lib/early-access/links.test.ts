@@ -5,7 +5,7 @@ import { homepage, homepageCtas } from "@/lib/homepage/content";
 import { EARLY_ACCESS_COPY, PRIVACY_PAGE } from "./copy";
 
 const ALLOWED_HREF =
-  /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/helpers$|^\/privacy$|^\/privacy\/notice$|^\/privacy#founding-helper-applications$|^\/design-system$|^\/contact$/;
+  /^\/$|^\/#[A-Za-z0-9/_-]+$|^\/early-access$|^\/helpers$|^\/privacy$|^\/privacy\/notice$|^\/privacy#founding-helper-applications$|^\/design-system$|^\/contact$|^\/our-support(?:#[A-Za-z0-9-]+)?$/;
 
 function isPublicLinkKey(key: string): boolean {
   return key === "href" || key.endsWith("Href") || key.endsWith("Path");
@@ -56,7 +56,10 @@ describe("public early-access links", () => {
     expect(hrefs).toEqual(
       expect.arrayContaining([
         "/",
-        "/#support",
+        "/our-support",
+        "/our-support#home-laundry",
+        "/our-support#kitchen-food",
+        "/our-support#family-support",
         "/#how-it-works",
         "/helpers",
         "/early-access",

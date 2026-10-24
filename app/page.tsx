@@ -123,18 +123,18 @@ export default function Home() {
             <div className="home-category-grid">
               {homepage.support.groups.map((group) => (
                 <article key={group.id} className="home-category-card">
-                  <h3>{group.title}</h3>
-                  <ul className="home-honey-list">
-                    {group.names.map((name) => (
-                      <li key={name}>{name}</li>
-                    ))}
-                  </ul>
-                  {group.note ? (
-                    <p className="home-offering-note">{group.note}</p>
-                  ) : null}
+                  <h3>
+                    <a href={group.href}>{group.title}</a>
+                  </h3>
+                  <p>{group.summary}</p>
                 </article>
               ))}
             </div>
+            <p className="home-support-explore">
+              <a className="btn btn-primary" href={homepage.support.explore.href}>
+                {homepage.support.explore.label}
+              </a>
+            </p>
           </div>
         </div>
       </section>
