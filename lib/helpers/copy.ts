@@ -9,10 +9,10 @@ export const HELPERS_HEADING = "Help shape Parentive from the beginning.";
 export const HELPERS_INTRO =
   "We're looking for compassionate, dependable, detail-oriented people who enjoy working with families and want to make everyday life a little easier. As a Founding Helper, you'll be an integral part of the team shaping how Parentive works, from the quality of our services to the experience we create for the households we support, one task at a time.";
 
-export const COMPENSATION_LINE = "Flexible hours, $20–$23 per hour.";
+export const COMPENSATION_LINE = "Flexible hours";
 
 export const COMPENSATION_SUPPORT_PRIMARY =
-  "Pay is for the pilot phase and will be reviewed after the pilot. These are employee positions. Hours aren't guaranteed during the pilot, and we're hoping to hear from people with 6 or more hours of weekly availability.";
+  "Compensation is up to $23/hr for the pilot phase and will be reviewed on an ongoing basis. These are employee positions. Hours aren't guaranteed during the pilot, and we're hoping to hear from people with 6 or more hours of weekly availability.";
 
 export const DOCUMENT_ATTACH_COPY =
   "Please upload one document: your résumé, or anything that outlines your experience relevant to the services Parentive provides.";

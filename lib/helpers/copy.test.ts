@@ -1,5 +1,6 @@
 import {
   COMPENSATION_LINE,
+  COMPENSATION_SUPPORT_PRIMARY,
   DOCUMENT_ATTACH_COPY,
   EXPERIENCE_SUPPORTING,
   FIELD_LABELS,
@@ -24,8 +25,10 @@ describe("helpers copy", () => {
   });
 
   it("keeps the exact compensation and document sentences", () => {
-    expect(COMPENSATION_LINE).toBe("Flexible hours, $20–$23 per hour.");
-    expect(COMPENSATION_LINE).toContain("$20–$23");
+    expect(COMPENSATION_LINE).toBe("Flexible hours");
+    expect(COMPENSATION_SUPPORT_PRIMARY).toBe(
+      "Compensation is up to $23/hr for the pilot phase and will be reviewed on an ongoing basis. These are employee positions. Hours aren't guaranteed during the pilot, and we're hoping to hear from people with 6 or more hours of weekly availability.",
+    );
     expect(DOCUMENT_ATTACH_COPY).toBe(
       "Please upload one document: your résumé, or anything that outlines your experience relevant to the services Parentive provides.",
     );
