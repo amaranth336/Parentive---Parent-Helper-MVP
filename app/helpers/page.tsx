@@ -45,13 +45,6 @@ export default function HelpersPage() {
           />
         </div>
 
-        <div className="helpers-compensation-group">
-          <p className="helpers-compensation">{COMPENSATION_LINE}</p>
-          <p className="helpers-compensation-support">
-            {COMPENSATION_SUPPORT_PRIMARY}
-          </p>
-        </div>
-
         <section className="helpers-section" aria-labelledby="helpers-role-heading">
           <h2 id="helpers-role-heading">The Founding Helper role</h2>
           <p>
@@ -133,6 +126,13 @@ export default function HelpersPage() {
             applicable law.
           </p>
         </section>
+
+        <div className="helpers-compensation-group">
+          <p className="helpers-compensation">{COMPENSATION_LINE}</p>
+          <p className="helpers-compensation-support">
+            {COMPENSATION_SUPPORT_PRIMARY}
+          </p>
+        </div>
 
         <div className="helpers-secondary-photo">
           <Image
