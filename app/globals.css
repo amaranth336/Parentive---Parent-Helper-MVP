@@ -765,10 +765,14 @@ h3 {
 }
 
 @media (min-width: 800px) {
-  /* Pin socials to the Contact link, flush with the communities text edge. */
+  /*
+   * Pin socials to the Contact link. The longest wrapped communities line
+   * ends 30px inside the 22rem column, so the icon meets that edge.
+   */
   .site-footer-socials {
     margin-top: auto;
     justify-content: flex-end;
+    padding-right: 30px;
   }
 }
 
