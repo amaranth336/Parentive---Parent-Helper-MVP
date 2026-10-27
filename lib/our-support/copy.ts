@@ -5,15 +5,13 @@ export const PRIVACY_PATH = "/privacy/notice";
 
 export const OUR_SUPPORT_TITLE = "Our Support — Parentive";
 export const OUR_SUPPORT_DESCRIPTION =
-  "Choose a few everyday tasks and send a pilot visit request. Parentive confirms the details, price and scheduling by email. No payment is collected on this website.";
+  "Choose a few everyday tasks and send a pilot visit request. Parentive confirms the details, price and scheduling by email. No payment is collected on this website at this time.";
 
 export const HERO_HEADLINE = "A little less on your list.";
 export const HERO_DECK =
   "Laundry put away. Dinner prepared. A room that feels settled again.";
 export const HERO_BODY =
   "Let us take a few everyday tasks off your plate. Your Helper brings a thoughtful eye and a practical hand, leaving you more room for the rest of life.";
-export const HERO_PRIMARY = "What can we take off your plate?";
-export const HERO_SECONDARY = "How a visit comes together";
 
 export const EXPLORE_SUPPORT_LABEL = "Explore our support";
 
@@ -35,7 +33,7 @@ export const VISIT_STEPS = [
 
 export const PREFERENCES_HEADING = "Your preferences. Our to-do list.";
 export const PREFERENCES_BODY =
-  "Tell us what matters to you—how you like things folded, where the lunch containers live, or what needs a little extra attention. Your Helper will follow your lead, figure out the everyday details and ask when it matters. Just have your usual supplies ready; we’ll take it from there.";
+  "Tell us what matters to you—how you like things folded, where the lunch containers live, or what needs a little extra attention. Your Helper will follow your lead, figure out the everyday details and follow the flow of your home. Just have your usual supplies ready; we’ll take it from there.";
 
 export const REQUEST_EYEBROW = "Let’s Shorten your list";
 export const REQUEST_TITLE = "What are we helping with?";
@@ -77,15 +75,18 @@ export const QUOTE_SEPARATE_LABEL =
 export const QUOTE_ONLY_LABEL =
   "Flexible Support is quoted separately. We’ll confirm the price with you before any payment.";
 
+export const REQUEST_CART_NOTE =
+  "Early booking requests are being accepted. Service anticipated launch date: January 4, 2027.";
+
 export const PRICING_NOTE =
-  "Prices are in CAD, before applicable tax. One-time visits have an $80 minimum. Recurring visits are $60 per visit, with a commitment of at least three visits. We won’t add a minimum top-up, and recurring visits have no automatic charge or discount.";
+  "Prices are in CAD, before applicable tax. One-time visits have an $80 minimum. Recurring visits are $60 minimum per visit, with a commitment of at least three visits.";
 
 export const REQUEST_NOTICE =
-  "This is a request, not a confirmed booking. We’ll review the request and respond by email within 24 hours. No payment is collected on this website.";
+  "This is a request, not a confirmed booking. We’ll review the request and respond by email within 24 hours. No payment is collected on this website at this time.";
 
 export const PORTAL_HEADING = "Simpler booking is on its way.";
 export const PORTAL_NOTE =
-  "Our online booking and payment portal is coming soon. During the pilot, we’ll arrange your visit together by email.";
+  "Our online booking and payment portal is coming soon. For now, we’ll arrange your visit together by email.";
 
 export const PRIVACY_NOTE =
   "We use your name, email, postal code, availability and notes so we can review this request and reply. We won’t add you to a marketing list.";

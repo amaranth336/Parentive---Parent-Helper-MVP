@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { homepage } from "@/lib/homepage/content";
+import categoryTilePhoto from "@/public/images/home/home-category-tile-sofa.png";
 import heroPhoto from "@/public/images/home/home-hero-mother-reading-with-children.png";
 import supportPhoto from "@/public/images/home/home-2nd-father-homework-with-children.png";
 import greetingPhoto from "@/public/images/home/home-wide-greeting-helper.png";
@@ -14,6 +15,12 @@ export const metadata: Metadata = {
     description: homepage.metadata.description,
   },
 };
+
+const supportCategoryIcons = {
+  "home-laundry": "/images/our-support/icons/laundry-basket-light.svg",
+  "kitchen-food": "/images/our-support/icons/dinner-prep-light.svg",
+  "family-support": "/images/our-support/icons/flex-helping-hand-light.svg",
+} as const satisfies Record<(typeof homepage.support.groups)[number]["id"], string>;
 
 const oatBandIds = new Set<string>([
   homepage.why.id,
@@ -31,14 +38,13 @@ function splitColumns<T>(items: readonly T[]): readonly [readonly T[], readonly 
   return [items.slice(0, midpoint), items.slice(midpoint)];
 }
 
-function ClosingLines({ text }: { text: string }) {
+function ClosingLines({ text, marked = false }: { text: string; marked?: boolean }) {
   const lines = text.split(/(?<=\.)\s+(?=[A-Z])/).filter((line) => line.length > 0);
+  const content = lines.map((line) => <span key={line}>{line}</span>);
 
   return (
     <p className="home-column-close">
-      {lines.map((line) => (
-        <span key={line}>{line}</span>
-      ))}
+      {marked ? <span className="sand-mark shape-1">{content}</span> : content}
     </p>
   );
 }
@@ -51,7 +57,9 @@ export default function Home() {
       <section className="home-band home-hero" aria-labelledby="home-hero-heading">
         <div className="container home-hero-inner">
           <div className="home-hero-intro">
-            <p className="home-kicker">{hero.kicker}</p>
+            <p className="home-kicker">
+              <span className="sand-mark">{hero.kicker}</span>
+            </p>
             <h1 id="home-hero-heading">{hero.heading}</h1>
           </div>
           <figure className="home-photo-figure">
@@ -119,22 +127,40 @@ export default function Home() {
           </figure>
           <div className="home-support-copy">
             <h2 id="support">{homepage.support.heading}</h2>
-            <p className="home-lead">{homepage.support.lead}</p>
+            <p className="home-lead">
+              <span className="sand-mark shape-2">{homepage.support.lead}</span>
+            </p>
             <div className="home-category-grid">
               {homepage.support.groups.map((group) => (
-                <article key={group.id} className="home-category-card">
+                <a key={group.id} className="home-category-card" href={group.href}>
                   <h3>
-                    <a href={group.href}>{group.title}</a>
+                    <span className="service-icon" aria-hidden="true">
+                      <Image
+                        src={supportCategoryIcons[group.id]}
+                        alt=""
+                        width={64}
+                        height={64}
+                        unoptimized
+                      />
+                    </span>
+                    {group.title}
                   </h3>
                   <p>{group.summary}</p>
-                </article>
+                </a>
               ))}
+              <figure className="home-category-tile">
+                <div className="home-photo">
+                  <Image
+                    src={categoryTilePhoto}
+                    alt={homepage.support.categoryTile.alt}
+                    fill
+                    sizes="(max-width: 799px) calc(100vw - 40px), 446px"
+                    className="home-photo-image"
+                    style={{ objectFit: "cover", objectPosition: "center center" }}
+                  />
+                </div>
+              </figure>
             </div>
-            <p className="home-support-explore">
-              <a className="btn btn-primary" href={homepage.support.explore.href}>
-                {homepage.support.explore.label}
-              </a>
-            </p>
           </div>
         </div>
       </section>
@@ -203,7 +229,7 @@ export default function Home() {
               </ul>
             ))}
           </div>
-          <ClosingLines text={homepage.supportModel.cadence} />
+          <ClosingLines text={homepage.supportModel.cadence} marked />
         </div>
       </section>
 
@@ -259,7 +285,7 @@ export default function Home() {
               </ul>
             ))}
           </div>
-          <ClosingLines text={homepage.expect.closing} />
+          <ClosingLines text={homepage.expect.closing} marked />
         </div>
       </section>
     </main>

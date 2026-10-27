@@ -81,11 +81,12 @@ export const OUR_SUPPORT_PATH = "/our-support";
 export const catalogue: readonly CatalogueCategory[] = [
   {
     id: "home-laundry",
-    name: "Home and laundry",
+    name: "Home and Laundry",
     tag: "A home that feels a little more handled.",
     intro:
       "The baskets, bedrooms and everyday spaces that keep asking for your attention. Choose a few jobs and let your Helper take them from here.",
-    imageAlt: "Person holding a woven basket filled with folded laundry",
+    imageAlt:
+      "A child's bedroom with open closets of hanging and folded clothes, a bunk bed, and baskets",
     items: [
       {
         id: "S01",
@@ -176,7 +177,8 @@ export const catalogue: readonly CatalogueCategory[] = [
     tag: "Less kitchen catch-up. More room to enjoy it.",
     intro:
       "From the dishes that never end to the meals that need to be prepped. Get your kitchen counters back, or give the next few days a head start.",
-    imageAlt: "Person slicing cucumber while preparing vegetables at a kitchen counter",
+    imageAlt:
+      "A person chopping carrots at a kitchen island, with vegetables and prepared containers nearby",
     items: [
       {
         id: "S03",
@@ -244,12 +246,12 @@ export const catalogue: readonly CatalogueCategory[] = [
   },
   {
     id: "family-support",
-    name: "Family support",
+    name: "Family Support",
     tag: "A little space for you, knowing your little ones are happily engaged nearby.",
     intro:
       "A caring presence with the children while you’re home, or a thoughtful plan for the task that doesn’t quite fit a box.",
     imageAlt:
-      "Parents at home with their children: one adult helps with homework at the table while another prepares food in the kitchen",
+      "A parent working at a laptop at home while another adult plays with two children in the backyard",
     items: [
       {
         id: "S18",

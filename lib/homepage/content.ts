@@ -82,6 +82,9 @@ export const homepage = {
     photo: {
       alt: "Father helping children with homework at the table while someone prepares food in the kitchen",
     },
+    categoryTile: {
+      alt: "Sunlit sofa with an open book, a cushion, and a folded throw",
+    },
     explore: {
       href: "/our-support",
       label: "Explore our support",
@@ -89,7 +92,7 @@ export const homepage = {
     groups: [
       {
         id: "home-laundry",
-        title: "Home and laundry",
+        title: "Home and Laundry",
         summary:
           "Laundry put away, rooms refreshed and everyday spaces brought back into order. A little less catching up, and a home that’s easier to enjoy.",
         href: "/our-support#home-laundry",
@@ -103,7 +106,7 @@ export const homepage = {
       },
       {
         id: "family-support",
-        title: "Family support",
+        title: "Family Support",
         summary:
           "A little space for you while your children are happily engaged nearby, with you at home. And a helping hand for the other tasks on your list.",
         href: "/our-support#family-support",
@@ -138,7 +141,7 @@ export const homepage = {
       "Most of our support is a clear job done well: a reset, a prep, laundry folded and put away.",
       "You provide the everyday supplies, like laundry and cleaning products, ingredients, cookware and storage, and we'll handle the rest.",
       "Uninterrupted Hour, Parent's Helper Visit and Flexible Support Requests are set up as blocks of time, and we'll go over each one with you.",
-      "Use Parentive once, now and then, or recurring weekly, biweekly or monthly; whatever fits your life. Regular help is a perfectly normal choice, and it can become part of your Village.",
+      "Use Parentive once, now and then, or recurring weekly, biweekly or monthly; whatever fits your life.",
     ],
     cadence: "Support can become part of your rhythm.",
   },
@@ -210,11 +213,6 @@ export const homepage = {
         question: "What happens if I need something that isn't listed?",
         answer:
           "Send us a Flexible Support Request and tell us what would help lighten your load. We'll take a look and let you know if it's a good fit, or suggest another approach that might work better for you.",
-      },
-      {
-        question: "How does pricing work?",
-        answer:
-          "We're still finalizing our pricing, and we'll share it before we launch so there are no surprises.",
       },
     ],
   },

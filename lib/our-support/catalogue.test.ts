@@ -8,7 +8,6 @@ import {
 } from "@/lib/our-support/catalogue";
 import {
   HERO_DECK,
-  HERO_PRIMARY,
   PORTAL_HEADING,
   REQUEST_NOTICE,
   REQUEST_TITLE,
@@ -40,9 +39,9 @@ describe("pilot catalogue", () => {
     expect(services.find((service) => service.id === "S16")?.priceCents).toBe(8000);
     expect(services.find((service) => service.id === "S02")?.priceCents).toBe(1500);
     expect(catalogue.map((category) => category.name)).toEqual([
-      "Home and laundry",
+      "Home and Laundry",
       "Kitchen and Food",
-      "Family support",
+      "Family Support",
     ]);
   });
 
@@ -91,12 +90,15 @@ describe("our support page contract", () => {
     expect(HERO_DECK).toBe(
       "Laundry put away. Dinner prepared. A room that feels settled again.",
     );
-    expect(HERO_PRIMARY).toBe("What can we take off your plate?");
+    expect(experience).toContain('href={`#${category.id}`}');
+    expect(experience).toContain("support-category-links");
+    expect(experience).not.toContain("What can we take off your plate?");
+    expect(experience).not.toContain("How a visit comes together");
     expect(VISIT_HEADING).toBe("Your Helper visit");
     expect(REQUEST_TITLE).toBe("What are we helping with?");
     expect(PORTAL_HEADING).toBe("Simpler booking is on its way.");
     expect(REQUEST_NOTICE).toBe(
-      "This is a request, not a confirmed booking. We’ll review the request and respond by email within 24 hours. No payment is collected on this website.",
+      "This is a request, not a confirmed booking. We’ll review the request and respond by email within 24 hours. No payment is collected on this website at this time.",
     );
     expect(experience).toContain('type="checkbox"');
     expect(experience).toContain('fetch("/api/our-support"');
@@ -110,7 +112,9 @@ describe("our support page contract", () => {
     expect(css).toMatch(/grid-template-rows:\s*subgrid/);
     expect(css).toMatch(/grid-row:\s*span 6/);
     expect(css).toMatch(/aspect-ratio:\s*4\s*\/\s*5/);
-    expect(css).toMatch(/aspect-ratio:\s*3\s*\/\s*2/);
+    expect(experience).toContain(
+      "aspectRatio: `${CATEGORY_IMAGES[category.id].width} / ${CATEGORY_IMAGES[category.id].height}`",
+    );
     expect(css).toContain("#24362D");
     expect(css).toContain("white-space: nowrap");
   });

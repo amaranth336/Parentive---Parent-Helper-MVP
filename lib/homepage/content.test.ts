@@ -16,9 +16,9 @@ describe("homepage content", () => {
       "These are our first offerings. As we grow, we'll keep adding ways to help, and we'll share more as we do.",
     );
     expect(homepage.support.groups.map((group) => group.title)).toEqual([
-      "Home and laundry",
+      "Home and Laundry",
       "Kitchen and Food",
-      "Family support",
+      "Family Support",
     ]);
     expect(homepage.support.groups.map((group) => group.href)).toEqual([
       "/our-support#home-laundry",
@@ -120,7 +120,6 @@ describe("homepage content", () => {
       "Is Parentive a cleaning service or childcare service?",
       "What do I need to provide for a visit?",
       "What happens if I need something that isn't listed?",
-      "How does pricing work?",
     ]);
     expect(homepage.faq.items.map((item) => item.question).join("\n")).not.toMatch(
       /regularly|more than once/i,
@@ -128,10 +127,6 @@ describe("homepage content", () => {
     expect(homepage.faq.contactLead).toBe("Still wondering about something?");
     expect(homepage.faq.contactLinkLabel).toBe("We'd love to hear from you.");
     expect(homepage.faq.contactHref).toBe("/contact");
-    expect(
-      homepage.faq.items.find((item) => item.question === "How does pricing work?")
-        ?.answer,
-    ).not.toMatch(/\$|£|€|\b\d+\b/);
   });
 
   it("states what households can expect from Parentive Helpers", () => {

@@ -4,10 +4,11 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { Alert, Button, Field, Select, TextArea, TextInput } from "@/components/form";
-import familyPhoto from "@/public/images/home/home-2nd-father-homework-with-children.png";
-import heroPhoto from "@/public/images/home/home-hero-mother-reading-with-children.png";
-import kitchenPhoto from "@/public/images/helpers/helpers-midpage-meal-prep.png";
-import laundryPhoto from "@/public/images/helpers/helpers-hero-laundry.png";
+import checklistPhoto from "@/public/images/our-support/our-support-checklist.png";
+import familyPhoto from "@/public/images/our-support/our-support-family-support.png";
+import heroPhoto from "@/public/images/our-support/our-support-hero.png";
+import kitchenPhoto from "@/public/images/our-support/our-support-kitchen-food.png";
+import laundryPhoto from "@/public/images/our-support/our-support-home-laundry.png";
 import {
   catalogue,
   formatServiceDollars,
@@ -26,8 +27,6 @@ import {
   HERO_BODY,
   HERO_DECK,
   HERO_HEADLINE,
-  HERO_PRIMARY,
-  HERO_SECONDARY,
   NAME_LABEL,
   NOTES_LABEL,
   PORTAL_HEADING,
@@ -46,6 +45,7 @@ import {
   RECURRING_NOTE,
   RECURRING_PLACEHOLDER,
   REMOVE_LABEL,
+  REQUEST_CART_NOTE,
   REQUEST_EYEBROW,
   REQUEST_INTRO,
   REQUEST_NOTICE,
@@ -80,6 +80,12 @@ const CATEGORY_IMAGES: Record<CategoryId, StaticImageData> = {
   "home-laundry": laundryPhoto,
   "kitchen-food": kitchenPhoto,
   "family-support": familyPhoto,
+};
+
+const CATEGORY_JUMP_ICONS: Record<CategoryId, string> = {
+  "home-laundry": "/images/our-support/icons/laundry-basket-light.svg",
+  "kitchen-food": "/images/our-support/icons/dinner-prep-light.svg",
+  "family-support": "/images/our-support/icons/flex-helping-hand-light.svg",
 };
 
 const FIELD_ORDER = [
@@ -229,72 +235,112 @@ export function OurSupportExperience() {
       <div className="our-support-inner">
         <section className="support-hero" aria-labelledby="support-hero-heading">
           <div className="support-hero-copy">
+            <p className="support-deck">
+              <span className="sand-mark shape-2">{HERO_DECK}</span>
+            </p>
             <h1 id="support-hero-heading">{HERO_HEADLINE}</h1>
-            <p className="support-deck">{HERO_DECK}</p>
             <p>{HERO_BODY}</p>
-            <div className="support-hero-actions">
-              <a className="btn btn-primary" href="#home-laundry">
-                {HERO_PRIMARY}
-              </a>
-              <a className="btn btn-secondary" href="#your-helper-visit">
-                {HERO_SECONDARY}
-              </a>
-            </div>
+            <nav className="support-hero-actions" aria-label="Support categories">
+              <div className="support-category-links">
+                {catalogue.map((category) => (
+                  <a key={category.id} href={`#${category.id}`}>
+                    <span className="service-icon" aria-hidden="true">
+                      <Image
+                        src={CATEGORY_JUMP_ICONS[category.id]}
+                        alt=""
+                        width={64}
+                        height={64}
+                        unoptimized
+                      />
+                    </span>
+                    {category.name}
+                  </a>
+                ))}
+              </div>
+            </nav>
           </div>
-          <figure className="support-hero-photo">
+          <figure
+            className="support-hero-photo"
+            style={{ aspectRatio: `${heroPhoto.width} / ${heroPhoto.height}` }}
+          >
             <Image
               src={heroPhoto}
-              alt="Mother reading a picture book with two young children and a dog on a living room rug"
+              alt="A family raking autumn leaves in a backyard, with two adults, two children, and a dog"
               fill
               priority
-              sizes="(max-width: 800px) calc(100vw - 40px), 420px"
-              className="support-photo-image support-photo-hero"
+              sizes="(max-width: 800px) calc(100vw - 40px), 480px"
+              className="support-photo-image"
             />
           </figure>
         </section>
 
-        <nav className="support-jumps" aria-label="Support categories">
-          {catalogue.map((category) => (
-            <a key={category.id} href={`#${category.id}`}>
-              {category.name}
-            </a>
-          ))}
-        </nav>
-
-        {catalogue.map((category) => (
+        {catalogue.map((category, index) => (
           <CategorySection
             key={category.id}
             category={category}
+            shape={index % 4}
             selected={selected}
             onToggle={toggle}
           />
         ))}
 
         <section className="support-visit" id="your-helper-visit" aria-labelledby="support-visit-heading">
-          <h2 id="support-visit-heading">{VISIT_HEADING}</h2>
-          <ol className="support-steps">
-            {VISIT_STEPS.map((step) => (
-              <li key={step.title}>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="container home-reading home-accent-left">
+            <h2 id="support-visit-heading">{VISIT_HEADING}</h2>
+            <ol className="support-steps">
+              {VISIT_STEPS.map((step, index) => (
+                <li key={step.title}>
+                  <h3>
+                    <span className={`sand-mark shape-${index % 4}`}>{step.title}</span>
+                  </h3>
+                  <p>{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
         <section className="support-preferences" aria-labelledby="support-preferences-heading">
-          <h2 id="support-preferences-heading">{PREFERENCES_HEADING}</h2>
-          <p>{PREFERENCES_BODY}</p>
+          <div className="support-preferences-layout">
+            <figure
+              className="support-preferences-photo"
+              style={{
+                aspectRatio: `${checklistPhoto.width} / ${checklistPhoto.height}`,
+              }}
+            >
+              <Image
+                src={checklistPhoto}
+                alt="A handwritten today checklist on a wooden table, with a pen, keys, and a mug of coffee"
+                fill
+                sizes="(max-width: 800px) calc(100vw - 40px), 480px"
+                className="support-photo-image"
+              />
+            </figure>
+            <div className="support-preferences-copy">
+              <h2 id="support-preferences-heading">{PREFERENCES_HEADING}</h2>
+              <p>{PREFERENCES_BODY}</p>
+            </div>
+          </div>
         </section>
 
-        <section className="support-request" id="request-cart" aria-labelledby="support-request-heading">
-          <p className="support-eyebrow">{REQUEST_EYEBROW}</p>
-          <h2 id="support-request-heading">{REQUEST_TITLE}</h2>
-          <p>{REQUEST_INTRO}</p>
+        <section className="support-request-intro" aria-labelledby="support-request-heading">
+          <div className="container home-reading home-accent-left">
+            <p className="support-eyebrow">{REQUEST_EYEBROW}</p>
+            <h2 id="support-request-heading">{REQUEST_TITLE}</h2>
+            <p>
+              <span className="sand-mark shape-level">{REQUEST_INTRO}</span>
+            </p>
+          </div>
+        </section>
 
+        <section
+          className="support-request"
+          id="request-cart"
+          aria-labelledby={success ? "support-success-heading" : "support-cart-heading"}
+        >
           {success ? (
             <div className="support-success">
-              <h3 ref={successRef} tabIndex={-1}>
+              <h3 id="support-success-heading" ref={successRef} tabIndex={-1}>
                 {SUCCESS_HEADING}
               </h3>
               <Alert variant="success">{SUCCESS_MESSAGE}</Alert>
@@ -302,7 +348,10 @@ export function OurSupportExperience() {
           ) : (
             <form className="support-form" onSubmit={onSubmit} noValidate>
               <div className="support-cart" aria-live="polite">
-                <h3>Your request</h3>
+                <h3 id="support-cart-heading" className="support-request-label">
+                  Your request
+                </h3>
+                <p className="support-request-note">{REQUEST_CART_NOTE}</p>
                 {summary.lines.length === 0 ? (
                   <p>Nothing is selected yet. Check a service above to add it here.</p>
                 ) : (
@@ -511,6 +560,15 @@ export function OurSupportExperience() {
 
       {summary.shortcutVisible ? (
         <a className="support-shortcut" href="#request-cart">
+          <span className="service-icon support-shortcut-icon" aria-hidden="true">
+            <Image
+              src="/images/our-support/icons/flex-helping-hand-light.svg"
+              alt=""
+              width={64}
+              height={64}
+              unoptimized
+            />
+          </span>
           <span className="support-shortcut-count">
             {summary.count === 1 ? "1 service" : `${summary.count} services`}
           </span>
@@ -529,10 +587,12 @@ export function OurSupportExperience() {
 
 function CategorySection({
   category,
+  shape,
   selected,
   onToggle,
 }: {
   category: CatalogueCategory;
+  shape: number;
   selected: readonly ServiceId[];
   onToggle: (id: ServiceId) => void;
 }) {
@@ -544,15 +604,22 @@ function CategorySection({
     >
       <div className="support-category-copy">
         <h2 id={`${category.id}-heading`}>{category.name}</h2>
-        <p className="support-tag">{category.tag}</p>
+        <p className="support-tag">
+          <span className={`sand-mark shape-${shape}`}>{category.tag}</span>
+        </p>
         <p>{category.intro}</p>
       </div>
-      <figure className="support-category-photo">
+      <figure
+        className="support-category-photo"
+        style={{
+          aspectRatio: `${CATEGORY_IMAGES[category.id].width} / ${CATEGORY_IMAGES[category.id].height}`,
+        }}
+      >
         <Image
           src={CATEGORY_IMAGES[category.id]}
           alt={category.imageAlt}
           fill
-          sizes="(max-width: 800px) calc(100vw - 40px), 960px"
+          sizes="(max-width: 800px) calc(100vw - 40px), 1080px"
           className="support-photo-image"
         />
       </figure>

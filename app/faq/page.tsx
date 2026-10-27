@@ -13,9 +13,13 @@ export default function FaqPage() {
     <main id="main-content" className="page faq">
       <h1>{homepage.faq.heading}</h1>
       <dl className="faq-list">
-        {homepage.faq.items.map((item) => (
+        {homepage.faq.items.map((item, index) => (
           <div className="faq-item" key={item.question}>
-            <dt>{item.question}</dt>
+            <dt>
+              <span className={`sand-mark shape-${(index % 2) + 1}`}>
+                {item.question}
+              </span>
+            </dt>
             <dd>{item.answer}</dd>
           </div>
         ))}
