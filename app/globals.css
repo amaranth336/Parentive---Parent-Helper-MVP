@@ -546,7 +546,8 @@ h3 {
 }
 
 .site-footer-nav-heading,
-.site-footer-area-heading {
+.site-footer-area-heading,
+.site-footer-socials .socials-title {
   margin: 0;
   font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
@@ -703,10 +704,13 @@ h3 {
   }
 
   .site-footer-area {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     justify-self: end;
+    align-self: stretch;
     max-width: 22rem;
-    gap: 0;
+    gap: 12px;
   }
 
   .site-footer-area p {
@@ -716,6 +720,59 @@ h3 {
   .site-footer-copy {
     grid-column: 1 / -1;
     grid-row: 3;
+  }
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: var(--text);
+}
+
+.socials-link {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: inherit;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.socials-link::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+.socials-link:hover {
+  color: var(--brand-hover);
+}
+
+.socials-mark {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-footer-socials {
+  margin-top: 16px;
+}
+
+@media (min-width: 800px) {
+  /*
+   * Pin socials to the Contact link. The longest wrapped communities line
+   * ends 30px inside the 22rem column, so the icon meets that edge.
+   */
+  .site-footer-socials {
+    margin-top: auto;
+    justify-content: flex-end;
+    padding-right: 30px;
   }
 }
 
@@ -1789,16 +1846,21 @@ fieldset.radio-group legend,
 }
 
 .helpers-lead {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) max-content;
-  column-gap: 28px;
-  align-items: start;
-  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.helpers-apply-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
 }
 
 .helpers-apply-cta {
-  grid-column: 2;
-  grid-row: 1;
   width: 100%;
   min-height: 44px;
   justify-content: center;
@@ -1807,16 +1869,11 @@ fieldset.radio-group legend,
 }
 
 .helpers .helpers-lead h1 {
-  grid-column: 1;
-  grid-row: 2;
   margin: 0;
 }
 
 .helpers .helpers-eyebrow {
-  grid-column: 2;
-  grid-row: 2;
-  margin: 8px 0 0;
-  padding-inline: 16px;
+  margin: 14px 0 0;
   text-align: center;
   font-size: 0.75rem;
   font-weight: 600;
@@ -1825,27 +1882,37 @@ fieldset.radio-group legend,
   color: var(--text-muted);
 }
 
+.helpers .sand-mark {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  max-width: 100%;
+  color: inherit;
+  box-decoration-break: clone;
+}
+
+.helpers .sand-mark::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -0.18em -0.55em -0.12em -0.42em;
+  background: var(--border);
+  border-radius: 62% 38% 46% 54% / 42% 58% 38% 62%;
+  transform: rotate(-8deg);
+}
+
+.helpers .sand-mark.shape-2::before {
+  transform: rotate(-3deg);
+  border-radius: 70% 30% 48% 52% / 36% 64% 42% 58%;
+  inset: -0.12em -0.7em -0.2em -0.3em;
+}
+
 @media (max-width: 560px) {
   .helpers-lead {
-    grid-template-rows: 1fr auto auto 1fr;
-    align-items: center;
-    column-gap: 16px;
-    row-gap: 0;
-  }
-
-  .helpers-apply-cta {
-    grid-row: 2;
-    align-self: end;
-  }
-
-  .helpers .helpers-lead h1 {
-    grid-row: 1 / -1;
-    align-self: center;
+    gap: 16px;
   }
 
   .helpers .helpers-eyebrow {
-    grid-row: 3;
-    align-self: start;
     max-width: 9.25rem;
   }
 }
@@ -1896,22 +1963,25 @@ fieldset.radio-group legend,
 }
 
 .helpers .helpers-compensation-group {
-  margin: 28px 0 36px;
-  padding: 3px 0 3px 16px;
+  margin: 32px 0;
+  padding: 2px 0 2px 16px;
   border-left: 4px solid var(--accent);
 }
 
 .helpers .helpers-compensation {
-  margin: 0 0 8px;
-  font-size: 1.3125rem;
+  margin: 0 0 12px;
+  font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.375rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--accent);
   line-height: 1.3;
 }
 
 .helpers .helpers-compensation-support {
-  margin: 0;
-  font-size: 0.9375rem;
+  margin: 0 0 8px;
+  font-size: 16px;
   color: var(--text-muted);
   line-height: 1.5;
 }

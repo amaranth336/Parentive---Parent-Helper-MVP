@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { HelpersApplicationForm } from "@/components/helpers-application-form";
-import heroLaundry from "@/public/images/helpers/helpers-hero-laundry.webp";
-import mealPrep from "@/public/images/helpers/helpers-midpage-meal-prep.webp";
+import heroLaundry from "@/public/images/helpers/helpers-hero-laundry.png";
+import mealPrep from "@/public/images/helpers/helpers-midpage-meal-prep.png";
 import {
   COMPENSATION_LINE,
   COMPENSATION_SUPPORT_PRIMARY,
@@ -26,11 +26,15 @@ export default function HelpersPage() {
     <main id="main-content" className="page helpers">
       <div className="helpers-content">
         <div className="helpers-lead">
-          <a className="btn btn-primary helpers-apply-cta" href="#helpers-apply">
-            Apply now
-          </a>
           <h1>{HELPERS_HEADING}</h1>
-          <p className="helpers-eyebrow">{HELPERS_EYEBROW}</p>
+          <div className="helpers-apply-stack">
+            <a className="btn btn-primary helpers-apply-cta" href="#helpers-apply">
+              Apply now
+            </a>
+            <p className="helpers-eyebrow">
+              <span className="sand-mark shape-2">{HELPERS_EYEBROW}</span>
+            </p>
+          </div>
         </div>
         <p className="helpers-intro">{HELPERS_INTRO}</p>
 
@@ -43,13 +47,6 @@ export default function HelpersPage() {
             sizes="(max-width: 936px) calc(100vw - 40px), 896px"
             className="helpers-hero-photo-image"
           />
-        </div>
-
-        <div className="helpers-compensation-group">
-          <p className="helpers-compensation">{COMPENSATION_LINE}</p>
-          <p className="helpers-compensation-support">
-            {COMPENSATION_SUPPORT_PRIMARY}
-          </p>
         </div>
 
         <section className="helpers-section" aria-labelledby="helpers-role-heading">
@@ -133,6 +130,13 @@ export default function HelpersPage() {
             applicable law.
           </p>
         </section>
+
+        <div className="helpers-compensation-group">
+          <p className="helpers-compensation">{COMPENSATION_LINE}</p>
+          <p className="helpers-compensation-support">
+            {COMPENSATION_SUPPORT_PRIMARY}
+          </p>
+        </div>
 
         <div className="helpers-secondary-photo">
           <Image
