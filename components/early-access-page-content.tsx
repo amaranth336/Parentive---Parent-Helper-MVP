@@ -37,7 +37,9 @@ export function EarlyAccessPageContent() {
         <h1 ref={postSubmitHeadingRef} tabIndex={-1}>
           {POST_SUBMIT_HEADING}
         </h1>
-        <p>{POST_SUBMIT_SUPPORTING}</p>
+        <p>
+          <span className="sand-mark shape-1">{POST_SUBMIT_SUPPORTING}</span>
+        </p>
         <Card>
           <Alert variant="success">{EARLY_ACCESS_SUCCESS_MESSAGE}</Alert>
         </Card>
@@ -57,9 +59,11 @@ export function EarlyAccessPageContent() {
       <div className="early-access-intro">
         <div className="early-access-intro-copy">
           <h1>{EARLY_ACCESS_HEADING}</h1>
-          <p>{EARLY_ACCESS_SUPPORTING}</p>
-          <p className="early-access-communities">
-            We&apos;re preparing a pilot in {formatPilotCommunityList(PILOT_COMMUNITIES)}.
+          <p>
+            <span className="sand-mark shape-2">
+              {EARLY_ACCESS_SUPPORTING} We&apos;re preparing a pilot in{" "}
+              {formatPilotCommunityList(PILOT_COMMUNITIES)}.
+            </span>
           </p>
         </div>
         <div className="early-access-hero-photo" style={heroFrameStyle}>

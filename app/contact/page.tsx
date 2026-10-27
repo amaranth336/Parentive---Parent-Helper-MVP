@@ -30,7 +30,9 @@ export default function ContactPage() {
         />
       </div>
       <h1>{CONTACT_HEADING}</h1>
-      <p>{CONTACT_SUPPORTING}</p>
+      <p>
+        <span className="sand-mark shape-2">{CONTACT_SUPPORTING}</span>
+      </p>
       <ContactForm />
       <p className="contact-helpers-note">
         {CONTACT_HELPERS_NOTE_LEAD}{" "}
