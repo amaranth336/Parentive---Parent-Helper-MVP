@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import contactHero from "@/public/images/contact/contact-hero-mother-with-children.png";
 import { ContactForm } from "@/components/contact-form";
-import { SocialLinks } from "@/components/social-links";
 import {
   CONTACT_HEADING,
   CONTACT_HELPERS_LINK_LABEL,
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main id="main-content" className="page contact">
-      <SocialLinks className="contact-socials" />
       <div className="contact-hero">
         <Image
           src={contactHero}

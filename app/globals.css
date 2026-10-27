@@ -546,7 +546,8 @@ h3 {
 }
 
 .site-footer-nav-heading,
-.site-footer-area-heading {
+.site-footer-area-heading,
+.site-footer-socials .socials-title {
   margin: 0;
   font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
@@ -727,26 +728,7 @@ h3 {
   align-items: center;
   gap: 12px;
   min-width: 0;
-  color: var(--brand);
-}
-
-.socials-title {
-  margin: 0;
-  font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  color: var(--brand);
-}
-
-.site-footer-area .socials-title {
-  margin: 0;
-  color: var(--brand);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.3;
+  color: var(--text);
 }
 
 .socials-link {
@@ -755,9 +737,9 @@ h3 {
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  color: var(--brand);
+  width: 22px;
+  height: 22px;
+  color: inherit;
   border-radius: 6px;
   text-decoration: none;
 }
@@ -774,8 +756,8 @@ h3 {
 
 .socials-mark {
   display: block;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
 }
 
 .site-footer-socials {
@@ -2076,14 +2058,6 @@ fieldset.radio-group legend,
   max-width: none;
   margin-left: 0;
   margin-right: 0;
-}
-
-.contact-socials {
-  margin: 0 0 16px;
-}
-
-.contact-socials + .contact-hero {
-  margin-top: 0;
 }
 
 .contact-hero {

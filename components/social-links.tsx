@@ -14,7 +14,7 @@ export function SocialLinks({ className }: SocialLinksProps) {
 
   return (
     <section className={classes}>
-      <p className="socials-title">{SOCIALS_TITLE}</p>
+      <h2 className="socials-title">{SOCIALS_TITLE}</h2>
       <a
         className="socials-link"
         href={INSTAGRAM_URL}

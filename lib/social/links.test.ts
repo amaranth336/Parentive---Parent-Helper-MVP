@@ -19,16 +19,14 @@ describe("social links", () => {
     expect(INSTAGRAM_LINK_LABEL).toContain("Instagram");
   });
 
-  it("places the same section above the contact hero and under the footer communities copy", () => {
+  it("keeps the social section in the footer only, using the footer title rules", () => {
     const contact = read("app/contact/page.tsx");
     const footer = read("components/site-footer.tsx");
     const component = read("components/social-links.tsx");
     const css = read("app/globals.css");
 
-    expect(contact.indexOf("<SocialLinks")).toBeGreaterThan(-1);
-    expect(contact.indexOf("<SocialLinks")).toBeLessThan(
-      contact.indexOf('className="contact-hero"'),
-    );
+    expect(contact).not.toContain("SocialLinks");
+    expect(contact).not.toContain("our Socials");
     expect(footer.indexOf("site-footer-area-heading")).toBeLessThan(
       footer.indexOf("<SocialLinks"),
     );
@@ -39,8 +37,10 @@ describe("social links", () => {
     expect(component).toContain("INSTAGRAM_URL");
     expect(component).toContain('target="_blank"');
     expect(component).toContain('rel="noopener noreferrer"');
-    expect(css).toContain(".socials-title");
-    expect(css).toMatch(/\.socials-title\s*\{[^}]*color:\s*var\(--brand\)/);
+    expect(component).toContain('className="socials-title"');
+    expect(css).toMatch(
+      /\.site-footer-nav-heading,\s*\.site-footer-area-heading,\s*\.site-footer-socials \.socials-title\s*\{[^}]*font-size:\s*1\.0625rem;[^}]*font-weight:\s*500;[^}]*color:\s*var\(--text\)/,
+    );
     expect(css).toMatch(
       /@media \(min-width:\s*800px\)\s*\{[\s\S]*\.site-footer-socials\s*\{[^}]*margin-top:\s*auto/,
     );
