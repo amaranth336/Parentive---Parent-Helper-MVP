@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteNavLink } from "@/components/site-nav-link";
+import { SocialLinks } from "@/components/social-links";
 import { getFooterNavItems } from "@/components/site-nav";
 import { LOCKED_DESCRIPTOR, homepage } from "@/lib/homepage/content";
 
@@ -57,6 +58,7 @@ export function SiteFooter() {
         <div className="site-footer-area">
           <h2 className="site-footer-area-heading">{homepage.area.heading}</h2>
           <p>{homepage.area.body}</p>
+          <SocialLinks className="site-footer-socials" />
         </div>
         <p className="site-footer-copy">© {year} Parentive</p>
       </div>

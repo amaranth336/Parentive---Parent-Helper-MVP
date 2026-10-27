@@ -546,7 +546,8 @@ h3 {
 }
 
 .site-footer-nav-heading,
-.site-footer-area-heading {
+.site-footer-area-heading,
+.site-footer-socials .socials-title {
   margin: 0;
   font-family: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
@@ -703,10 +704,13 @@ h3 {
   }
 
   .site-footer-area {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     justify-self: end;
+    align-self: stretch;
     max-width: 22rem;
-    gap: 0;
+    gap: 12px;
   }
 
   .site-footer-area p {
@@ -716,6 +720,59 @@ h3 {
   .site-footer-copy {
     grid-column: 1 / -1;
     grid-row: 3;
+  }
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: var(--text);
+}
+
+.socials-link {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: inherit;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.socials-link::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+.socials-link:hover {
+  color: var(--brand-hover);
+}
+
+.socials-mark {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-footer-socials {
+  margin-top: 16px;
+}
+
+@media (min-width: 800px) {
+  /*
+   * Pin socials to the Contact link. The longest wrapped communities line
+   * ends 30px inside the 22rem column, so the icon meets that edge.
+   */
+  .site-footer-socials {
+    margin-top: auto;
+    justify-content: flex-end;
+    padding-right: 30px;
   }
 }
 
