@@ -69,7 +69,7 @@ export const REMOVE_LABEL = "Remove";
 export const SUBMIT_LABEL = "Submit request";
 export const SUBMIT_PENDING_LABEL = "Sending request…";
 
-export const SUBTOTAL_LABEL = "Service subtotal per visit";
+export const SUBTOTAL_LABEL = "Your Current Visit Subtotal";
 export const QUOTE_SEPARATE_LABEL =
   "Flexible Support is quoted separately. It isn’t included in the subtotal, and it isn’t free.";
 export const QUOTE_ONLY_LABEL =

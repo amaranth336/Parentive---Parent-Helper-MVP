@@ -11,6 +11,7 @@ import {
   PORTAL_HEADING,
   REQUEST_NOTICE,
   REQUEST_TITLE,
+  SUBTOTAL_LABEL,
   VISIT_HEADING,
 } from "@/lib/our-support/copy";
 
@@ -96,6 +97,8 @@ describe("our support page contract", () => {
     expect(experience).not.toContain("How a visit comes together");
     expect(VISIT_HEADING).toBe("Your Helper visit");
     expect(REQUEST_TITLE).toBe("What are we helping with?");
+    expect(SUBTOTAL_LABEL).toBe("Your Current Visit Subtotal");
+    expect(experience).toContain("support-cart-name sand-mark");
     expect(PORTAL_HEADING).toBe("Simpler booking is on its way.");
     expect(REQUEST_NOTICE).toBe(
       "This is a request, not a confirmed booking. We’ll review the request and respond by email within 24 hours. No payment is collected on this website at this time.",

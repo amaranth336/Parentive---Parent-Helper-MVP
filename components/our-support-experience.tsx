@@ -356,9 +356,13 @@ export function OurSupportExperience() {
                   <p>Nothing is selected yet. Check a service above to add it here.</p>
                 ) : (
                   <ul className="support-cart-list">
-                    {summary.lines.map((line) => (
+                    {summary.lines.map((line, index) => (
                       <li key={line.id}>
-                        <span>{line.name}</span>
+                        <span
+                          className={`support-cart-name sand-mark shape-${(index % 3) + 1}`}
+                        >
+                          {line.name}
+                        </span>
                         <span className="support-cart-price">
                           {line.priceCents === null
                             ? "Quoted separately"
