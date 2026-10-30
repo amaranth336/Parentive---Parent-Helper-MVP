@@ -71,7 +71,7 @@ export const SUBMIT_PENDING_LABEL = "Sending request…";
 
 export const SUBTOTAL_LABEL = "Your Current Visit Subtotal";
 export const QUOTE_SEPARATE_LABEL =
-  "Flexible Support is quoted separately. It isn’t included in the subtotal, and it isn’t free.";
+  "Flexible Support is quoted separately. Submit your request to Parentive and we will review together via email to provide a quote.";
 export const QUOTE_ONLY_LABEL =
   "Flexible Support is quoted separately. We’ll confirm the price with you before any payment.";
 
