@@ -2632,14 +2632,20 @@ fieldset.radio-group legend,
   margin: 0 0 12px;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .support-cart-list li {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
+}
+
+.support-cart-name {
+  justify-self: start;
+  max-width: 100%;
+  line-height: 1.35;
 }
 
 .support-subtotal strong,
