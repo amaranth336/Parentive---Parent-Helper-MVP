@@ -2433,6 +2433,13 @@ fieldset.radio-group legend,
   padding: 18px;
 }
 
+.service-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
 .service-card.is-selected {
   box-shadow: inset 0 0 0 2px var(--accent);
 }
@@ -2765,9 +2772,13 @@ fieldset.radio-group legend,
   .service-card {
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 6;
+    grid-row: span 5;
     gap: 0;
     margin-bottom: 22px;
+  }
+
+  .service-body {
+    gap: 0;
   }
 
   .service-card > * {

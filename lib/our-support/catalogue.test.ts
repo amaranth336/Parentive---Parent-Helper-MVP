@@ -113,7 +113,7 @@ describe("our support page contract", () => {
   it("keeps two columns from 701px and stacks below that", () => {
     expect(css).toMatch(/@media \(min-width: 701px\)/);
     expect(css).toMatch(/grid-template-rows:\s*subgrid/);
-    expect(css).toMatch(/grid-row:\s*span 6/);
+    expect(css).toMatch(/grid-row:\s*span 5/);
     expect(css).toMatch(/aspect-ratio:\s*4\s*\/\s*5/);
     expect(experience).toContain(
       "aspectRatio: `${CATEGORY_IMAGES[category.id].width} / ${CATEGORY_IMAGES[category.id].height}`",

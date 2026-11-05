@@ -681,12 +681,12 @@ function ServiceCard({
       <p className={`service-tagline shape-${shape}`}>
         <span>{service.tagline}</span>
       </p>
-      <p className="service-copy">{service.copy}</p>
-      {service.visibleNote ? (
-        <p className="service-essential">{service.visibleNote}</p>
-      ) : (
-        <div className="service-essential" aria-hidden="true" />
-      )}
+      <div className="service-body">
+        <p className="service-copy">{service.copy}</p>
+        {service.visibleNote ? (
+          <p className="service-essential">{service.visibleNote}</p>
+        ) : null}
+      </div>
       {service.note ? (
         <details className="service-notes">
           <summary>{BOOKING_NOTES_LABEL}</summary>
