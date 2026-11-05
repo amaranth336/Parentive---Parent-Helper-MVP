@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
+  FACEBOOK_LINK_LABEL,
+  FACEBOOK_URL,
   INSTAGRAM_HANDLE,
   INSTAGRAM_LINK_LABEL,
   INSTAGRAM_URL,
@@ -17,6 +19,10 @@ describe("social links", () => {
     expect(INSTAGRAM_HANDLE).toBe("parentive.hq");
     expect(INSTAGRAM_URL).toBe("https://www.instagram.com/parentive.hq/");
     expect(INSTAGRAM_LINK_LABEL).toContain("Instagram");
+    expect(FACEBOOK_URL).toBe(
+      "https://www.facebook.com/profile.php?id=61596112976081",
+    );
+    expect(FACEBOOK_LINK_LABEL).toContain("Facebook");
   });
 
   it("keeps the social section in the footer only, using the footer title rules", () => {
@@ -35,6 +41,10 @@ describe("social links", () => {
     );
     expect(component).toContain("SOCIALS_TITLE");
     expect(component).toContain("INSTAGRAM_URL");
+    expect(component).toContain("FACEBOOK_URL");
+    expect(component.indexOf("href={INSTAGRAM_URL}")).toBeLessThan(
+      component.indexOf("href={FACEBOOK_URL}"),
+    );
     expect(component).toContain('target="_blank"');
     expect(component).toContain('rel="noopener noreferrer"');
     expect(component).toContain('className="socials-title"');
