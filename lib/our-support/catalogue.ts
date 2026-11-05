@@ -91,7 +91,7 @@ export const catalogue: readonly CatalogueCategory[] = [
       {
         id: "S01",
         name: "Laundry Reset",
-        tagline: "Tackle Laundry Mountain",
+        tagline: "A Load Off Your List",
         priceCents: 5000,
         copy: "One load washed, dried, folded and put away, plus up to one already-clean load folded and returned to its place. Your laundry machines, sink and folding surfaces get a wipe-down too.",
         visibleNote: "Book alongside other services to allow for wash and dry cycles.",
@@ -101,10 +101,10 @@ export const catalogue: readonly CatalogueCategory[] = [
       {
         id: "S15",
         name: "Wash, Fold & Put Away Laundry",
-        tagline: "A Load Off Your List",
+        tagline: "Tackle Laundry Mountain",
         priceCents: 5000,
-        copy: "One load washed, dried, folded and put away, plus up to two additional loads you’ve already washed folded and put away. A little less laundry waiting for you.",
-        visibleNote: "Book alongside other services to allow for wash and dry cycles.",
+        copy: "One load or the whole hamper avalanche? Laundry looks different in every home, so we’ll price it to match yours.",
+        visibleNote: "Reach out for a quote.",
         note: "Book alongside other services to allow for wash and dry cycles. We’ll confirm the combined visit length. Standard household loads; cloth diapers excluded.",
         icon: "laundry-basket-light",
       },

@@ -673,7 +673,7 @@ function ServiceCard({
           <h3 className="service-name" id={`${service.id}-name`}>
             {service.name}
           </h3>
-          {service.priceCents !== null ? (
+          {service.priceCents !== null && service.id !== "S15" ? (
             <p className="service-price">{formatServiceDollars(service.priceCents)}</p>
           ) : null}
         </div>
