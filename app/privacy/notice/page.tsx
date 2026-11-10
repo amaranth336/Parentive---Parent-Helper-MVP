@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EarlyAccessPrivacyNotice } from "@/components/privacy-notices";
+import { EarlyAccessPrivacyNotice, WebsiteMeasurementNotice } from "@/components/privacy-notices";
 import { CONTACT_PATH } from "@/lib/contact/copy";
 import { PRIVACY_PAGE } from "@/lib/early-access/copy";
 
@@ -13,6 +13,7 @@ export default function PrivacyNoticePage() {
   return (
     <main id="main-content" className="page">
       <EarlyAccessPrivacyNotice />
+      <WebsiteMeasurementNotice />
       <p>
         <a className="text-link" href={PRIVACY_PAGE.backHref}>
           {PRIVACY_PAGE.backLabel}

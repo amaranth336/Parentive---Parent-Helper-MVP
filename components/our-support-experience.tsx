@@ -63,6 +63,7 @@ import {
   VISIT_TYPE_OPTIONS,
 } from "@/lib/our-support/copy";
 import { isVerifiedVisitRequestSuccess } from "@/lib/our-support/response";
+import { recordSavedSupportRequest } from "@/lib/analytics/track";
 import {
   removeService,
   selectionIncludesFlexible,
@@ -205,6 +206,11 @@ export function OurSupportExperience() {
       if (isVerifiedVisitRequestSuccess(response.ok, data)) {
         setSuccess(true);
         setFocusTarget("success");
+        try {
+          recordSavedSupportRequest();
+        } catch {
+          // Measurement must not change a request that was already saved.
+        }
         return;
       }
 

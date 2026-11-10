@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PrivacyChoicesButton } from "@/components/measurement-consent";
 import { SiteNavLink } from "@/components/site-nav-link";
 import { SocialLinks } from "@/components/social-links";
 import { getFooterNavItems } from "@/components/site-nav";
@@ -53,6 +54,9 @@ export function SiteFooter() {
                 </SiteNavLink>
               </li>
             ))}
+            <li>
+              <PrivacyChoicesButton />
+            </li>
           </ul>
         </nav>
         <div className="site-footer-area">
