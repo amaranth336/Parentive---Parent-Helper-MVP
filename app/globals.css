@@ -2824,3 +2824,101 @@ fieldset.radio-group legend,
     gap: 40px;
   }
 }
+
+.measurement-banner {
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.measurement-banner:focus {
+  outline: none;
+}
+
+.measurement-banner:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+}
+
+.measurement-panel {
+  width: min(100%, var(--brand-shell-max));
+  margin: 0 auto;
+  padding: 20px var(--brand-inline-pad) 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.measurement-panel h2,
+.measurement-panel p {
+  margin: 0;
+}
+
+.measurement-panel p,
+.measurement-note {
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.measurement-choices {
+  display: grid;
+  gap: 8px;
+}
+
+.measurement-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.measurement-actions .btn {
+  min-height: 44px;
+}
+
+.measurement-dialog {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 0;
+  max-width: 40rem;
+  width: calc(100% - 32px);
+}
+
+.measurement-dialog::backdrop {
+  background: rgba(48, 72, 59, 0.4);
+}
+
+.site-footer-choice {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-muted);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.site-footer-choice:hover {
+  color: var(--text);
+}
+
+.site-footer-choice:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .measurement-actions {
+    display: grid;
+  }
+
+  .measurement-actions .btn {
+    width: 100%;
+  }
+}

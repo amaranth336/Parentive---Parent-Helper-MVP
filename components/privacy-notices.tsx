@@ -1,4 +1,5 @@
 import { PRIVACY_PAGE } from "@/lib/early-access/copy";
+import { MEASUREMENT_PRIVACY } from "@/lib/analytics/copy";
 
 const EFFECTIVE_DATE = "Effective date: October 2, 2026";
 
@@ -112,6 +113,19 @@ const FOUNDING_HELPER_SECTIONS = [
     ],
   },
 ] as const;
+
+export function WebsiteMeasurementNotice() {
+  return (
+    <section id={MEASUREMENT_PRIVACY.id} aria-labelledby="website-measurement-heading">
+      <h2 id="website-measurement-heading">{MEASUREMENT_PRIVACY.heading}</h2>
+      <p>{MEASUREMENT_PRIVACY.effectiveDate}</p>
+      <p>{MEASUREMENT_PRIVACY.intro}</p>
+      {MEASUREMENT_PRIVACY.paragraphs.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
+    </section>
+  );
+}
 
 export function EarlyAccessPrivacyNotice() {
   return (

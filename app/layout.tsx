@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Manrope, Inter } from "next/font/google";
+import {
+  MeasurementBanner,
+  MeasurementRoot,
+} from "@/components/measurement-consent";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { HARD_NAVIGATION_SCRIPT } from "@/lib/analytics/hard-navigation";
+import { LANDING_CAPTURE_SCRIPT } from "@/lib/analytics/utm";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -31,12 +38,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
       <body>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <Script id="parentive-landing-utm" strategy="beforeInteractive">
+          {LANDING_CAPTURE_SCRIPT}
+        </Script>
+        <Script id="parentive-measurement-navigation" strategy="beforeInteractive">
+          {HARD_NAVIGATION_SCRIPT}
+        </Script>
+        <MeasurementRoot>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <SiteHeader />
+          <MeasurementBanner />
+          {children}
+          <SiteFooter />
+        </MeasurementRoot>
       </body>
     </html>
   );
