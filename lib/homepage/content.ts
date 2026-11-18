@@ -10,10 +10,17 @@ export const LOCKED_BELIEF =
 export const LOCKED_PAYOFF = "Make room for life.";
 
 export type HomepageCta = {
-  href: `#${string}` | "/early-access";
+  href: `#${string}` | "/early-access" | "/our-support";
   label: string;
   variant: "primary" | "secondary";
 };
+
+export type HomepageInline =
+  | string
+  | {
+      text: string;
+      href: "/our-support" | "/contact";
+    };
 
 export type SupportSummary = {
   id: "home-laundry" | "kitchen-food" | "family-support";
@@ -31,11 +38,6 @@ export const homepageCtas: readonly HomepageCta[] = [
     label: "Join the early-access list",
     variant: "primary",
   },
-  {
-    href: "#support",
-    label: "See how we can help",
-    variant: "secondary",
-  },
 ];
 
 export const homepage = {
@@ -49,13 +51,16 @@ export const homepage = {
     heading: LOCKED_H1,
     support:
       "Parentive is a local team of Helpers who come to your home and lend a hand with the everyday things: laundry, room resets, food prep, and a caring presence with the kids while you're nearby. They arrive ready to help, so bringing in support never becomes one more thing on your list.",
-    launchLine:
-      "We're preparing a pilot in select communities across the GTA. You're welcome to join the early-access list now, and we'll let you know as soon as we're ready to help near you.",
+    launchLine: `We're currently launching in ${formatPilotCommunityList(PILOT_COMMUNITIES)} with visits beginning in January 2027! You're welcome to join the early-access list if you're outside of our launch region, and we'll let you know as soon as we're ready to help near you.`,
+    visitCta: {
+      href: "/our-support",
+      label: "Request a visit",
+      variant: "primary",
+    } satisfies HomepageCta,
     photo: {
       alt: "Mother reading a picture book with two young children and a dog on a living room rug",
     },
     primaryCta: homepageCtas[0],
-    secondaryCta: homepageCtas[1],
   },
   why: {
     id: "why",
@@ -124,13 +129,19 @@ export const homepage = {
       },
       {
         number: "02",
-        title: "Join the early-access list",
-        body: "Add your name whenever you're ready. It only takes a minute.",
+        title: "Join the early-access list if you're located outside of our launch region.",
+        body: "We'll reach out as our Helpers expand to your area.",
       },
       {
         number: "03",
-        title: "We'll reach out when we're ready to help near you",
-        body: "As services open up in the launch communities, we'll let you know. No chasing needed.",
+        title: "Book your first visit!",
+        body: [
+          "Head over to ",
+          { text: "Our Support", href: "/our-support" },
+          " and submit your first request. Have questions first? ",
+          { text: "Contact us", href: "/contact" },
+          " - we'd love to chat.",
+        ] satisfies readonly HomepageInline[],
       },
     ],
   },
@@ -163,7 +174,7 @@ export const homepage = {
   area: {
     id: "area",
     heading: "Select communities across the GTA",
-    body: `Parentive is preparing a pilot in ${formatPilotCommunityList(PILOT_COMMUNITIES)}.`,
+    body: `Parentive is currently launching in ${formatPilotCommunityList(PILOT_COMMUNITIES)} with in-home booking open for January 2027!`,
   },
   expect: {
     id: "expect",
@@ -187,7 +198,7 @@ export const homepage = {
     items: [
       {
         question: "Where is Parentive available?",
-        answer: `We're preparing a pilot in ${formatPilotCommunityList(PILOT_COMMUNITIES)}. If you're just outside those areas, you're still welcome to join the early-access list.`,
+        answer: `We're currently launching in ${formatPilotCommunityList(PILOT_COMMUNITIES)} with visits beginning in January 2027. If you're just outside those areas, you're still welcome to join the early-access list.`,
       },
       {
         question: "Who are Parentive Helpers, and how are they screened?",

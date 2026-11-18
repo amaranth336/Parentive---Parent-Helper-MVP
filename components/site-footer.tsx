@@ -6,6 +6,22 @@ import { SocialLinks } from "@/components/social-links";
 import { getFooterNavItems } from "@/components/site-nav";
 import { LOCKED_DESCRIPTOR, homepage } from "@/lib/homepage/content";
 
+function AreaLaunchCopy({ text }: { text: string }) {
+  const token = "open";
+  const at = text.indexOf(token);
+  if (at < 0) {
+    return text;
+  }
+
+  return (
+    <>
+      {text.slice(0, at)}
+      <strong>{token}</strong>
+      {text.slice(at + token.length)}
+    </>
+  );
+}
+
 const LOGO_SIZE = 441;
 const WORDMARK_WIDTH = 826;
 const WORDMARK_HEIGHT = 187;
@@ -61,7 +77,9 @@ export function SiteFooter() {
         </nav>
         <div className="site-footer-area">
           <h2 className="site-footer-area-heading">{homepage.area.heading}</h2>
-          <p>{homepage.area.body}</p>
+          <p>
+            <AreaLaunchCopy text={homepage.area.body} />
+          </p>
           <SocialLinks className="site-footer-socials" />
         </div>
         <p className="site-footer-copy">© {year} Parentive</p>

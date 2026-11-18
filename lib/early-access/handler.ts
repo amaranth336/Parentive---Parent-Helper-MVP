@@ -1,4 +1,4 @@
-import { classifyPostalFsa } from "@/lib/early-access/classification";
+import { classifyPostalCode } from "@/lib/early-access/classification";
 import { EARLY_ACCESS_ERRORS } from "@/lib/early-access/copy";
 import {
   notifyEarlyAccessRegistration,
@@ -103,7 +103,7 @@ export function createEarlyAccessHandler(
     }
 
     if (!submitted.duplicate) {
-      const area = classifyPostalFsa(validated.value.postalFsa);
+      const area = classifyPostalCode(validated.value.postalCode);
       let notification: EarlyAccessNotificationResult;
       try {
         notification = await notify({

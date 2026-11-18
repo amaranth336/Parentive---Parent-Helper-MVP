@@ -18,6 +18,28 @@ const UNIQUE_PILOT_FSA: Record<string, PilotCommunity> = {
 const OVERLAP_PILOT_FSAS = new Set(["L3Y", "L9N"]);
 const UNKNOWN_RURAL_FSAS = new Set(["L0C", "L0E"]);
 
+/** Rural L0G covers several towns. These codes are East Gwillimbury. */
+const PILOT_POSTAL_CODES: Record<string, PilotCommunity> = {
+  L0G1M0: "East Gwillimbury",
+  L0G1R0: "East Gwillimbury",
+  L0G1V0: "East Gwillimbury",
+};
+
+function compactPostalCode(postalCode: string): string {
+  return postalCode.toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+
+export function classifyPostalCode(postalCode: string): ServiceAreaClassification {
+  const compact = compactPostalCode(postalCode);
+  const community = PILOT_POSTAL_CODES[compact];
+
+  if (community) {
+    return { status: "in_pilot", community };
+  }
+
+  return classifyPostalFsa(compact.slice(0, 3));
+}
+
 export function classifyPostalFsa(fsa: string): ServiceAreaClassification {
   const key = fsa.toUpperCase();
   const uniqueCommunity = UNIQUE_PILOT_FSA[key];

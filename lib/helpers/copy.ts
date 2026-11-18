@@ -12,7 +12,7 @@ export const HELPERS_INTRO =
 export const COMPENSATION_LINE = "Flexible hours";
 
 export const COMPENSATION_SUPPORT_PRIMARY =
-  "Compensation is up to $23/hr for the pilot phase and will be reviewed on an ongoing basis. These are employee positions. Hours aren't guaranteed during the pilot, and we're hoping to hear from people with 6 or more hours of weekly availability.";
+  "These are employee positions. Hours aren't guaranteed during the pilot, and we're hoping to hear from people with 6 or more hours of weekly availability.";
 
 export const DOCUMENT_ATTACH_COPY =
   "Please upload one document: your résumé, or anything that outlines your experience relevant to the services Parentive provides.";

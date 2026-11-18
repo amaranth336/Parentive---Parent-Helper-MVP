@@ -9,7 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Button, Checkbox } from "@/components/form";
+import { Button } from "@/components/form";
 import {
   CONSENT_VERSION,
   readStoredConsent,
@@ -105,6 +105,41 @@ export function PrivacyChoicesButton() {
   );
 }
 
+function MeasurementActions({
+  onSave,
+}: {
+  onSave: (consent: MeasurementConsent) => void;
+}) {
+  return (
+    <>
+      <div className="measurement-actions">
+        <Button
+          type="button"
+          onClick={() =>
+            onSave({ analytics: true, advertising: true, version: CONSENT_VERSION })
+          }
+        >
+          {MEASUREMENT_UI.acceptCookies}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() =>
+            onSave({ analytics: false, advertising: false, version: CONSENT_VERSION })
+          }
+        >
+          {MEASUREMENT_UI.rejectCookies}
+        </Button>
+      </div>
+      <p className="measurement-note">
+        <a className="text-link" href={MEASUREMENT_PRIVACY_HREF}>
+          {MEASUREMENT_UI.privacyLink}
+        </a>
+      </p>
+    </>
+  );
+}
+
 function MeasurementPanel({
   consent,
   dialogOpen,
@@ -116,15 +151,8 @@ function MeasurementPanel({
   onClose: () => void;
   onSave: (consent: MeasurementConsent) => void;
 }) {
-  const [analytics, setAnalytics] = useState(false);
-  const [advertising, setAdvertising] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
-
-  useEffect(() => {
-    setAnalytics(consent?.analytics ?? false);
-    setAdvertising(consent?.advertising ?? false);
-  }, [consent]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -132,24 +160,6 @@ function MeasurementPanel({
     if (dialogOpen && !dialog.open) dialog.showModal();
     if (!dialogOpen && dialog.open) dialog.close();
   }, [dialogOpen]);
-
-  function saveChoices(next: { analytics: boolean; advertising: boolean }) {
-    setAnalytics(next.analytics);
-    setAdvertising(next.advertising);
-    onSave({ ...next, version: CONSENT_VERSION });
-  }
-
-  const fields = (
-    <ChoiceFields
-      analytics={analytics}
-      advertising={advertising}
-      onAnalytics={setAnalytics}
-      onAdvertising={setAdvertising}
-      onAcceptAll={() => saveChoices({ analytics: true, advertising: true })}
-      onReject={() => saveChoices({ analytics: false, advertising: false })}
-      onSave={() => saveChoices({ analytics, advertising })}
-    />
-  );
 
   if (!consent && !dialogOpen) {
     return (
@@ -162,7 +172,7 @@ function MeasurementPanel({
         <div className="measurement-panel">
           <h2 id="measurement-banner-heading">{MEASUREMENT_UI.heading}</h2>
           <p>{MEASUREMENT_UI.body}</p>
-          {fields}
+          <MeasurementActions onSave={onSave} />
         </div>
       </section>
     );
@@ -178,64 +188,11 @@ function MeasurementPanel({
       <div className="measurement-panel">
         <h2 id={titleId}>{MEASUREMENT_UI.dialogLabel}</h2>
         <p>{MEASUREMENT_UI.body}</p>
-        {fields}
+        <MeasurementActions onSave={onSave} />
         <button type="button" className="btn btn-ghost" onClick={onClose}>
           {MEASUREMENT_UI.closeLabel}
         </button>
       </div>
     </dialog>
-  );
-}
-
-function ChoiceFields({
-  analytics,
-  advertising,
-  onAnalytics,
-  onAdvertising,
-  onAcceptAll,
-  onReject,
-  onSave,
-}: {
-  analytics: boolean;
-  advertising: boolean;
-  onAnalytics: (value: boolean) => void;
-  onAdvertising: (value: boolean) => void;
-  onAcceptAll: () => void;
-  onReject: () => void;
-  onSave: () => void;
-}) {
-  return (
-    <>
-      <div className="measurement-choices">
-        <Checkbox
-          label={MEASUREMENT_UI.analyticsLabel}
-          hint={MEASUREMENT_UI.analyticsHint}
-          checked={analytics}
-          onChange={(event) => onAnalytics(event.target.checked)}
-        />
-        <Checkbox
-          label={MEASUREMENT_UI.advertisingLabel}
-          hint={MEASUREMENT_UI.advertisingHint}
-          checked={advertising}
-          onChange={(event) => onAdvertising(event.target.checked)}
-        />
-      </div>
-      <div className="measurement-actions">
-        <Button type="button" onClick={onAcceptAll}>
-          {MEASUREMENT_UI.acceptAll}
-        </Button>
-        <Button type="button" variant="secondary" onClick={onReject}>
-          {MEASUREMENT_UI.rejectOptional}
-        </Button>
-        <Button type="button" variant="ghost" onClick={onSave}>
-          {MEASUREMENT_UI.saveChoices}
-        </Button>
-      </div>
-      <p className="measurement-note">
-        <a className="text-link" href={MEASUREMENT_PRIVACY_HREF}>
-          {MEASUREMENT_UI.privacyLink}
-        </a>
-      </p>
-    </>
   );
 }
