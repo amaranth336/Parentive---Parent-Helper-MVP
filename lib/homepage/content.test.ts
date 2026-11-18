@@ -50,7 +50,7 @@ describe("homepage content", () => {
     expect(allText).not.toMatch(/join the hive/i);
   });
 
-  it("uses a live early-access primary CTA and an in-page secondary hash", () => {
+  it("uses a live early-access primary CTA", () => {
     expect(homepageCtas.length).toBeGreaterThan(0);
 
     for (const cta of homepageCtas) {
@@ -60,8 +60,7 @@ describe("homepage content", () => {
 
     expect(homepage.hero.primaryCta.href).toBe("/early-access");
     expect(homepage.hero.primaryCta.label).toBe("Join the early-access list");
-    expect(homepage.hero.secondaryCta.href).toBe("#support");
-    expect(homepage.hero.secondaryCta.href.startsWith("#")).toBe(true);
+    expect(homepage.hero).not.toHaveProperty("secondaryCta");
   });
 
   it("includes Uxbridge in area and availability copy", () => {
@@ -79,20 +78,30 @@ describe("homepage content", () => {
   });
 
   it("keeps early-access follow-up language current", () => {
+    expect(homepage.howItWorks.steps[1]?.title).toBe(
+      "Join the early-access list if you're located outside of our launch region.",
+    );
     expect(homepage.howItWorks.steps[1]?.body).toBe(
-      "Add your name whenever you're ready. It only takes a minute.",
+      "We'll reach out as our Helpers expand to your area.",
     );
-    expect(homepage.howItWorks.steps[1]?.body).not.toMatch(/list is open/i);
-    expect(homepage.howItWorks.steps[2]?.title).toBe(
-      "We'll reach out when we're ready to help near you",
-    );
-    expect(homepage.howItWorks.steps[2]?.body).toBe(
-      "As services open up in the launch communities, we'll let you know. No chasing needed.",
-    );
+    expect(homepage.howItWorks.steps[2]?.title).toBe("Book your first visit!");
+    expect(homepage.howItWorks.steps[2]?.body).toEqual([
+      "Head over to ",
+      { text: "Our Support", href: "/our-support" },
+      " and submit your first request. Have questions first? ",
+      { text: "Contact us", href: "/contact" },
+      " - we'd love to chat.",
+    ]);
+    expect(homepage.hero.visitCta).toEqual({
+      href: "/our-support",
+      label: "Request a visit",
+      variant: "primary",
+    });
     expect(homepage.hero.primaryCta.href).toBe("/early-access");
     expect(homepage.metadata.description).not.toMatch(/being prepared/i);
-    expect(homepage.hero.launchLine).toMatch(/join the early-access list now/i);
-    expect(homepage.hero.launchLine).not.toMatch(/preparing early access/i);
+    expect(homepage.hero.launchLine).toMatch(/visits beginning in January 2027/i);
+    expect(homepage.hero.launchLine).toMatch(/outside of our launch region/i);
+    expect(homepage.area.body).toMatch(/in-home booking open for January 2027!/);
   });
 
   it("preserves locked brand lines verbatim", () => {

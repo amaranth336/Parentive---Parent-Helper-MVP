@@ -90,32 +90,56 @@ export default function HelpersPage() {
           </p>
           <ol className="helpers-lifecycle">
             <li>
-              <span className="helpers-section-number">01</span> Apply
+              <span className="helpers-section-number">01</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>Apply</span>
             </li>
             <li>
-              <span className="helpers-section-number">02</span> Have an intro
-              conversation with us
+              <span className="helpers-section-number">02</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>Have an intro conversation with us</span>
             </li>
             <li>
-              <span className="helpers-section-number">03</span> Share
-              references and, if needed, complete a job-related practical
-              assessment
+              <span className="helpers-section-number">03</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>
+                Share references and, if needed, complete a job-related practical
+                assessment
+              </span>
             </li>
             <li>
-              <span className="helpers-section-number">04</span> Receive a
-              conditional offer
+              <span className="helpers-section-number">04</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>Receive a conditional offer</span>
             </li>
             <li>
-              <span className="helpers-section-number">05</span> Complete a
-              background check and pre-employment requirements
+              <span className="helpers-section-number">05</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>Complete a background check and pre-employment requirements</span>
             </li>
             <li>
-              <span className="helpers-section-number">06</span> Join Parentive
-              onboarding
+              <span className="helpers-section-number">06</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>Join Parentive onboarding</span>
             </li>
             <li>
-              <span className="helpers-section-number">07</span> Start
-              assignments as demand becomes available
+              <span className="helpers-section-number">07</span>
+              <span className="helpers-section-mark" aria-hidden="true">
+                •
+              </span>
+              <span>Start assignments as demand becomes available</span>
             </li>
           </ol>
           <p>

@@ -1,6 +1,6 @@
 import { notificationStatusPatch } from "@/lib/email/admin-notification";
 import type { EarlyAccessNotificationResult } from "@/lib/early-access/notify";
-import { classifyPostalFsa } from "@/lib/early-access/classification";
+import { classifyPostalCode } from "@/lib/early-access/classification";
 import {
   EARLY_ACCESS_ERRORS,
   EARLY_ACCESS_SOURCE_PATH,
@@ -40,7 +40,7 @@ export function buildEarlyAccessRow(
   value: ValidatedEarlyAccess,
   now: Date = new Date(),
 ): EarlyAccessRegistrationInsert {
-  const classification = classifyPostalFsa(value.postalFsa);
+  const classification = classifyPostalCode(value.postalCode);
   const timestamp = now.toISOString();
 
   return {

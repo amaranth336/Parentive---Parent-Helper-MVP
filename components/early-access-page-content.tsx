@@ -8,6 +8,7 @@ import { Alert, Card } from "@/components/form";
 import {
   EARLY_ACCESS_HEADING,
   EARLY_ACCESS_SUPPORTING,
+  earlyAccessLaunchLine,
   EARLY_ACCESS_SUCCESS_MESSAGE,
   POST_SUBMIT_CTA_HREF,
   POST_SUBMIT_CTA_LABEL,
@@ -33,7 +34,7 @@ export function EarlyAccessPageContent() {
 
   if (isSubmitted) {
     return (
-      <main id="main-content" className="page early-access">
+      <main id="main-content" className="page early-access early-access-confirmation">
         <h1 ref={postSubmitHeadingRef} tabIndex={-1}>
           {POST_SUBMIT_HEADING}
         </h1>
@@ -61,8 +62,8 @@ export function EarlyAccessPageContent() {
           <h1>{EARLY_ACCESS_HEADING}</h1>
           <p>
             <span className="sand-mark shape-2">
-              {EARLY_ACCESS_SUPPORTING} We&apos;re preparing a pilot in{" "}
-              {formatPilotCommunityList(PILOT_COMMUNITIES)}.
+              {EARLY_ACCESS_SUPPORTING}{" "}
+              {earlyAccessLaunchLine(formatPilotCommunityList(PILOT_COMMUNITIES))}
             </span>
           </p>
         </div>

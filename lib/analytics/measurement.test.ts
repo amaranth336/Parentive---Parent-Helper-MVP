@@ -492,8 +492,9 @@ describe("measurement wiring", () => {
   it("explains both tools in the privacy notice", () => {
     const notice = read("lib/analytics/copy.ts");
     const page = read("app/privacy/notice/page.tsx");
-    expect(notice).toContain("Google Analytics 4");
-    expect(notice).toContain("Meta Pixel");
+    expect(notice).toContain("outside analytics provider");
+    expect(notice).toContain("outside advertising provider");
+    expect(notice).not.toMatch(/Google Analytics|Meta Pixel|Meta\)/);
     expect(notice).toContain("Privacy choices");
     expect(page).toContain("WebsiteMeasurementNotice");
     expect(read("components/privacy-notices.tsx")).toContain("MEASUREMENT_PRIVACY");

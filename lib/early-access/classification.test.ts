@@ -1,4 +1,4 @@
-import { classifyPostalFsa } from "./classification";
+import { classifyPostalCode, classifyPostalFsa } from "./classification";
 
 describe("early-access FSA classification", () => {
   it("maps L4G to Aurora in_pilot", () => {
@@ -29,6 +29,32 @@ describe("early-access FSA classification", () => {
     });
     expect(classifyPostalFsa("L0E")).toEqual({
       status: "unknown",
+      community: null,
+    });
+  });
+
+  it("maps East Gwillimbury L0G codes, including L0G 1M0, to in_pilot", () => {
+    expect(classifyPostalCode("L0G 1M0")).toEqual({
+      status: "in_pilot",
+      community: "East Gwillimbury",
+    });
+    expect(classifyPostalCode("L0G1M0")).toEqual({
+      status: "in_pilot",
+      community: "East Gwillimbury",
+    });
+    expect(classifyPostalCode("l0g 1r0")).toEqual({
+      status: "in_pilot",
+      community: "East Gwillimbury",
+    });
+    expect(classifyPostalCode("L0G 1V0")).toEqual({
+      status: "in_pilot",
+      community: "East Gwillimbury",
+    });
+  });
+
+  it("keeps other L0G towns outside the pilot", () => {
+    expect(classifyPostalCode("L0G 1T0")).toEqual({
+      status: "outside_pilot",
       community: null,
     });
   });

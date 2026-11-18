@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { homepage } from "@/lib/homepage/content";
+import { homepage, type HomepageInline } from "@/lib/homepage/content";
 import categoryTilePhoto from "@/public/images/home/home-category-tile-sofa.png";
 import heroPhoto from "@/public/images/home/home-hero-mother-reading-with-children.png";
 import supportPhoto from "@/public/images/home/home-2nd-father-homework-with-children.png";
@@ -31,6 +31,22 @@ const oatBandIds = new Set<string>([
 
 function bandClass(id: string): string {
   return oatBandIds.has(id) ? "home-band home-band-oat" : "home-band";
+}
+
+function StepBody({ body }: { body: string | readonly HomepageInline[] }) {
+  if (typeof body === "string") {
+    return body;
+  }
+
+  return body.map((part) =>
+    typeof part === "string" ? (
+      <span key={part}>{part}</span>
+    ) : (
+      <a key={part.href} className="text-link" href={part.href}>
+        <strong>{part.text}</strong>
+      </a>
+    ),
+  );
 }
 
 function splitColumns<T>(items: readonly T[]): readonly [readonly T[], readonly T[]] {
@@ -85,11 +101,8 @@ export default function Home() {
               >
                 {hero.primaryCta.label}
               </a>
-              <a
-                className="btn btn-secondary btn-block"
-                href={hero.secondaryCta.href}
-              >
-                {hero.secondaryCta.label}
+              <a className="btn btn-primary btn-block" href={hero.visitCta.href}>
+                {hero.visitCta.label}
               </a>
             </div>
           </div>
@@ -206,7 +219,9 @@ export default function Home() {
                   <span className="home-section-number">{step.number}</span>
                   {step.title}
                 </h3>
-                <p>{step.body}</p>
+                <p>
+                  <StepBody body={step.body} />
+                </p>
               </li>
             ))}
           </ol>

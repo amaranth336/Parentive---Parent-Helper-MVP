@@ -5,12 +5,16 @@ export const PRIVACY_PATH = "/privacy/notice";
 
 export const EARLY_ACCESS_HEADING = "Make a little more room for life.";
 export const EARLY_ACCESS_SUPPORTING =
-  "Join our early-access list and we'll let you know when Parentive is coming to your community.";
+  "Join our early-access list and we'll let you know when Parentive is coming to your community!";
+
+export function earlyAccessLaunchLine(communities: string): string {
+  return `We're currently launching in ${communities} with in-home booking open for January 2027.`;
+}
 
 export const EARLY_ACCESS_SUCCESS_MESSAGE =
   "Thank you for your interest in Parentive! We will contact you once details of our services launching in your area become available.";
 
-export const POST_SUBMIT_HEADING = "You're on the list.";
+export const POST_SUBMIT_HEADING = "You're on the list!";
 export const POST_SUBMIT_SUPPORTING =
   "Thanks for joining Parentive's early-access community. We'll be in touch when there are updates about our pilot and service availability in your area.";
 export const POST_SUBMIT_CTA_LABEL = "Return to home";
