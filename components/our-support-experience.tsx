@@ -54,7 +54,7 @@ import {
   SUBMIT_PENDING_LABEL,
   SUBTOTAL_LABEL,
   SUCCESS_HEADING,
-  SUCCESS_MESSAGE,
+  SUCCESS_PARAGRAPHS,
   TIMES_LABEL,
   VISIT_ERRORS,
   VISIT_HEADING,
@@ -349,7 +349,11 @@ export function OurSupportExperience() {
               <h3 id="support-success-heading" ref={successRef} tabIndex={-1}>
                 {SUCCESS_HEADING}
               </h3>
-              <Alert variant="success">{SUCCESS_MESSAGE}</Alert>
+              <Alert variant="success">
+                {SUCCESS_PARAGRAPHS.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </Alert>
             </div>
           ) : (
             <form className="support-form" onSubmit={onSubmit} noValidate>

@@ -13,7 +13,6 @@
   --accent: #D5A552;          /* Muted Honey — punctuation only, never fills */
   /* Tight honey outline — texture for the full header and footer bands. */
   --honeycomb-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.497' viewBox='0 0 28 48.497'%3E%3Cg fill='none' stroke='%23D5A552' stroke-width='2.1' stroke-opacity='0.055' stroke-linecap='square'%3E%3Cpath d='M14 0L0 8.083M14 0L28 8.083M28 8.083V24.249M0 24.249L14 32.332M28 24.249L14 32.332M14 32.332V48.497'/%3E%3C/g%3E%3C/svg%3E");
-  --success: #16a34a;         /* functional, unchanged */
   --danger: #ef4444;          /* functional, unchanged */
   --shadow: 0 10px 30px rgba(48, 72, 59, 0.08);
   --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--brand);
@@ -1027,9 +1026,22 @@ input {
 }
 
 .alert-success {
-  background: color-mix(in srgb, var(--success) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--success) 28%, transparent);
-  color: var(--success);
+  background: color-mix(in srgb, var(--brand-muted) 62%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--brand-muted) 48%, var(--brand));
+  color: var(--brand);
+}
+
+.our-support .alert-success,
+.our-support .alert-success p {
+  color: var(--brand);
+}
+
+.alert-success p {
+  margin: 0;
+}
+
+.alert-success p + p {
+  margin-top: 0.75em;
 }
 
 .skip-link:focus,

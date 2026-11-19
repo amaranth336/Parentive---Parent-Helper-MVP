@@ -60,7 +60,6 @@ const brandColours = [
 ] as const;
 
 const functionalColours = [
-  { name: "Success", hex: "#16a34a", tokens: "--success" },
   { name: "Danger", hex: "#ef4444", tokens: "--danger" },
 ] as const;
 
@@ -114,8 +113,9 @@ export default function DesignSystemPage() {
         <h2 id="ds-palette">Palette</h2>
         <p className="ds-note">
           Muted Honey is punctuation, never a fill. Soft Sage is for tints, not
-          small text. Success and danger stay functional and separate from the
-          brand palette.
+          small text. Positive form confirmations use a Soft Sage panel with
+          Deep Moss text. Danger stays functional and separate from the brand
+          palette.
         </p>
         <div className="ds-swatch-grid">
           {brandColours.map((colour) => (

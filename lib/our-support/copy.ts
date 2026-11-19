@@ -92,9 +92,11 @@ export const PRIVACY_NOTE =
   "We use your name, email, postal code, availability and notes so we can review this request and reply. We won’t add you to a marketing list.";
 export const PRIVACY_LINK_LABEL = "Read the privacy notice";
 
-export const SUCCESS_HEADING = "Request received";
-export const SUCCESS_MESSAGE =
-  "Thanks. We’ll review your request and respond by email within 24 hours. This is a request, not a confirmed booking, and no payment has been collected.";
+export const SUCCESS_HEADING = "Thanks, we’ve got it from here.";
+export const SUCCESS_PARAGRAPHS = [
+  "We know asking for help takes a lot, and we’re so glad you reached out. We’ll look over your visit request and email you within 24 hours to sort out the details.",
+  "Nothing is booked yet and you haven’t been charged. We’ll confirm everything with you first.",
+] as const;
 
 export const REQUEST_CONTACT_PURPOSE =
   "Review and reply about this pilot visit request, including details, price and scheduling. This does not confirm a booking and does not enroll the sender in marketing.";
