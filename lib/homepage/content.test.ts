@@ -63,13 +63,15 @@ describe("homepage content", () => {
     expect(homepage.hero).not.toHaveProperty("secondaryCta");
   });
 
-  it("includes Uxbridge in area and availability copy", () => {
+  it("includes Bradford and Uxbridge in area and availability copy", () => {
+    expect(homepage.area.body).toContain("Bradford");
     expect(homepage.area.body).toContain("Uxbridge");
+    expect(homepage.hero.launchLine).toContain("Bradford");
     expect(
       homepage.faq.items.find((item) => item.question === "Where is Parentive available?")
         ?.answer,
-    ).toContain("Uxbridge");
-    expect(allText).toContain("Uxbridge");
+    ).toContain("Bradford");
+    expect(allText).toContain("Bradford");
   });
 
   it("does not restore /request", () => {

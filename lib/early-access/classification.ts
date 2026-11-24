@@ -13,6 +13,7 @@ const UNIQUE_PILOT_FSA: Record<string, PilotCommunity> = {
   L4P: "Georgina",
   L4A: "Whitchurch-Stouffville",
   L9P: "Uxbridge",
+  L3Z: "Bradford",
 };
 
 const OVERLAP_PILOT_FSAS = new Set(["L3Y", "L9N"]);
@@ -57,4 +58,20 @@ export function classifyPostalFsa(fsa: string): ServiceAreaClassification {
   }
 
   return { status: "outside_pilot", community: null };
+}
+
+export function formatServiceAreaLabel(
+  status: string,
+  community: string | null,
+): string {
+  const statusLabel =
+    status === "in_pilot"
+      ? "In pilot"
+      : status === "outside_pilot"
+        ? "Outside pilot"
+        : status === "unknown"
+          ? "Unknown"
+          : status;
+
+  return community ? `${statusLabel} (${community})` : statusLabel;
 }

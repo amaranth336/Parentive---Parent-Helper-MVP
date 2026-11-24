@@ -1,4 +1,8 @@
-import { classifyPostalCode, classifyPostalFsa } from "./classification";
+import {
+  classifyPostalCode,
+  classifyPostalFsa,
+  formatServiceAreaLabel,
+} from "./classification";
 
 describe("early-access FSA classification", () => {
   it("maps L4G to Aurora in_pilot", () => {
@@ -13,6 +17,24 @@ describe("early-access FSA classification", () => {
       status: "in_pilot",
       community: "Uxbridge",
     });
+  });
+
+  it("maps Bradford L3Z codes to in_pilot", () => {
+    expect(classifyPostalFsa("L3Z")).toEqual({
+      status: "in_pilot",
+      community: "Bradford",
+    });
+    expect(classifyPostalCode("L3Z 1A1")).toEqual({
+      status: "in_pilot",
+      community: "Bradford",
+    });
+    expect(classifyPostalCode("l3z1a1")).toEqual({
+      status: "in_pilot",
+      community: "Bradford",
+    });
+    expect(formatServiceAreaLabel("in_pilot", "Bradford")).toBe(
+      "In pilot (Bradford)",
+    );
   });
 
   it("maps overlapping L3Y to in_pilot with a null community", () => {

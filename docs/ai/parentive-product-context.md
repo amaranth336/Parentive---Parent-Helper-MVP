@@ -1,6 +1,6 @@
 # Parentive Product Context
 
-Last maintained: September 2026
+Last maintained: November 2026
 
 This file documents the current Parentive product baseline.
 
@@ -56,6 +56,7 @@ Current pilot communities:
 - Georgina
 - Whitchurch-Stouffville
 - Uxbridge
+- Bradford
 
 Do not imply GTA-wide coverage unless product scope is explicitly expanded.
 

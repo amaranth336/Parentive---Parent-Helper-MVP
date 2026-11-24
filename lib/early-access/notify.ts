@@ -1,3 +1,4 @@
+import { formatServiceAreaLabel } from "@/lib/early-access/classification";
 import {
   FREQUENCY_OPTIONS,
   SERVICE_INTEREST_OPTIONS,
@@ -33,19 +34,6 @@ function labelFor(
   return options.find((option) => option.key === key)?.label ?? key;
 }
 
-function areaLabel(status: string, community: string | null): string {
-  const statusLabel =
-    status === "in_pilot"
-      ? "In pilot"
-      : status === "outside_pilot"
-        ? "Outside pilot"
-        : status === "unknown"
-          ? "Unknown"
-          : status;
-
-  return community ? `${statusLabel} (${community})` : statusLabel;
-}
-
 export function buildEarlyAccessNotificationText(
   registration: EarlyAccessNotificationRegistration,
 ): string {
@@ -69,7 +57,10 @@ export function buildEarlyAccessNotificationText(
     registration.postalCode,
     "",
     "Area:",
-    areaLabel(registration.serviceAreaStatus, registration.serviceAreaCommunity),
+    formatServiceAreaLabel(
+      registration.serviceAreaStatus,
+      registration.serviceAreaCommunity,
+    ),
     "",
     "Interests:",
     interests,
