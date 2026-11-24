@@ -44,6 +44,12 @@ const SENSITIVE_SEGMENTS = new Set([
 
 const EMAIL_VALUE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Meta appends an opaque click identifier to outbound links. Its digits are not
+// a phone number. Accept only a bounded URL-safe token containing a letter;
+// plain numbers, emails, whitespace and duplicate identifiers remain blocked.
+// Shared with the pre-hydration navigation guard to keep both gates aligned.
+export const SAFE_META_CLICK_ID = /^(?=[A-Za-z0-9_-]{1,500}$)(?=.*[A-Za-z])[A-Za-z0-9_-]+$/;
+
 export function normalizePathname(pathname: string): string {
   const path = pathname.startsWith("/") ? pathname : `/${pathname}`;
   if (path.length > 1 && path.endsWith("/")) {
@@ -66,6 +72,12 @@ export function hasSensitiveQuery(search: string): boolean {
   for (const [key, value] of params.entries()) {
     if (SENSITIVE_QUERY_KEY_SET.has(key.toLowerCase())) return true;
     if (EMAIL_VALUE.test(value.trim())) return true;
+    if (key === "fbclid") {
+      if (params.getAll(key).length !== 1 || !SAFE_META_CLICK_ID.test(value)) {
+        return true;
+      }
+      continue;
+    }
     const digits = value.replace(/\D/g, "");
     if (digits.length >= 7) return true;
   }
