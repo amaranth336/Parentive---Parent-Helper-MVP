@@ -163,7 +163,27 @@ describe("pilot visit notification", () => {
     expect(text).toContain("135-minute elapsed planning allowance");
     expect(text).toContain("not hands-on time");
     expect(text).toContain("not a confirmed booking");
+    expect(text).toContain("Area:\nIn pilot (Aurora)");
     expect(text).toContain("Marketing consent:");
     expect(text).toContain("No");
+  });
+
+  it("marks Bradford L3Z postal codes as in the pilot", () => {
+    const validated = validateVisitRequestInput({
+      ...validBody,
+      postalCode: "L3Z 1A1",
+    });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) {
+      return;
+    }
+
+    const text = buildVisitNotificationText({
+      id: "visit-bradford",
+      createdAt: "2026-11-24T16:00:00.000Z",
+      request: validated.value,
+    });
+    expect(text).toContain("Postal code:\nL3Z 1A1");
+    expect(text).toContain("Area:\nIn pilot (Bradford)");
   });
 });

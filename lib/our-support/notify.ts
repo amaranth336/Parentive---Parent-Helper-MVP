@@ -1,4 +1,8 @@
 import {
+  classifyPostalCode,
+  formatServiceAreaLabel,
+} from "@/lib/early-access/classification";
+import {
   adminNotificationRecipient,
   sendAdminNotification,
   type AdminNotificationResult,
@@ -31,6 +35,7 @@ export function buildVisitNotificationText(
   notice: VisitNotificationRequest,
 ): string {
   const { request } = notice;
+  const area = classifyPostalCode(request.postalCode);
   const includesWashing = request.serviceIds.some((id) =>
     (WASHING_SERVICE_IDS as readonly string[]).includes(id),
   );
@@ -47,6 +52,9 @@ export function buildVisitNotificationText(
     "",
     "Postal code:",
     request.postalCode,
+    "",
+    "Area:",
+    formatServiceAreaLabel(area.status, area.community),
     "",
     "Preferred days and times:",
     request.preferredTimes,

@@ -5,6 +5,7 @@ export const PILOT_COMMUNITIES = [
   "Georgina",
   "Whitchurch-Stouffville",
   "Uxbridge",
+  "Bradford",
 ] as const;
 
 export type PilotCommunity = (typeof PILOT_COMMUNITIES)[number];
