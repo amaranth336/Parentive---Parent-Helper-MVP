@@ -14,6 +14,8 @@ const UNIQUE_PILOT_FSA: Record<string, PilotCommunity> = {
   L4A: "Whitchurch-Stouffville",
   L9P: "Uxbridge",
   L3Z: "Bradford",
+  L4E: "Oak Ridges",
+  L7B: "King Township",
 };
 
 const OVERLAP_PILOT_FSAS = new Set(["L3Y", "L9N"]);

@@ -57,6 +57,8 @@ Current pilot communities:
 - Whitchurch-Stouffville
 - Uxbridge
 - Bradford
+- Oak Ridges
+- King Township
 
 Do not imply GTA-wide coverage unless product scope is explicitly expanded.
 

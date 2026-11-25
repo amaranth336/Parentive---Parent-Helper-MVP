@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { formatPilotCommunityList, PILOT_COMMUNITIES } from "./communities";
 
 describe("pilot communities", () => {
-  it("includes the current names including Bradford", () => {
+  it("includes the current names including Oak Ridges and King Township", () => {
     expect(PILOT_COMMUNITIES).toEqual([
       "East Gwillimbury",
       "Newmarket",
@@ -12,14 +12,17 @@ describe("pilot communities", () => {
       "Whitchurch-Stouffville",
       "Uxbridge",
       "Bradford",
+      "Oak Ridges",
+      "King Township",
     ]);
-    expect(PILOT_COMMUNITIES).toHaveLength(7);
-    expect(PILOT_COMMUNITIES).toContain("Bradford");
+    expect(PILOT_COMMUNITIES).toHaveLength(9);
+    expect(PILOT_COMMUNITIES).toContain("Oak Ridges");
+    expect(PILOT_COMMUNITIES).toContain("King Township");
   });
 
   it("formats the list for customer-facing copy", () => {
     expect(formatPilotCommunityList(PILOT_COMMUNITIES)).toBe(
-      "East Gwillimbury, Newmarket, Aurora, Georgina, Whitchurch-Stouffville, Uxbridge, and Bradford",
+      "East Gwillimbury, Newmarket, Aurora, Georgina, Whitchurch-Stouffville, Uxbridge, Bradford, Oak Ridges, and King Township",
     );
   });
 
@@ -27,7 +30,7 @@ describe("pilot communities", () => {
     const migration = readFileSync(
       join(
         process.cwd(),
-        "supabase/migrations/20261124120000_allow_bradford_early_access_community.sql",
+        "supabase/migrations/20261125120000_allow_oak_ridges_and_king_township_early_access_community.sql",
       ),
       "utf8",
     );

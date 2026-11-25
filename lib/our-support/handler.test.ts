@@ -186,4 +186,35 @@ describe("pilot visit notification", () => {
     expect(text).toContain("Postal code:\nL3Z 1A1");
     expect(text).toContain("Area:\nIn pilot (Bradford)");
   });
+
+  it("marks Oak Ridges L4E and King Township L7B postal codes as in the pilot", () => {
+    const oakRidges = validateVisitRequestInput({
+      ...validBody,
+      postalCode: "L4E 1A1",
+    });
+    const kingTownship = validateVisitRequestInput({
+      ...validBody,
+      postalCode: "L7B 1A1",
+    });
+    expect(oakRidges.ok).toBe(true);
+    expect(kingTownship.ok).toBe(true);
+    if (!oakRidges.ok || !kingTownship.ok) {
+      return;
+    }
+
+    const oakRidgesText = buildVisitNotificationText({
+      id: "visit-oak-ridges",
+      createdAt: "2026-11-25T16:00:00.000Z",
+      request: oakRidges.value,
+    });
+    const kingTownshipText = buildVisitNotificationText({
+      id: "visit-king-township",
+      createdAt: "2026-11-25T16:00:00.000Z",
+      request: kingTownship.value,
+    });
+    expect(oakRidgesText).toContain("Postal code:\nL4E 1A1");
+    expect(oakRidgesText).toContain("Area:\nIn pilot (Oak Ridges)");
+    expect(kingTownshipText).toContain("Postal code:\nL7B 1A1");
+    expect(kingTownshipText).toContain("Area:\nIn pilot (King Township)");
+  });
 });
