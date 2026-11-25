@@ -37,6 +37,39 @@ describe("early-access FSA classification", () => {
     );
   });
 
+  it("maps Oak Ridges L4E and King Township L7B codes to in_pilot", () => {
+    expect(classifyPostalFsa("L4E")).toEqual({
+      status: "in_pilot",
+      community: "Oak Ridges",
+    });
+    expect(classifyPostalCode("L4E 1A1")).toEqual({
+      status: "in_pilot",
+      community: "Oak Ridges",
+    });
+    expect(classifyPostalCode("l4e1a1")).toEqual({
+      status: "in_pilot",
+      community: "Oak Ridges",
+    });
+    expect(classifyPostalFsa("L7B")).toEqual({
+      status: "in_pilot",
+      community: "King Township",
+    });
+    expect(classifyPostalCode("L7B 1A1")).toEqual({
+      status: "in_pilot",
+      community: "King Township",
+    });
+    expect(classifyPostalCode("l7b1a1")).toEqual({
+      status: "in_pilot",
+      community: "King Township",
+    });
+    expect(formatServiceAreaLabel("in_pilot", "Oak Ridges")).toBe(
+      "In pilot (Oak Ridges)",
+    );
+    expect(formatServiceAreaLabel("in_pilot", "King Township")).toBe(
+      "In pilot (King Township)",
+    );
+  });
+
   it("maps overlapping L3Y to in_pilot with a null community", () => {
     expect(classifyPostalFsa("L3Y")).toEqual({
       status: "in_pilot",

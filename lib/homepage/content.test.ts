@@ -63,15 +63,19 @@ describe("homepage content", () => {
     expect(homepage.hero).not.toHaveProperty("secondaryCta");
   });
 
-  it("includes Bradford and Uxbridge in area and availability copy", () => {
+  it("includes Oak Ridges, King Township, Bradford, and Uxbridge in area and availability copy", () => {
+    expect(homepage.area.body).toContain("Oak Ridges");
+    expect(homepage.area.body).toContain("King Township");
     expect(homepage.area.body).toContain("Bradford");
     expect(homepage.area.body).toContain("Uxbridge");
-    expect(homepage.hero.launchLine).toContain("Bradford");
+    expect(homepage.hero.launchLine).toContain("Oak Ridges");
+    expect(homepage.hero.launchLine).toContain("King Township");
     expect(
       homepage.faq.items.find((item) => item.question === "Where is Parentive available?")
         ?.answer,
-    ).toContain("Bradford");
-    expect(allText).toContain("Bradford");
+    ).toContain("King Township");
+    expect(allText).toContain("Oak Ridges");
+    expect(allText).toContain("King Township");
   });
 
   it("does not restore /request", () => {
